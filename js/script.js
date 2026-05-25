@@ -58,27 +58,27 @@
 
 
   //sobre 
-   // JavaScript para criar o loop de rolagem infinita perfeito da barra inferior de vantagens
-        window.addEventListener('DOMContentLoaded', () => {
-            const scrollContainer = document.getElementById('tickerScroll');
-            const list = document.getElementById('tickerList');
-            
-            // Duplica o conteúdo da lista para garantir continuidade visual infinita
-            const clone = list.cloneNode(true);
-            scrollContainer.appendChild(clone);
+   (function() {
+            window.addEventListener('DOMContentLoaded', () => {
+                const scrollContainer = document.getElementById('gscshTickerScroll');
+                const list = document.getElementById('gscshTickerList');
+                
+                if(scrollContainer && list) {
+                    const clone = list.cloneNode(true);
+                    scrollContainer.appendChild(clone);
 
-            let scrollPos = 0;
-            const speed = 1.2; // Ajuste a velocidade aqui se necessário
+                    let scrollPos = 0;
+                    const speed = 1.2;
 
-            function animateTicker() {
-                scrollPos += speed;
-                // Se o scroll passar do tamanho da primeira lista, reseta imperceptivelmente para 0
-                if (scrollPos >= list.offsetWidth) {
-                    scrollPos = 0;
+                    function animateGscshTicker() {
+                        scrollPos += speed;
+                        if (scrollPos >= list.offsetWidth) {
+                            scrollPos = 0;
+                        }
+                        scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
+                        requestAnimationFrame(animateGscshTicker);
+                    }
+                    animateGscshTicker();
                 }
-                scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
-                requestAnimationFrame(animateTicker);
-            }
-
-            animateTicker();
-        });
+            });
+        })();

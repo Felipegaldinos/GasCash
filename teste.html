@@ -1,406 +1,159 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GasCash - Quem Somos</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Container Principal da Seção */
-        .gascash-about-section {
-            width: 100%;
-            max-width: 1440px;
-            background-color: #F5F5F5; /* Cloud White */
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        /* Estrutura de duas colunas */
-        .section-container {
-            width: 100%;
-            display: block;
-            position: relative;
-            min-height: 600px;
-        }
-
-        /* Coluna da Esquerda (Conteúdo) */
-        .content-column {
-            width: 50%;
-            float: left;
-            padding: 80px 60px 100px 100px;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Coluna da Direita (Imagem de Fundo e Elementos) */
-        .image-column {
-            width: 50%;
-            float: right;
-            height: 600px;
-            position: relative;
-            background-color: #052F4A; /* Prussian Blue */
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        /* Recorte Curvo Fiel à Imagem de Referência */
-        .curve-overlay {
-            position: absolute;
-            top: 0;
-            left: -120px;
-            width: 240px;
-            height: 100%;
-            background-color: #F5F5F5;
-            border-radius: 0 100% 100% 0 / 0 50% 50% 0;
-            z-index: 2;
-        }
-
-        /* Helper para limpar floats */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        /* Título Principal em Caixa Baixa */
-        .content-column h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #052F4A; /* Prussian Blue */
-            margin-bottom: 28px;
-            letter-spacing: -1.5px;
-        }
-
-        /* Parágrafos de Texto */
-        .content-column p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #2D3748;
-            margin-bottom: 24px;
-            max-width: 520px;
-            text-align: justify;
-        }
-
-        /* Badge Lateral Esquerdo (Cotas) */
-        .side-badge {
-            position: absolute;
-            left: 0;
-            top: 240px;
-            background-color: #F97316; /* Orange */
-            color: white;
-            padding: 18px 12px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: capitalize;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            border-radius: 0 10px 10px 0;
-            box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
-            letter-spacing: 0.5px;
-            z-index: 11;
-        }
-
-        /* Composição Visual dos Elementos na Direita */
-        .visual-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-        }
-
-        /* Renderização dos Mockups representativos baseados na imagem */
-        .mockup-hand-left {
-            position: absolute;
-            left: -20px;
-            top: 220px;
-            width: 280px;
-            height: 160px;
-            background: linear-gradient(to right, rgba(234, 192, 167, 0.95), rgba(214, 169, 143, 0.95));
-            border-radius: 0 80px 80px 0;
-            transform: rotate(5deg);
-            box-shadow: -5px 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .mockup-mug {
-            position: absolute;
-            left: 180px;
-            top: 200px;
-            width: 140px;
-            height: 170px;
-            background-color: #052F4A;
-            border: 12px solid #F97316;
-            border-radius: 20px 20px 30px 30px;
-            box-shadow: 5px 15px 30px rgba(0,0,0,0.25);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        .mockup-mug::after {
-            content: '';
-            position: absolute;
-            left: -35px;
-            top: 30px;
-            width: 35px;
-            height: 70px;
-            border: 10px solid #F97316;
-            border-right: none;
-            border-radius: 20px 0 0 20px;
-        }
-
-        .mockup-hand-right {
-            position: absolute;
-            right: 10px;
-            bottom: 0px;
-            width: 220px;
-            height: 380px;
-            background: linear-gradient(to top, rgba(234, 192, 167, 0.95), rgba(214, 169, 143, 0.95));
-            border-radius: 110px 110px 0 0;
-            z-index: 4;
-            box-shadow: -10px -5px 25px rgba(0,0,0,0.2);
-        }
-
-        .mockup-phone {
-            position: absolute;
-            right: 60px;
-            top: 150px;
-            width: 170px;
-            height: 320px;
-            background-color: #111;
-            border: 6px solid #2d3748;
-            border-radius: 24px;
-            padding: 12px;
-            z-index: 5;
-            box-shadow: 10px 20px 40px rgba(0,0,0,0.35);
-            transform: rotate(5deg);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background-color: #F5F5F5;
-            border-radius: 16px;
-            padding: 10px;
-            font-size: 0.65rem;
-            color: #333;
-        }
-
-        .phone-header {
-            color: #052F4A;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-        }
-
-        .phone-btn {
-            background-color: #F97316;
-            color: white;
-            padding: 6px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .phone-receipt {
-            background: white;
-            border: 1px dashed #ccc;
-            padding: 8px;
-            border-radius: 4px;
-        }
-
-        .mockup-card {
-            position: absolute;
-            right: 120px;
-            bottom: 140px;
-            width: 130px;
-            height: 80px;
-            background-color: #F97316;
-            border-radius: 8px;
-            padding: 10px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.75rem;
-            box-shadow: 5px 10px 20px rgba(0,0,0,0.25);
-            transform: rotate(-10deg);
-            z-index: 6;
-        }
-
-        /* Barra de Informações Inferior (Preta) */
-        .info-ticker-bar {
-            width: 100%;
-            background-color: #000000;
-            color: #FFFFFF;
-            padding: 20px 0;
-            overflow: hidden;
-            position: relative;
-            z-index: 20;
-            border-top: 1px solid #111;
-        }
-
-        .ticker-scroll {
-            display: flex;
-            white-space: nowrap;
-            width: max-content;
-        }
-
-        .ticker-list {
-            display: inline-flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .ticker-item {
-            font-size: 0.95rem;
-            font-weight: 500;
-            padding: 0 35px;
-            display: flex;
-            align-items: center;
-            letter-spacing: 0.5px;
-        }
-
-        .ticker-item::before {
-            content: "✓";
-            color: #FFFFFF;
-            font-weight: 700;
-            margin-right: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* Responsividade para telas mobile */
-        @media (max-width: 1024px) {
-            .content-column, .image-column {
-                width: 100%;
-                float: none;
-            }
-            .image-column {
-                height: 450px;
-            }
-            .curve-overlay {
-                display: none;
-            }
-            .content-column {
-                padding: 60px 40px;
-            }
-            .side-badge {
-                top: 180px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <title>Quem Somos - GasCash</title>
 </head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #0d2137;
+}
+
+.quem-somos {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+/* Lado Esquerdo */
+.content-left {
+    flex: 1;
+    padding: 80px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #fff;
+    min-width: 400px;
+}
+
+.title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: #0d2137;
+}
+
+.description p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+/* Lado Direito - Onde fica a imagem */
+.content-right {
+    flex: 1;
+    background-color: #0d2137; /* Cor de fundo caso a imagem falhe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-width: 400px;
+    /* Efeito de curva opcional similar à imagem */
+    border-top-left-radius: 50% 100%;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Barra Inferior Preta */
+.bottom-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 15px 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+}
+
+.ticker-wrapper {
+    display: flex;
+    white-space: nowrap;
+    gap: 40px;
+    padding-left: 20px;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    .quem-somos {
+        flex-direction: column;
+    }
+    .content-right {
+        height: 400px;
+        border-top-left-radius: 0;
+    }
+    .title {
+        font-size: 2.5rem;
+    }
+}
+</style>
 <body>
 
-    <section class="gascash-about-section">
-        <div class="side-badge">Cotas</div>
-
-        <div class="section-container clearfix">
-            <div class="content-column">
-                <h1>quem somos</h1>
-                <p>
-                    A GasCash é uma fintech especializada em crédito combustível e controle de abastecimento de frota, criada para oferecer mais facilidade, segurança e organização financeira para motoristas, empresas e postos parceiros.
-                </p>
-                <p>
-                    Nossa tecnologia conecta usuários a uma ampla rede de postos credenciados, permitindo abastecimento com crédito rápido, controle digital e vantagens exclusivas.
-                </p>
-                <p>
-                    Com soluções modernas e acessíveis, a GasCash ajuda empresas e clientes a reduzirem burocracias, aumentarem o controle dos gastos e terem mais liberdade no dia a dia.
-                </p>
-            </div>
-
-            <div class="image-column">
-                <div class="curve-overlay"></div>
-                
-                <div class="visual-container">
-                    <div class="mockup-hand-left"></div>
-                    <div class="mockup-mug">
-                        <span style="font-size:0.6rem; opacity:0.7; letter-spacing:1px; margin-bottom:4px;">THERMOS</span>
-                        GasCash
-                    </div>
-
-                    <div class="mockup-hand-right"></div>
-                    
-                    <div class="mockup-phone">
-                        <div class="phone-screen">
-                            <div class="phone-header">GasCash</div>
-                            <div class="phone-btn">Scan QR to Pay</div>
-                            <div class="phone-receipt">
-                                <strong>Receipt</strong><br>
-                                <span style="font-size:0.5rem; color:#666;">Abastecimento de Frota<br>Total: R$ 250,00</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mockup-card">
-                        GasCash
-                        <div style="font-size:0.5rem; font-weight:400; margin-top:35px;">Corporate Credit</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-ticker-bar">
-            <div class="ticker-scroll" id="tickerScroll">
-                <ul class="ticker-list" id="tickerList">
-                    <li class="ticker-item">Crédito combustível rápido e facilitado</li>
-                    <li class="ticker-item">Controle inteligente de abastecimento</li>
-                    <li class="ticker-item">Gestão de consumo e despesas</li>
-                    <li class="ticker-item">Rede de postos parceiros credenciados</li>
-                    <li class="ticker-item">Aplicativo prático e seguro</li>
-                    <li class="ticker-item">Mais comodidade para motoristas e empresas</li>
-                    <li class="ticker-item">Tecnologia financeira integrada</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // JavaScript para criar o loop de rolagem infinita perfeito da barra inferior de vantagens
-        window.addEventListener('DOMContentLoaded', () => {
-            const scrollContainer = document.getElementById('tickerScroll');
-            const list = document.getElementById('tickerList');
+<section class="quem-somos">
+    <div class="content-left">
+        <h2 class="title">quem somos</h2>
+        
+        <div class="description">
+            <p>We're <strong>GasCash</strong>, a dynamic fintech specializing in fuel credit and fleet management, designed to simplify, secure, and organize refueling operations for drivers, businesses, and partner gas stations.</p>
             
-            // Duplica o conteúdo da lista para garantir continuidade visual infinita
-            const clone = list.cloneNode(true);
-            scrollContainer.appendChild(clone);
+            <p>Our journey started when our diverse team—from technology to finance—recognized the challenges in fleet management and fuel cost control, and came together to innovate solutions on all sides of the industry.</p>
+            
+            <p>Connecting users with a vast, trusted network of accredited stations, we deliver rapid credit, digital control, and exclusive benefits. From reducing bureaucracy and increasing control to granting freedom to daily operations, our tech-integrated solutions are modern, accessible, and designed for you.</p>
+        </div>
+    </div>
 
-            let scrollPos = 0;
-            const speed = 1.2; // Ajuste a velocidade aqui se necessário
+    <div class="content-right">
+        <img src="#" alt="GasCash App e Cartão" class="main-image">
+    </div>
 
-            function animateTicker() {
-                scrollPos += speed;
-                // Se o scroll passar do tamanho da primeira lista, reseta imperceptivelmente para 0
-                if (scrollPos >= list.offsetWidth) {
-                    scrollPos = 0;
-                }
-                scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
-                requestAnimationFrame(animateTicker);
-            }
+    <div class="bottom-bar">
+        <div class="ticker-wrapper">
+            <span>✓ Crédito combustível rápido e facilitado</span>
+            <span>✓ Controle inteligente de abastecimento</span>
+            <span>✓ Gestão de consumo e despesas</span>
+            <span>✓ Rede de postos parceiros credenciados</span>
+            <span>✓ Aplicativo prático e seguro</span>
+        </div>
+    </div>
+</section>
 
-            animateTicker();
+<script>
+    // Opcional: Adiciona uma animação de scroll infinito na barra inferior
+const ticker = document.querySelector('.ticker-wrapper');
+
+function scrollTicker() {
+    if (ticker) {
+        // Exemplo simples de animação via JS ou você pode usar CSS Animations
+        ticker.animate([
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(-50%)' }
+        ], {
+            duration: 20000,
+            iterations: Infinity
         });
-    </script>
+    }
+}
+
+// Inicia se necessário
+// scrollTicker();
+</script>
 </body>
 </html>

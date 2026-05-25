@@ -593,294 +593,190 @@
       }
 
       /* ─── SOBRE ─── */
+ /* Escopo Fechado */
+    .gscsh-wrapper-main * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .gscsh-section-container {
+        width: 100%;
+        background-color: #F5F5F5;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Linha Principal */
+    .gscsh-grid-row {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        min-height: 600px;
+    }
+
+    /* Coluna de Texto */
+    .gscsh-col-text {
+        flex: 1;
+        padding: 80px 60px 80px 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 10;
+    }
+
+    .gscsh-col-text h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #052F4A;
+        margin-bottom: 28px;
+        letter-spacing: -1.5px;
+        line-height: 1.1;
+        text-transform: capitalize;
+    }
+
+    .gscsh-col-text p {
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: #2D3748;
+        margin-bottom: 24px;
+        max-width: 520px;
+    }
+
+    /* Coluna de Mídia (Fundo Azul) */
+    .gscsh-col-media {
+        flex: 1;
+        position: relative;
+        background-color: #052F4A;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        z-index: 1;
+        padding: 40px;
+    }
+
+    /* Recorte Curvo */
+    .gscsh-col-media::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -12px;
+        width: 240px;
+        height: 100%;
+        background-color: #F5F5F5;
+        border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+        z-index: 2;
+    }
+
+    /* Imagem Principal */
+    .gscsh-main-img {
+        max-width: 100%;
+        max-height: 480px;
+        margin-top: 0;
+        object-fit: contain;
+        display: block;
+        position: relative;
+        z-index: 3;
+        transition: transform 0.3s ease;
+    }
     
-        /* Container Principal da Seção */
-        .gascash-about-section {
-            width: 100%;
-            max-width: 1200px;
-            margin: auto;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
+    .gscsh-main-img:hover {
+        transform: scale(1.03); /* Efeito suave ao passar o mouse */
+    }
 
-        /* Estrutura de duas colunas */
-        .section-container {
-            width: 100%;
-            display: block;
-            position: relative;
-            min-height: 600px;
-        }
+    /* Barra de Vantagens (Ticker Moderno) */
+    .gscsh-ticker-bar {
+        width: 100%;
+        background-color: #000000;
+        color: #FFFFFF;
+        padding: 22px 0;
+        overflow: hidden;
+        position: relative;
+        z-index: 20;
+        border-top: 1px solid #111;
+    }
 
-        /* Coluna da Esquerda (Conteúdo) */
-        .content-column {
-            width: 500px;
-            float: left;
-            position: relative;
-            z-index: 10;
-        }
+    .gscsh-ticker-wrapper {
+        display: flex;
+        width: max-content;
+        animation: tickerScroll 35s linear infinite; /* Movimento contínuo */
+    }
 
-        /* Coluna da Direita (Imagem de Fundo e Elementos) */
-        .image-column {
-            width: 500px;
-            float: right;
-            height: 600px;
-            position: relative;
-            background-color: #052F4A; /* Prussian Blue */
-            z-index: 1;
-            overflow: hidden;
-        }
+    /* Pausa a animação quando o usuário passa o mouse por cima (opcional, boa prática) */
+    .gscsh-ticker-bar:hover .gscsh-ticker-wrapper {
+        animation-play-state: paused;
+    }
 
-        /* Recorte Curvo Fiel à Imagem de Referência */
-        .curve-overlay {
-            position: absolute;
-            top: 0;
-            left: -120px;
-            width: 240px;
-            height: 100%;
-            background-color: #F5F5F5;
-            border-radius: 0 100% 100% 0 / 0 50% 50% 0;
-            z-index: 2;
-        }
+    .gscsh-ticker-list {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-        /* Helper para limpar floats */
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-        }
+    .gscsh-ticker-item {
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+    }
 
-        /* Título Principal em Caixa Baixa */
-        .content-column h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #052F4A; /* Prussian Blue */
-            margin-bottom: 28px;
-            letter-spacing: -1.5px;
-        }
+    .gscsh-ticker-item::before {
+        content: "✓";
+        color: #00E676; /* Verde fintech para destacar o check */
+        font-weight: 700;
+        margin-right: 12px;
+        font-size: 1.1rem;
+    }
 
-        /* Parágrafos de Texto */
-        .content-column p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-            color: #2D3748;
-            margin-bottom: 24px;
-            max-width: 520px;
-            text-align: justify;
+    /* Animação CSS para o Scroll Infinito */
+    @keyframes tickerScroll {
+        0% {
+            transform: translate3d(0, 0, 0);
         }
-
-        /* Badge Lateral Esquerdo (Cotas) */
-        .side-badge {
-            position: absolute;
-            left: 0;
-            top: 240px;
-            background-color: #F97316; /* Orange */
-            color: white;
-            padding: 18px 12px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            text-transform: capitalize;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            border-radius: 0 10px 10px 0;
-            box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
-            letter-spacing: 0.5px;
-            z-index: 11;
+        100% {
+            transform: translate3d(-50%, 0, 0); /* Move exatamente metade da largura total */
         }
+    }
 
-        /* Composição Visual dos Elementos na Direita */
-        .visual-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            z-index: 3;
-        }
-
-        /* Renderização dos Mockups representativos baseados na imagem */
-        .mockup-hand-left {
-            position: absolute;
-            left: -20px;
-            top: 220px;
-            width: 280px;
-            height: 160px;
-            background: linear-gradient(to right, rgba(234, 192, 167, 0.95), rgba(214, 169, 143, 0.95));
-            border-radius: 0 80px 80px 0;
-            transform: rotate(5deg);
-            box-shadow: -5px 10px 20px rgba(0,0,0,0.15);
-        }
-
-        .mockup-mug {
-            position: absolute;
-            left: 180px;
-            top: 200px;
-            width: 140px;
-            height: 170px;
-            background-color: #052F4A;
-            border: 12px solid #F97316;
-            border-radius: 20px 20px 30px 30px;
-            box-shadow: 5px 15px 30px rgba(0,0,0,0.25);
-            display: flex;
+    /* Responsividade para Tablets e Celulares */
+    @media (max-width: 1024px) {
+        .gscsh-grid-row {
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
         
-        .mockup-mug::after {
-            content: '';
-            position: absolute;
-            left: -35px;
-            top: 30px;
-            width: 35px;
-            height: 70px;
-            border: 10px solid #F97316;
-            border-right: none;
-            border-radius: 20px 0 0 20px;
-        }
-
-        .mockup-hand-right {
-            position: absolute;
-            right: 10px;
-            bottom: 0px;
-            width: 220px;
-            height: 380px;
-            background: linear-gradient(to top, rgba(234, 192, 167, 0.95), rgba(214, 169, 143, 0.95));
-            border-radius: 110px 110px 0 0;
-            z-index: 4;
-            box-shadow: -10px -5px 25px rgba(0,0,0,0.2);
-        }
-
-        .mockup-phone {
-            position: absolute;
-            right: 60px;
-            top: 150px;
-            width: 170px;
-            height: 320px;
-            background-color: #111;
-            border: 6px solid #2d3748;
-            border-radius: 24px;
-            padding: 12px;
-            z-index: 5;
-            box-shadow: 10px 20px 40px rgba(0,0,0,0.35);
-            transform: rotate(5deg);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background-color: #F5F5F5;
-            border-radius: 16px;
-            padding: 10px;
-            font-size: 0.65rem;
-            color: #333;
-        }
-
-        .phone-header {
-            color: #052F4A;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 0.8rem;
-        }
-
-        .phone-btn {
-            background-color: #F97316;
-            color: white;
-            padding: 6px;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .phone-receipt {
-            background: white;
-            border: 1px dashed #ccc;
-            padding: 8px;
-            border-radius: 4px;
-        }
-
-        .mockup-card {
-            position: absolute;
-            right: 120px;
-            bottom: 140px;
-            width: 130px;
-            height: 80px;
-            background-color: #F97316;
-            border-radius: 8px;
-            padding: 10px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.75rem;
-            box-shadow: 5px 10px 20px rgba(0,0,0,0.25);
-            transform: rotate(-10deg);
-            z-index: 6;
-        }
-
-        /* Barra de Informações Inferior (Preta) */
-        .info-ticker-bar {
-            width: 100%;
-            background-color: #000000;
-            color: #FFFFFF;
-            padding: 20px 0;
-            overflow: hidden;
-            position: relative;
-            z-index: 20;
-            border-top: 1px solid #111;
-        }
-
-        .ticker-scroll {
-            display: flex;
-            white-space: nowrap;
-            width: max-content;
-        }
-
-        .ticker-list {
-            display: inline-flex;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .ticker-item {
-            font-size: 0.95rem;
-            font-weight: 500;
-            padding: 0 35px;
-            display: flex;
+        .gscsh-col-text {
+            padding: 60px 24px;
             align-items: center;
-            letter-spacing: 0.5px;
+            text-align: center;
         }
 
-        .ticker-item::before {
-            content: "✓";
-            color: #FFFFFF;
-            font-weight: 700;
-            margin-right: 10px;
-            font-size: 1.1rem;
+        .gscsh-col-text h1 {
+            font-size: 2.5rem;
         }
 
-        /* Responsividade para telas mobile */
-        @media (max-width: 1024px) {
-            .content-column, .image-column {
-                width: 100%;
-                float: none;
-            }
-            .image-column {
-                height: 450px;
-            }
-            .curve-overlay {
-                display: none;
-            }
-            .content-column {
-                padding: 60px 40px;
-            }
-            .side-badge {
-                top: 180px;
-            }
+        .gscsh-col-text p {
+            max-width: 100%;
         }
 
+        .gscsh-col-media {
+            height: 380px;
+            padding: 20px;
+        }
+
+        .gscsh-col-media::before {
+            display: none; /* Remove a curva no mobile */
+        }
+
+        .gscsh-main-img {
+            max-height: 90%;
+        }
+    }
       /* ─── POSTOS ─── */
       #postos {
         background: var(--navy);
