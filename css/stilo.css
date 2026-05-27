@@ -1434,6 +1434,10 @@ footer {
 
 /* Tablet grande */
 @media (max-width: 1024px) {
+  #mobileMenu{
+    background: var(--navy);
+    height: auto;
+  }
   .gscsh-grid-row {
     flex-direction: column;
   }
@@ -1455,6 +1459,7 @@ footer {
   .gscsh-col-media::before {
     display: none;
   }
+  
 
   /* Footer: 2 colunas */
   .footer-top {
