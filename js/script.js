@@ -1,84 +1,138 @@
- window.addEventListener('scroll', () => {
-    const nav = document.getElementById('mainNav');
-    if (window.scrollY > 40) nav.classList.add('scrolled');
-    else nav.classList.remove('scrolled');
+/* ════════════════════════════════════════════════
+   GASCASH — script.js
+   1. Menu mobile (toggleMenu)
+   2. Nav scroll shadow
+   3. Dropdown login (teclado / ESC)
+   4. Reveal on scroll
+   5. Canvas partículas hero
+   6. Fecha menu ao clicar num link
+════════════════════════════════════════════════ */
+
+/* ── 1. MENU MOBILE ─────────────────────────── */
+function toggleMenu() {
+  const btn  = document.querySelector('.hamburger');
+  const menu = document.getElementById('mobileMenu');
+  if (!btn || !menu) return;
+
+  const isOpen = menu.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  btn.setAttribute('aria-expanded', String(isOpen));
+
+  /* impede scroll do body enquanto menu está aberto */
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+/* Fecha menu ao clicar em qualquer link dentro dele */
+document.addEventListener('DOMContentLoaded', function () {
+  const mobileLinks = document.querySelectorAll('#mobileMenu a');
+  mobileLinks.forEach(function (link) {
+    link.addEventListener('click', function () {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.querySelector('.hamburger');
+      if (menu) menu.classList.remove('open');
+      if (btn)  { btn.classList.remove('active'); btn.setAttribute('aria-expanded', 'false'); }
+      document.body.style.overflow = '';
+    });
   });
 
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
-        observer.unobserve(e.target);
+  /* Fecha menu ao pressionar ESC */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('mobileMenu');
+      const btn  = document.querySelector('.hamburger');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        btn.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        btn.focus();
+      }
+    }
+  });
+
+  /* ── 2. NAV SCROLL SHADOW ─────────────────── */
+  var nav = document.getElementById('mainNav');
+  function onScroll() {
+    if (!nav) return;
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ── 3. DROPDOWN LOGIN — fecha ao pressionar ESC ── */
+  var loginBtn = document.getElementById('loginBtn');
+  if (loginBtn) {
+    loginBtn.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        loginBtn.blur();
       }
     });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
-
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    if (links.style.display === 'flex') {
-      links.style.display = 'none';
-    } else {
-      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--navy);padding:20px 5%;gap:16px;border-top:1px solid rgba(255,255,255,.1);z-index:99';
-    }
   }
 
-  // Animated counter on scroll
-  function animateCount(el, target, prefix = '') {
-    let current = 0;
-    const step = Math.ceil(target / 40);
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = prefix + current;
-      if (current >= target) clearInterval(timer);
-    }, 30);
-  }
-
-  const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const bigs = e.target.querySelectorAll('.big');
-        bigs.forEach(b => {
-          const text = b.textContent;
-          if (text.includes('300')) {
-            const dec = b.querySelector('.dec');
-            b.innerHTML = '';
-            if (dec) b.appendChild(dec);
-            const span = document.createElement('span');
-            b.appendChild(span);
-            animateCount(span, 300);
+  /* ── 4. REVEAL ON SCROLL ──────────────────── */
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
           }
         });
-        statObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('.sobre-stats').forEach(s => statObserver.observe(s));
+      },
+      { threshold: 0.12 }
+    );
+    revealEls.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    /* Fallback para browsers sem IntersectionObserver */
+    revealEls.forEach(function (el) { el.classList.add('visible'); });
+  }
 
+  /* ── 5. CANVAS — PARTÍCULAS HERO ─────────── */
+  var canvas = document.getElementById('heroCanvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var count = 60;
 
-  //sobre 
-   (function() {
-            window.addEventListener('DOMContentLoaded', () => {
-                const scrollContainer = document.getElementById('gscshTickerScroll');
-                const list = document.getElementById('gscshTickerList');
-                
-                if(scrollContainer && list) {
-                    const clone = list.cloneNode(true);
-                    scrollContainer.appendChild(clone);
+    function resizeCanvas() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas, { passive: true });
 
-                    let scrollPos = 0;
-                    const speed = 1.2;
+    function randomParticle() {
+      return {
+        x:    Math.random() * canvas.width,
+        y:    Math.random() * canvas.height,
+        r:    Math.random() * 1.8 + 0.4,
+        dx:   (Math.random() - 0.5) * 0.4,
+        dy:   (Math.random() - 0.5) * 0.4,
+        alpha: Math.random() * 0.5 + 0.1
+      };
+    }
 
-                    function animateGscshTicker() {
-                        scrollPos += speed;
-                        if (scrollPos >= list.offsetWidth) {
-                            scrollPos = 0;
-                        }
-                        scrollContainer.style.transform = `translateX(-${scrollPos}px)`;
-                        requestAnimationFrame(animateGscshTicker);
-                    }
-                    animateGscshTicker();
-                }
-            });
-        })();
+    for (var i = 0; i < count; i++) {
+      particles.push(randomParticle());
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function (p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(249,115,22,' + p.alpha + ')';
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width)  p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  }
+});

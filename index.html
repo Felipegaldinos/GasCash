@@ -3,563 +3,702 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="GasCash — Fintech de crédito combustível e gestão de abastecimento de frota. Solicite até R$ 300 por semana pelo aplicativo."
+    />
     <title>GasCash — Crédito Combustível</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Geist:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/stilo.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/stilo.css" />
   </head>
   <body>
-    <!-- NAV -->
-    <nav id="mainNav">
-      <a href="#" class="nav-logo">
-        <div class="nav-logo-icon">
-          <svg viewBox="0 0 24 24">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
-            />
-          </svg>
-        </div>
-        GASCASH
+    <!-- Skip link (acessibilidade) -->
+    <a href="#main-content" class="skip-link"
+      >Pular para o conteúdo principal</a
+    >
+
+    <!-- ═══════════════════════════════════════════
+         NAV
+    ═══════════════════════════════════════════ -->
+    <nav id="mainNav" role="navigation" aria-label="Navegação principal">
+      <a href="#" class="nav-logo" aria-label="GasCash — Página inicial">
+        <img
+          src="img/GASCASH-LOGO-HORIZONTAL-BRANCO-LARANJA.png"
+          alt="GasCash"
+          class="logo-img"
+        />
       </a>
-      <ul class="nav-links">
+
+      <!-- Links desktop -->
+      <ul class="nav-links" role="list">
         <li><a href="#sobre">Quem Somos</a></li>
         <li><a href="#postos">Postos Parceiros</a></li>
         <li><a href="#credito">Crédito Combustível</a></li>
         <li class="nav-login">
-          <a href="#">Login ▾</a>
-          <div class="nav-dropdown">
-            <a href="#">Cliente Posto</a>
-            <a href="#">Cliente Crédito</a>
-            <a href="#">Administração</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false" id="loginBtn"
+            >Login ▾</a
+          >
+          <div class="nav-dropdown" role="menu" aria-labelledby="loginBtn">
+            <a href="#" role="menuitem">Cliente Posto</a>
+            <a href="#" role="menuitem">Cliente Crédito</a>
+            <a href="#" role="menuitem">Administração</a>
           </div>
         </li>
       </ul>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </div>
+
+      <!-- Botão hamburguer (mobile) -->
+      <button
+        class="hamburger"
+        onclick="toggleMenu()"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
     </nav>
 
-    <!-- HERO -->
-    <section id="hero">
-      <div class="hero-bg-shapes">
-        <div class="shape-1"></div>
-        <div class="shape-2"></div>
-        <div class="shape-3"></div>
-      </div>
-      <div class="hero-bg-line"></div>
+    <!-- Menu mobile (painel) -->
+    <nav id="mobileMenu" aria-label="Menu mobile" aria-hidden="false">
+      <a href="#sobre">Quem Somos</a>
+      <a href="#postos">Postos Parceiros</a>
+      <a href="#credito">Crédito Combustível</a>
+      <a href="#app">Aplicativo</a>
+      <span class="mob-section-label" aria-hidden="true">Login</span>
+      <a href="#">Cliente Posto</a>
+      <a href="#">Cliente Crédito</a>
+      <a href="#">Administração</a>
+    </nav>
 
-      <div class="hero-inner">
-        <div>
-          <div class="hero-label">
-            <span class="hero-label-dot"></span>
-            Fintech de Combustível
-          </div>
-          <h1 class="hero-title">
-            Crédito inteligente para <span class="accent">abastecer</span> com
-            praticidade
-          </h1>
-          <p class="hero-sub">
-            A GasCash conecta motoristas, postos e empresas através de uma
-            plataforma moderna de crédito combustível e gestão de abastecimento
-            de frota.
-          </p>
-          <div class="hero-actions">
-            <a href="#app" class="btn-primary">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-              >
-                <path
-                  d="M12 2a10 10 0 1 1 0 20A10 10 0 0 1 12 2zm-2 14l6-4-6-4v8z"
-                />
-              </svg>
-              Baixe o Aplicativo
-            </a>
-            <a href="#sobre" class="btn-secondary">
-              Saiba Mais
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-          <div class="hero-badge">
-            <div class="hero-badge-icon">⛽</div>
-            <div class="hero-badge-text">
-              <small>Limite Semanal</small>
-              <strong>Até R$ 300,00 / semana</strong>
-            </div>
-          </div>
-        </div>
+    <main id="main-content">
+      <!-- ═══════════════════════════════════════════
+           HERO
+      ═══════════════════════════════════════════ -->
+      <section id="hero" aria-labelledby="heroTitle">
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
 
-        <div class="hero-visual">
-          <!-- Card frente -->
-          <div class="mockup-card orange">
-            <div class="bg-shape"></div>
-            <div class="bg-shape2"></div>
-            <div class="card-chip"></div>
-            <div class="card-brand">GASCASH</div>
-            <div class="card-number">•••• •••• •••• 4712</div>
-            <div class="card-row">
-              <div class="card-holder">
-                <small>Titular</small>
-                <span>PEDRO LUCAS</span>
-              </div>
-              <div style="text-align: right">
-                <small
-                  style="
-                    font-size: 0.65rem;
-                    color: rgba(255, 255, 255, 0.5);
-                    text-transform: uppercase;
-                    letter-spacing: 0.07em;
-                  "
-                  >Validade</small
-                >
-                <span
-                  style="
-                    font-family: &quot;Archivo&quot;, sans-serif;
-                    font-weight: 700;
-                    font-size: 0.9rem;
-                  "
-                  >08/28</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <div class="info-row">
-            <div class="info-box">
-              <small>Limite disponível</small>
-              <span>R$ 180,00</span>
-            </div>
-            <div class="info-box">
-              <small>Postos próximos</small>
-              <span class="neutral">7 postos</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SOBRE -->
-  <div class="gscsh-wrapper-main">
-    <section class="gscsh-section-container">
-        <div class="gscsh-grid-row">
-            <div class="gscsh-col-text">
-                <h1>Quem somos</h1>
-                <p>
-                    A GasCash é uma fintech especializada em crédito combustível e controle de abastecimento de frota, criada para oferecer mais facilidade, segurança e organização financeira para motoristas, empresas e postos parceiros.
-                </p>
-                <p>
-                    Nossa tecnologia conecta usuários a uma ampla rede de postos credenciados, permitindo abastecimento com crédito rápido, controle digital e vantagens exclusivas.
-                </p>
-                <p>
-                    Com soluções modernas e acessíveis, a GasCash ajuda empresas e clientes a reduzirem burocracias, aumentarem o controle dos gastos e terem mais liberdade no dia a dia.
-                </p>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="hero-label" aria-label="Fintech de Combustível">
+              <span class="hero-label-dot" aria-hidden="true"></span>
+              Fintech de Combustível
             </div>
 
-            <div class="gscsh-col-media">
-                <img src="img/image-removebg-preview.png" alt="GasCash Fintech" class="gscsh-main-img">
-            </div>
-        </div>
+            <h1 id="heroTitle" class="hero-title">
+              O futuro do abastecimento da
+              <span class="accent"> sua empresa</span>
+            </h1>
 
-        <div class="gscsh-ticker-bar">
-            <div class="gscsh-ticker-wrapper">
-                <ul class="gscsh-ticker-list">
-                    <li class="gscsh-ticker-item">Crédito combustível rápido e facilitado</li>
-                    <li class="gscsh-ticker-item">Controle inteligente de abastecimento</li>
-                    <li class="gscsh-ticker-item">Gestão de consumo e despesas</li>
-                    <li class="gscsh-ticker-item">Rede de postos parceiros credenciados</li>
-                    <li class="gscsh-ticker-item">Aplicativo prático e seguro</li>
-                    <li class="gscsh-ticker-item">Mais comodidade para motoristas e empresas</li>
-                    <li class="gscsh-ticker-item">Tecnologia financeira integrada</li>
-                </ul>
-                <ul class="gscsh-ticker-list" aria-hidden="true">
-                    <li class="gscsh-ticker-item">Crédito combustível rápido e facilitado</li>
-                    <li class="gscsh-ticker-item">Controle inteligente de abastecimento</li>
-                    <li class="gscsh-ticker-item">Gestão de consumo e despesas</li>
-                    <li class="gscsh-ticker-item">Rede de postos parceiros credenciados</li>
-                    <li class="gscsh-ticker-item">Aplicativo prático e seguro</li>
-                    <li class="gscsh-ticker-item">Mais comodidade para motoristas e empresas</li>
-                    <li class="gscsh-ticker-item">Tecnologia financeira integrada</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-</div>
-    <!-- POSTOS PARCEIROS -->
-    <section id="postos">
-      <div class="section-inner">
-        <div class="reveal">
-          <span class="section-label" style="color: var(--orange)"
-            >Postos Parceiros</span
-          >
-          <h2 class="section-title light">Seja um Posto Parceiro GasCash</h2>
-          <p class="section-desc light">
-            Aumente suas vendas, fidelize clientes e faça parte de uma rede
-            inteligente de abastecimento.
-          </p>
-        </div>
-
-        <div class="postos-grid">
-          <div class="reveal">
-            <p
-              style="
-                font-family: &quot;Geist&quot;, sans-serif;
-                font-size: 0.95rem;
-                line-height: 1.75;
-                color: rgba(255, 255, 255, 0.6);
-                margin-bottom: 28px;
-              "
-            >
-              Ao se tornar parceiro GasCash, seu posto passa a atender clientes
-              com crédito combustível aprovado diretamente pelo aplicativo,
-              ampliando o potencial de vendas e fortalecendo sua presença no
-              mercado.
+            <p class="hero-sub">
+              A GasCash conecta motoristas, postos de combustível e empresas
+              através de uma plataforma moderna de crédito combustível e gestão
+              de abastecimento de frota.
             </p>
-            <div class="benefits-grid">
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Aumento no volume de abastecimentos</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Mais clientes recorrentes</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Plataforma segura e digital</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Gestão simplificada das operações</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Redução de inadimplência operacional</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Maior visibilidade na rede GasCash</p>
-              </div>
-              <div class="benefit-row">
-                <div class="check">✓</div>
-                <p>Integração tecnológica rápida</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="postos-visual reveal">
-            <div class="posto-cta-card">
-              <div class="bg-c1"></div>
-              <div class="bg-c2"></div>
-              <h3>Mais movimento, mais vendas e mais resultados.</h3>
-              <p>
-                Faça parte da rede GasCash e impulsione o crescimento do seu
-                posto.
-              </p>
-              <a href="#" class="btn-white">
-                Quero ser Posto Parceiro
+            <div class="hero-actions">
+              <a href="#credito" class="btn-primary">
                 <svg
-                  width="14"
-                  height="14"
+                  width="16"
+                  height="16"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2.5"
+                  aria-hidden="true"
+                  focusable="false"
                 >
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
+                Baixe o aplicativo
+              </a>
+              <a href="#sobre" class="btn-secondary">Conheça as soluções</a>
+            </div>
+          </div>
+          <div class="hero-visual">
+            <img
+              src="img/cellecartao.png"
+              alt="Aplicativo GasCash e Cartão de Crédito Combustível"
+              class="hero-mockup-img"
+            />
+          </div>
+        </div>
+      </section>
+      <!-- ═══════════════════════════════════════════
+            POSTOS PARCEIROS
+      ═══════════════════════════════════════════ -->
+      <section class="trusted-by-section">
+        <div class="container">
+          <h2 class="title">Empresas que já confiam na Gascash</h2>
+
+          <div class="logo-grid">
+            <div class="logo-item">
+              <img src="caminho/para/logo1.svg" alt="Logoipsum" />
+            </div>
+            <div class="logo-item">
+              <img src="caminho/para/logo2.svg" alt="Logoipsum" />
+            </div>
+            <div class="logo-item">
+              <img src="caminho/para/logo3.svg" alt="Logoipsum" />
+            </div>
+            <div class="logo-item">
+              <img src="caminho/para/logo4.svg" alt="Logoipsum" />
+            </div>
+            <div class="logo-item">
+              <img src="caminho/para/logo5.svg" alt="Logoipsum" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ═══════════════════════════════════════════
+           SOBRE
+      ═══════════════════════════════════════════ -->
+      <div id="sobre" class="gscsh-wrapper-main">
+        <section class="gscsh-section-container" aria-labelledby="sobreTitle">
+          <div class="gscsh-grid-row">
+            <div class="gscsh-col-text">
+              <span class="section-label" style="color: var(--orange)"
+                >Quem somos</span
+              >
+              <h2 id="creditoTitle" class="section-title quem">
+                Crédito rápido para você abastecer quando precisar
+              </h2>
+
+              <p>
+                A GasCash é uma fintech especializada em crédito combustível e
+                controle de abastecimento de frota, criada para oferecer mais
+                facilidade, segurança e organização financeira para motoristas,
+                empresas e postos parceiros.
+              </p>
+              <p>
+                Nossa tecnologia conecta usuários a uma ampla rede de postos
+                credenciados, permitindo abastecimento com crédito rápido,
+                controle digital e vantagens exclusivas.
+              </p>
+              <p>
+                Com soluções modernas e acessíveis, a GasCash ajuda empresas e
+                clientes a reduzirem burocracias, aumentarem o controle dos
+                gastos e terem mais liberdade no dia a dia.
+              </p>
+            </div>
+
+            <div class="gscsh-col-media" aria-hidden="true">
+              <img
+                src="img/image-removebg-preview.png"
+                alt=""
+                class="gscsh-main-img"
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- Barra de logos parceiras -->
+      <div class="hero-trust-bar" aria-label="Empresas que confiam na GasCash">
+        <div class="trust-logos-container">
+          <div class="trust-logos">
+            <span>Crédito combustível rápido e facilitado</span>
+            <span>Controle inteligente de abastecimento</span>
+            <span>Gestão de consumo e despesas</span>
+            <span>Rede de postos parceiros credenciados</span>
+            <span>Aplicativo prático e seguro</span>
+            <span>Mais comodidade para motoristas e empresas</span>
+            <span>Tecnologia financeira integrada</span>
+
+            <span>Crédito combustível rápido e facilitado</span>
+            <span>Controle inteligente de abastecimento</span>
+            <span>Gestão de consumo e despesas</span>
+            <span>Rede de postos parceiros credenciados</span>
+            <span>Aplicativo prático e seguro</span>
+            <span>Mais comodidade para motoristas e empresas</span>
+            <span>Tecnologia financeira integrada</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           POSTOS PARCEIROS
+      ═══════════════════════════════════════════ -->
+      <section id="postos" aria-labelledby="postosTitle">
+        <div class="section-inner">
+          <div class="reveal">
+            <span class="section-label" style="color: var(--orange)"
+              >Postos Parceiros</span
+            >
+            <h2 id="postosTitle" class="section-title light">
+              Seja um Posto Parceiro GasCash
+            </h2>
+            <p class="section-desc light">
+              Aumente suas vendas, fidelize clientes e faça parte de uma rede
+              inteligente de abastecimento.
+            </p>
+          </div>
+
+          <div class="postos-grid">
+            <div class="reveal">
+              <p
+                style="
+                  font-family: &quot;Geist&quot;, sans-serif;
+                  font-size: 0.95rem;
+                  line-height: 1.75;
+                  color: rgba(255, 255, 255, 0.6);
+                  margin-bottom: 28px;
+                "
+              >
+                Ao se tornar parceiro GasCash, seu posto passa a atender
+                clientes com crédito combustível aprovado diretamente pelo
+                aplicativo, ampliando o potencial de vendas e fortalecendo sua
+                presença no mercado.
+              </p>
+              <ul
+                class="benefits-grid"
+                aria-label="Benefícios para postos parceiros"
+              >
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Aumento no volume de abastecimentos</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Mais clientes recorrentes</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Plataforma segura e digital</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Gestão simplificada das operações</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Redução de inadimplência operacional</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Maior visibilidade na rede GasCash</p>
+                </li>
+                <li class="benefit-row">
+                  <div class="check" aria-hidden="true">✓</div>
+                  <p>Integração tecnológica rápida</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="postos-visual reveal">
+              <div class="posto-cta-card">
+                <div class="bg-c1" aria-hidden="true"></div>
+                <div class="bg-c2" aria-hidden="true"></div>
+                <h3>Mais movimento, mais vendas e mais resultados.</h3>
+                <p>
+                  Faça parte da rede GasCash e impulsione o crescimento do seu
+                  posto.
+                </p>
+                <a href="#" class="btn-white">
+                  Quero ser Posto Parceiro
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+              <div
+                class="posto-mini-stats"
+                role="list"
+                aria-label="Estatísticas dos postos parceiros"
+              >
+                <div class="mini-stat" role="listitem">
+                  <div class="n" aria-label="30% mais vendas">+30%</div>
+                  <div class="t">mais vendas</div>
+                </div>
+                <div class="mini-stat" role="listitem">
+                  <div class="n" aria-label="500 postos ativos">+500</div>
+                  <div class="t">postos ativos</div>
+                </div>
+                <div class="mini-stat" role="listitem">
+                  <div class="n" aria-label="Suporte 24 horas">24h</div>
+                  <div class="t">suporte</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           CRÉDITO COMBUSTÍVEL
+      ═══════════════════════════════════════════ -->
+      <section id="credito" aria-labelledby="creditoTitle">
+        <div class="section-inner">
+          <div class="reveal">
+            <span class="section-label">Crédito Combustível</span>
+            <h2 id="creditoTitle" class="section-title">
+              Crédito rápido para você abastecer quando precisar
+            </h2>
+            <p class="section-desc">
+              Com a GasCash você solicita até R$ 300,00 por semana de forma
+              simples, rápida e digital pelo aplicativo.
+            </p>
+          </div>
+
+          <div class="credito-layout">
+            <div class="credito-visual reveal">
+              <div class="phone-frame">
+                <img
+                  src="img/cell.png"
+                  alt="Tela do aplicativo GasCash mostrando saldo disponível e últimas transações em um smartphone"
+                  class="phone-image"
+                  style="
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    border-radius: inherit;
+                  "
+                />
+              </div>
+              <div class="credito-deco" aria-hidden="true"></div>
+            </div>
+
+            <div class="reveal">
+              <ol
+                class="vantagens-grid"
+                aria-label="Vantagens do crédito combustível"
+              >
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">01</div>
+                  <p>Aprovação rápida e prática pelo app</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">02</div>
+                  <p>Até R$ 300,00 semanais para abastecimento</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">03</div>
+                  <p>Uso exclusivo na rede credenciada</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">04</div>
+                  <p>Descontos especiais em postos parceiros</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">05</div>
+                  <p>Mais controle financeiro pessoal</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">06</div>
+                  <p>Segurança total nas transações</p>
+                </li>
+              </ol>
+
+              <div class="credito-cta-box">
+                <p class="credito-cta-title">
+                  Mais liberdade para rodar sem preocupação.
+                </p>
+                <p class="credito-cta-sub">
+                  Baixe o aplicativo e comece agora mesmo.
+                </p>
+                <a
+                  href="#app"
+                  class="btn-primary"
+                  style="font-size: 0.85rem; padding: 12px 24px"
+                >
+                  Baixe o Aplicativo
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           APP
+      ═══════════════════════════════════════════ -->
+      <section id="app" aria-labelledby="appTitle">
+        <div class="section-inner app-inner">
+          <div class="reveal">
+            <span class="section-label" style="color: rgba(255, 255, 255, 0.9)"
+              >Aplicativo</span
+            >
+            <h2 id="appTitle" class="section-title" style="color: white">
+              Tudo na palma da sua mão
+            </h2>
+            <p
+              style="
+                font-family: &quot;Geist&quot;, sans-serif;
+                font-size: 1rem;
+                line-height: 1.7;
+                color: rgba(255, 255, 255, 0.75);
+                max-width: 460px;
+              "
+            >
+              Com o aplicativo GasCash você acompanha tudo em tempo real e
+              mantém total controle do seu abastecimento.
+            </p>
+
+            <ul class="app-features" aria-label="Funcionalidades do aplicativo">
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                    <line x1="2" x2="22" y1="10" y2="10" />
+                  </svg>
+                </div>
+                <p>Limite disponível</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M3 20v-8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v8" />
+                  </svg>
+                </div>
+                <p>Histórico de abastecimentos</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <p>Postos parceiros próximos</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <line x1="18" x2="18" y1="20" y2="10" />
+                    <line x1="12" x2="12" y1="20" y2="4" />
+                    <line x1="6" x2="6" y1="20" y2="14" />
+                  </svg>
+                </div>
+                <p>Controle financeiro</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="m13 2-2 10h9L11 22l2-10H4Z" />
+                  </svg>
+                </div>
+                <p>Solicitação de crédito</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M17 11h5l3 3v4h-3" />
+                    <circle cx="7.5" cy="18.5" r="2.5" />
+                    <circle cx="18.5" cy="18.5" r="2.5" />
+                  </svg>
+                </div>
+                <p>Gestão de frota e consumo</p>
+              </li>
+            </ul>
+
+            <div class="app-store-btns">
+              <a
+                href="#"
+                class="store-btn"
+                aria-label="Baixar GasCash para Android na Google Play"
+              >
+                <span class="store-icon" aria-hidden="true">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M3.609 1.814L13.783 12 3.61 22.186A2.22 2.22 0 0 1 3 20.59V3.41c0-.623.22-1.181.609-1.596zm11.264 9.112l3.393-1.962c.866-.5 1.455-1.433 1.455-2.51 0-1.077-.59-2.01-1.457-2.51l-3.391-1.96-4.043 4.044 4.043 4.043zm-1.163 2.148L9.667 9.031l-7.25 7.25 10.126 5.845a2.203 2.203 0 0 0 2.202 0l3.393-1.961-4.427-4.426zm-4.043-4.043L13.71 5.031 3.583.335a2.21 2.21 0 0 0-2.2 0l7.25 7.25z"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <small>Disponível no</small>
+                  <strong>Android</strong>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="store-btn"
+                aria-label="Baixar GasCash para iPhone na App Store"
+              >
+                <span class="store-icon" aria-hidden="true">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"
+                    />
+                  </svg>
+                </span>
+                <div>
+                  <small>Disponível no</small>
+                  <strong>iOS</strong>
+                </div>
               </a>
             </div>
-            <div class="posto-mini-stats">
-              <div class="mini-stat">
-                <div class="n">+30%</div>
-                <div class="t">mais vendas</div>
-              </div>
-              <div class="mini-stat">
-                <div class="n">+500</div>
-                <div class="t">postos ativos</div>
-              </div>
-              <div class="mini-stat">
-                <div class="n">24h</div>
-                <div class="t">suporte</div>
-              </div>
+          </div>
+
+          <div class="app-visual reveal" aria-hidden="true">
+            <div class="app-phone-wrap">
+              <img
+                src="img/doiscell.png"
+                alt=""
+                class="app-image"
+                style="
+                  width: 100%;
+                  height: auto;
+                  display: block;
+                  border-radius: inherit;
+                "
+              />
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <!-- CRÉDITO COMBUSTÍVEL -->
-   <section id="credito">
-  <div class="section-inner">
-    <div class="reveal">
-      <span class="section-label">Crédito Combustível</span>
-      <h2 class="section-title">
-        Crédito rápido para você abastecer quando precisar
-      </h2>
-      <p class="section-desc">
-        Com a GasCash você solicita até R$ 300,00 por semana de forma
-        simples, rápida e digital pelo aplicativo.
-      </p>
-    </div>
-
-    <div class="credito-layout">
-      <div class="credito-visual reveal">
-        <div class="phone-frame">
-          <img 
-            src="img/cell.png" 
-            alt="Aplicativo GasCash em um smartphone" 
-            class="phone-image"
-            style="width: 100%; height: auto; display: block; border-radius: inherit;"
-          />
-        </div>
-        <div class="credito-deco"></div>
-      </div>
-
-      <div class="reveal">
-        <div class="vantagens-grid">
-          <div class="vantagem-item">
-            <div class="vantagem-num">01</div>
-            <p>Aprovação rápida e prática pelo app</p>
-          </div>
-          <div class="vantagem-item">
-            <div class="vantagem-num">02</div>
-            <p>Até R$ 300,00 semanais para abastecimento</p>
-          </div>
-          <div class="vantagem-item">
-            <div class="vantagem-num">03</div>
-            <p>Uso exclusivo na rede credenciada</p>
-          </div>
-          <div class="vantagem-item">
-            <div class="vantagem-num">04</div>
-            <p>Descontos especiais em postos parceiros</p>
-          </div>
-          <div class="vantagem-item">
-            <div class="vantagem-num">05</div>
-            <p>Mais controle financeiro pessoal</p>
-          </div>
-          <div class="vantagem-item">
-            <div class="vantagem-num">06</div>
-            <p>Segurança total nas transações</p>
-          </div>
-        </div>
-        <div
-          style="
-            margin-top: 36px;
-            padding: 24px;
-            background: rgba(249, 115, 22, 0.06);
-            border: 1px solid rgba(249, 115, 22, 0.2);
-            border-radius: 14px;
-          "
-        >
-          <p
-            style="
-              font-family: 'Archivo', sans-serif;
-              font-weight: 700;
-              font-size: 1.05rem;
-              color: var(--navy);
-              margin-bottom: 8px;
-            "
-          >
-            Mais liberdade para rodar sem preocupação.
-          </p>
-          <p
-            style="
-              font-family: 'Geist', sans-serif;
-              font-size: 0.88rem;
-              color: rgba(5, 47, 74, 0.65);
-              margin-bottom: 20px;
-            "
-          >
-            Baixe o aplicativo e comece agora mesmo.
-          </p>
-          <a
-            href="#app"
-            class="btn-primary"
-            style="font-size: 0.85rem; padding: 12px 24px"
-          >
-            Baixe o Aplicativo
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- APP -->
-<section id="app">
-  <div class="section-inner app-inner">
-    <div class="reveal">
-      <span class="section-label" style="color: rgba(255, 255, 255, 0.9)">
-        Aplicativo
-      </span>
-      <h2 class="section-title" style="color: white">
-        Tudo na palma da sua mão
-      </h2>
-      <p
-        style="
-          font-family: 'Geist', sans-serif;
-          font-size: 1rem;
-          line-height: 1.7;
-          color: rgba(255, 255, 255, 0.75);
-          max-width: 460px;
-        "
-      >
-        Com o aplicativo GasCash você acompanha tudo em tempo real e mantém
-        total controle do seu abastecimento.
-      </p>
-
-      <div class="app-features">
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-          </div>
-          <p>Limite disponível</p>
-        </div>
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M3 20v-8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v8"/><path d="M3 12V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6"/><path d="M13 20v-4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"/><path d="M13 14V9a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"/></svg>
-          </div>
-          <p>Histórico de abastecimentos</p>
-        </div>
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <p>Postos parceiros próximos</p>
-        </div>
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-          </div>
-          <p>Controle financeiro</p>
-        </div>
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h9L11 22l2-10H4Z"/></svg>
-          </div>
-          <p>Solicitação de crédito</p>
-        </div>
-        <div class="app-feat">
-          <div class="icon-box">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><path d="M19 16H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v5"/><path d="M17 11h5l3 3v4h-3"/><circle cx="7.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-          </div>
-          <p>Gestão de frota e consumo</p>
-        </div>
-      </div>
-
-      <div class="app-store-btns">
-        <a href="#" class="store-btn">
-          <span class="store-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.783 12 3.61 22.186A2.22 2.22 0 0 1 3 20.59V3.41c0-.623.22-1.181.609-1.596zm11.264 9.112l3.393-1.962c.866-.5 1.455-1.433 1.455-2.51 0-1.077-.59-2.01-1.457-2.51l-3.391-1.96-4.043 4.044 4.043 4.043l.001-.045zm-1.163 2.148L9.667 9.031l-7.25 7.25 10.126 5.845a2.203 2.203 0 0 0 2.202 0l3.393-1.961-4.427-4.426-.001.036zm-4.043-4.043L13.71 5.031 3.583.335a2.21 2.21 0 0 0-2.2 0l7.25 7.25 4.04-4.043z"/></svg>
-          </span>
-          <div>
-            <small>Disponível no</small>
-            <strong>Android</strong>
-          </div>
-        </a>
-        <a href="#" class="store-btn">
-          <span class="store-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"/></svg>
-          </span>
-          <div>
-            <small>Disponível no</small>
-            <strong>iOS</strong>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="app-visual reveal">
-      <div class="app-phone-wrap">
-        <img 
-          src="img/doiscell.png" 
-          alt="Tela de Relatório do App GasCash" 
-          class="app-image"
-          style="width: 100%; height: auto; display: block; border-radius: inherit;"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
-    <!-- FOOTER -->
-    <footer>
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════════ -->
+    <footer role="contentinfo">
       <div class="footer-inner">
         <div class="footer-top">
+          <!-- Marca -->
           <div class="footer-brand">
-            <a href="#" class="logo">
-              <div class="logo-sq">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"
-                  />
-                </svg>
-              </div>
-              GASCASH
+            <a href="#" class="logo" aria-label="GasCash — Página inicial">
+              <img
+                src="img/GASCASH-LOGO-HORIZONTAL-BRANCO-LARANJA.png"
+                alt="GasCash"
+                class="footer-logo-img"
+              />
             </a>
             <p>
               Fintech de Crédito e Gestão de Abastecimento. Agilidade que mantém
               você na estrada.
             </p>
           </div>
-          <div class="footer-col">
-            <h4>Navegação</h4>
+
+          <!-- Navegação -->
+          <div class="footer-col" aria-label="Navegação do rodapé">
+            <h3>Navegação</h3>
             <a href="#sobre">Quem Somos</a>
             <a href="#postos">Postos Parceiros</a>
             <a href="#credito">Crédito Combustível</a>
             <a href="#app">Aplicativo</a>
           </div>
-          <div class="footer-col">
-            <h4>Login</h4>
+
+          <!-- Login -->
+          <div class="footer-col" aria-label="Área de login">
+            <h3>Login</h3>
             <a href="#">Cliente Posto</a>
             <a href="#">Cliente Crédito</a>
             <a href="#">Administração</a>
           </div>
-          <div class="footer-col">
-            <h4>Legal</h4>
+
+          <!-- Legal -->
+          <div class="footer-col" aria-label="Links legais">
+            <h3>Legal</h3>
             <a href="#">Política de Privacidade</a>
             <a href="#">Termos de Uso</a>
             <a href="#">Contato</a>
           </div>
         </div>
+
         <div class="footer-bottom">
           <p>GasCash © 2026 — Fintech de Crédito e Gestão de Abastecimento</p>
-          <div class="contact-info">
+          <address class="contact-info" style="font-style: normal">
             <a href="mailto:contato@gascash.com">contato@gascash.com</a>
             &nbsp;·&nbsp;
-            <a href="https://www.gascash.com.br">www.gascash.com.br</a>
-            &nbsp;·&nbsp; 84 9 64524544
-          </div>
+            <a href="https://www.gascash.com.br" rel="noopener noreferrer"
+              >www.gascash.com.br</a
+            >
+            &nbsp;·&nbsp;
+            <a href="tel:+558496452454">84 9 6452-4544</a>
+          </address>
         </div>
       </div>
     </footer>
-    <script src="js/script.js">
-      js
-    </script>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
