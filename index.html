@@ -38,14 +38,58 @@
         <li><a href="#sobre">Quem Somos</a></li>
         <li><a href="#postos">Postos Parceiros</a></li>
         <li><a href="#credito">Crédito Combustível</a></li>
+        <li><a href="#app">Aplicativo</a></li>
         <li class="nav-login">
           <a href="#" aria-haspopup="true" aria-expanded="false" id="loginBtn"
             >Login ▾</a
           >
           <div class="nav-dropdown" role="menu" aria-labelledby="loginBtn">
-            <a href="#" role="menuitem">Cliente Posto</a>
-            <a href="#" role="menuitem">Cliente Crédito</a>
-            <a href="#" role="menuitem">Administração</a>
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              Cliente Posto
+            </a>
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <path d="M2 10h20" />
+              </svg>
+              Cliente Crédito
+            </a>
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+              Administração
+            </a>
           </div>
         </li>
       </ul>
@@ -64,12 +108,13 @@
       </button>
     </nav>
 
-    <!-- Menu mobile (painel) -->
-    <nav id="mobileMenu" aria-label="Menu mobile" aria-hidden="false">
+    <!-- Menu mobile -->
+    <nav id="mobileMenu" aria-label="Menu mobile" aria-hidden="true">
       <a href="#sobre">Quem Somos</a>
       <a href="#postos">Postos Parceiros</a>
       <a href="#credito">Crédito Combustível</a>
       <a href="#app">Aplicativo</a>
+      <a href="#contato">Contato</a>
       <span class="mob-section-label" aria-hidden="true">Login</span>
       <a href="#">Cliente Posto</a>
       <a href="#">Cliente Crédito</a>
@@ -91,8 +136,10 @@
             </div>
 
             <h1 id="heroTitle" class="hero-title">
-              O futuro do abastecimento da
-              <span class="accent"> sua empresa</span>
+              <span class="accent" style="white-space: nowrap"
+                >Crédito inteligente</span
+              >
+              para abastecer com praticidade
             </h1>
 
             <p class="hero-sub">
@@ -101,8 +148,28 @@
               de abastecimento de frota.
             </p>
 
+            <div class="hero-highlight">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--orange)"
+                stroke-width="2"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              <p>
+                <strong>Até R$ 300,00 por semana</strong> para abastecer na rede
+                de postos parceiros
+              </p>
+            </div>
+
+            <!-- PATCH 1: hero-actions com botões Android e iOS -->
             <div class="hero-actions">
-              <a href="#credito" class="btn-primary">
+              <a href="#app" class="btn-primary">
                 <svg
                   width="16"
                   height="16"
@@ -117,108 +184,162 @@
                 </svg>
                 Baixe o aplicativo
               </a>
-              <a href="#sobre" class="btn-secondary">Conheça as soluções</a>
+
+              <a
+                href="#"
+                class="btn-store-hero"
+                aria-label="Baixar para Android"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3.609 1.814L13.783 12 3.61 22.186A2.22 2.22 0 0 1 3 20.59V3.41c0-.623.22-1.181.609-1.596zm11.264 9.112l3.393-1.962c.866-.5 1.455-1.433 1.455-2.51 0-1.077-.59-2.01-1.457-2.51l-3.391-1.96-4.043 4.044 4.043 4.043zm-1.163 2.148L9.667 9.031l-7.25 7.25 10.126 5.845a2.203 2.203 0 0 0 2.202 0l3.393-1.961-4.427-4.426zm-4.043-4.043L13.71 5.031 3.583.335a2.21 2.21 0 0 0-2.2 0l7.25 7.25z"
+                  />
+                </svg>
+                <div>
+                  <strong>Android</strong>
+                </div>
+              </a>
+
+              <a href="#" class="btn-store-hero" aria-label="Baixar para iOS">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"
+                  />
+                </svg>
+                <div>
+                  <strong>iOS</strong>
+                </div>
+              </a>
             </div>
           </div>
-          <div class="hero-visual">
-            <img
-              src="img/cellecartao.png"
-              alt="Aplicativo GasCash e Cartão de Crédito Combustível"
-              class="hero-mockup-img"
-            />
+
+          <div class="hero-visual" aria-hidden="true">
+            <img src="img/cellecartao.png" alt="" class="hero-mockup-img" />
           </div>
         </div>
       </section>
+
       <!-- ═══════════════════════════════════════════
-            POSTOS PARCEIROS
+           EMPRESAS QUE CONFIAM
       ═══════════════════════════════════════════ -->
       <section class="trusted-by-section">
-        <div class="container">
-          <h2 class="title">Empresas que já confiam na Gascash</h2>
+  <div class="container">
+    <h2 class="title" style="color: var(navy) !important;">Empresas que já confiam na <span style="color: var(--orange);">Gascash</span> </h2>
 
-          <div class="logo-grid">
-            <div class="logo-item">
-              <img src="caminho/para/logo1.svg" alt="Logoipsum" />
+    <div class="logo-carousel-wrapper">
+      <div class="logo-grid">
+        <div class="logo-item"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
+        
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!--══════════════════════════════
+           SOBRE / QUEM SOMOS
+      ═══════════════════════════════════════════ -->
+      <section id="sobre" aria-labelledby="sobreTitle">
+        <div class="sobre-grid">
+          <div class="gscsh-col-text reveal">
+            <span class="section-label" style="color: var(--orange)"
+              >Quem somos</span
+            >
+            <h2 id="sobreTitle" class="section-title">
+              Transformamos o abastecimento em uma experiência simples e
+              inteligente!
+            </h2>
+            <p>
+              A GasCash é uma fintech especializada em crédito combustível e
+              controle de abastecimento de frota, criada para oferecer mais
+              facilidade, segurança e organização financeira para motoristas,
+              empresas e postos parceiros.
+            </p>
+            <p>
+              Nossa tecnologia conecta usuários a uma ampla rede de postos
+              credenciados, permitindo abastecimento com crédito rápido,
+              controle digital e vantagens exclusivas.
+            </p>
+            <p>
+              Com soluções modernas e acessíveis, a GasCash ajuda empresas e
+              clientes a reduzirem burocracias, aumentarem o controle dos gastos
+              e terem mais liberdade no dia a dia.
+            </p>
+          </div>
+
+          <div class="gscsh-col-media" aria-hidden="true">
+            <img src="img/quemsomos.png" alt="" class="gscsh-main-img" />
+          </div>
+        </div>
+
+        <!-- VANTAGENS -->
+        <div class="vantagens-wrapper">
+          <div class="titulo-vanta">
+            <h2 class="vantage7">Vantagens da GasCash</h2>
+          </div>
+          <div
+            class="timeline"
+            id="timeline"
+            aria-label="Lista de vantagens da GasCash"
+          >
+            <div
+              class="timeline-progress"
+              id="progress-line"
+              aria-hidden="true"
+            ></div>
+            <div class="timeline-container left">
+              <div class="card">
+                <h3>Crédito combustível rápido e facilitado</h3>
+              </div>
             </div>
-            <div class="logo-item">
-              <img src="caminho/para/logo2.svg" alt="Logoipsum" />
+            <div class="timeline-container right">
+              <div class="card">
+                <h3>Controle inteligente de abastecimento</h3>
+              </div>
             </div>
-            <div class="logo-item">
-              <img src="caminho/para/logo3.svg" alt="Logoipsum" />
+            <div class="timeline-container left">
+              <div class="card"><h3>Gestão de consumo e despesas</h3></div>
             </div>
-            <div class="logo-item">
-              <img src="caminho/para/logo4.svg" alt="Logoipsum" />
+            <div class="timeline-container right">
+              <div class="card">
+                <h3>Rede de postos parceiros credenciados</h3>
+              </div>
             </div>
-            <div class="logo-item">
-              <img src="caminho/para/logo5.svg" alt="Logoipsum" />
+            <div class="timeline-container left">
+              <div class="card"><h3>Aplicativo prático e seguro</h3></div>
+            </div>
+            <div class="timeline-container right">
+              <div class="card">
+                <h3>Mais comodidade para motoristas e empresas</h3>
+              </div>
+            </div>
+            <div class="timeline-container left">
+              <div class="card"><h3>Tecnologia financeira integrada</h3></div>
             </div>
           </div>
         </div>
       </section>
-      <!-- ═══════════════════════════════════════════
-           SOBRE
-      ═══════════════════════════════════════════ -->
-      <div id="sobre" class="gscsh-wrapper-main">
-        <section class="gscsh-section-container" aria-labelledby="sobreTitle">
-          <div class="gscsh-grid-row">
-            <div class="gscsh-col-text">
-              <span class="section-label" style="color: var(--orange)"
-                >Quem somos</span
-              >
-              <h2 id="creditoTitle" class="section-title quem">
-                Crédito rápido para você abastecer quando precisar
-              </h2>
-
-              <p>
-                A GasCash é uma fintech especializada em crédito combustível e
-                controle de abastecimento de frota, criada para oferecer mais
-                facilidade, segurança e organização financeira para motoristas,
-                empresas e postos parceiros.
-              </p>
-              <p>
-                Nossa tecnologia conecta usuários a uma ampla rede de postos
-                credenciados, permitindo abastecimento com crédito rápido,
-                controle digital e vantagens exclusivas.
-              </p>
-              <p>
-                Com soluções modernas e acessíveis, a GasCash ajuda empresas e
-                clientes a reduzirem burocracias, aumentarem o controle dos
-                gastos e terem mais liberdade no dia a dia.
-              </p>
-            </div>
-
-            <div class="gscsh-col-media" aria-hidden="true">
-              <img
-                src="img/image-removebg-preview.png"
-                alt=""
-                class="gscsh-main-img"
-              />
-            </div>
-          </div>
-        </section>
-      </div>
-      <!-- Barra de logos parceiras -->
-      <div class="hero-trust-bar" aria-label="Empresas que confiam na GasCash">
-        <div class="trust-logos-container">
-          <div class="trust-logos">
-            <span>Crédito combustível rápido e facilitado</span>
-            <span>Controle inteligente de abastecimento</span>
-            <span>Gestão de consumo e despesas</span>
-            <span>Rede de postos parceiros credenciados</span>
-            <span>Aplicativo prático e seguro</span>
-            <span>Mais comodidade para motoristas e empresas</span>
-            <span>Tecnologia financeira integrada</span>
-
-            <span>Crédito combustível rápido e facilitado</span>
-            <span>Controle inteligente de abastecimento</span>
-            <span>Gestão de consumo e despesas</span>
-            <span>Rede de postos parceiros credenciados</span>
-            <span>Aplicativo prático e seguro</span>
-            <span>Mais comodidade para motoristas e empresas</span>
-            <span>Tecnologia financeira integrada</span>
-          </div>
-        </div>
-      </div>
 
       <!-- ═══════════════════════════════════════════
            POSTOS PARCEIROS
@@ -236,19 +357,16 @@
               Aumente suas vendas, fidelize clientes e faça parte de uma rede
               inteligente de abastecimento.
             </p>
+            <p class="section-desc light" style="margin-top: 12px">
+              A GasCash oferece aos postos parceiros uma plataforma moderna que
+              gera mais fluxo de clientes, aumenta a recorrência de
+              abastecimentos e proporciona mais segurança nas operações.
+            </p>
           </div>
 
           <div class="postos-grid">
             <div class="reveal">
-              <p
-                style="
-                  font-family: &quot;Geist&quot;, sans-serif;
-                  font-size: 0.95rem;
-                  line-height: 1.75;
-                  color: rgba(255, 255, 255, 0.6);
-                  margin-bottom: 28px;
-                "
-              >
+              <p class="postos-intro-text">
                 Ao se tornar parceiro GasCash, seu posto passa a atender
                 clientes com crédito combustível aprovado diretamente pelo
                 aplicativo, ampliando o potencial de vendas e fortalecendo sua
@@ -298,7 +416,7 @@
                   Faça parte da rede GasCash e impulsione o crescimento do seu
                   posto.
                 </p>
-                <a href="#" class="btn-white">
+                <a href="#contato" class="btn-white">
                   Quero ser Posto Parceiro
                   <svg
                     width="14"
@@ -345,11 +463,14 @@
           <div class="reveal">
             <span class="section-label">Crédito Combustível</span>
             <h2 id="creditoTitle" class="section-title">
-              Crédito rápido para você abastecer quando precisar
+              Crédito rápido para você abastecer quando precisar!
             </h2>
             <p class="section-desc">
-              Com a GasCash você solicita até R$ 300,00 por semana de forma
-              simples, rápida e digital pelo aplicativo.
+              Com a GasCash você pode solicitar até R$ 300,00 por semana para
+              abastecer nos postos parceiros da rede.
+            </p>
+            <p class="section-desc" style="margin-top: 12px">
+              Tudo de forma simples, rápida e digital através do aplicativo.
             </p>
           </div>
 
@@ -358,14 +479,8 @@
               <div class="phone-frame">
                 <img
                   src="img/cell.png"
-                  alt="Tela do aplicativo GasCash mostrando saldo disponível e últimas transações em um smartphone"
+                  alt="Tela do aplicativo GasCash mostrando saldo disponível e últimas transações"
                   class="phone-image"
-                  style="
-                    width: 100%;
-                    height: auto;
-                    display: block;
-                    border-radius: inherit;
-                  "
                 />
               </div>
               <div class="credito-deco" aria-hidden="true"></div>
@@ -373,12 +488,12 @@
 
             <div class="reveal">
               <ol
-                class="vantagens-grid"
+                class="vantagens-list"
                 aria-label="Vantagens do crédito combustível"
               >
                 <li class="vantagem-item">
                   <div class="vantagem-num" aria-hidden="true">01</div>
-                  <p>Aprovação rápida e prática pelo app</p>
+                  <p>Aprovação rápida e prática</p>
                 </li>
                 <li class="vantagem-item">
                   <div class="vantagem-num" aria-hidden="true">02</div>
@@ -394,7 +509,7 @@
                 </li>
                 <li class="vantagem-item">
                   <div class="vantagem-num" aria-hidden="true">05</div>
-                  <p>Mais controle financeiro pessoal</p>
+                  <p>Mais controle financeiro</p>
                 </li>
                 <li class="vantagem-item">
                   <div class="vantagem-num" aria-hidden="true">06</div>
@@ -404,17 +519,14 @@
 
               <div class="credito-cta-box">
                 <p class="credito-cta-title">
-                  Mais liberdade para rodar sem preocupação.
-                </p>
-                <p class="credito-cta-sub">
-                  Baixe o aplicativo e comece agora mesmo.
+                  Mais liberdade para rodar sem preocupação!
                 </p>
                 <a
                   href="#app"
                   class="btn-primary"
                   style="font-size: 0.85rem; padding: 12px 24px"
                 >
-                  Baixe o Aplicativo
+                  Baixe o aplicativo e comece agora mesmo
                   <svg
                     width="14"
                     height="14"
@@ -440,25 +552,17 @@
       <section id="app" aria-labelledby="appTitle">
         <div class="section-inner app-inner">
           <div class="reveal">
-            <span class="section-label" style="color: rgba(255, 255, 255, 0.9)"
-              >Aplicativo</span
-            >
-            <h2 id="appTitle" class="section-title" style="color: white">
+            <!-- PATCH 3: section-label com traço (classe app-label) -->
+            <span class="section-label app-label">Aplicativo</span>
+            <h2 id="appTitle" class="section-title" style="color: white; white-space: nowrap;">
               Tudo na palma da sua mão
             </h2>
-            <p
-              style="
-                font-family: &quot;Geist&quot;, sans-serif;
-                font-size: 1rem;
-                line-height: 1.7;
-                color: rgba(255, 255, 255, 0.75);
-                max-width: 460px;
-              "
-            >
+            <p class="app-desc">
               Com o aplicativo GasCash você acompanha tudo em tempo real e
               mantém total controle do seu abastecimento.
             </p>
 
+            <!-- PATCH 3: ícones corrigidos e mais representativos -->
             <ul class="app-features" aria-label="Funcionalidades do aplicativo">
               <li class="app-feat">
                 <div class="icon-box" aria-hidden="true">
@@ -490,7 +594,12 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <path d="M3 20v-8a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v8" />
+                    <path
+                      d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"
+                    />
+                    <rect x="9" y="3" width="6" height="4" rx="1" />
+                    <line x1="9" x2="15" y1="12" y2="12" />
+                    <line x1="9" x2="13" y1="16" y2="16" />
                   </svg>
                 </div>
                 <p>Histórico de abastecimentos</p>
@@ -561,8 +670,9 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <path d="M17 11h5l3 3v4h-3" />
-                    <circle cx="7.5" cy="18.5" r="2.5" />
+                    <rect x="1" y="3" width="15" height="13" rx="1" />
+                    <path d="M16 8h4l3 5v3h-7V8z" />
+                    <circle cx="5.5" cy="18.5" r="2.5" />
                     <circle cx="18.5" cy="18.5" r="2.5" />
                   </svg>
                 </div>
@@ -588,10 +698,7 @@
                     />
                   </svg>
                 </span>
-                <div>
-                  <small>Disponível no</small>
-                  <strong>Android</strong>
-                </div>
+                <div><small>Disponível no</small><strong>Android</strong></div>
               </a>
               <a
                 href="#"
@@ -610,27 +717,282 @@
                     />
                   </svg>
                 </span>
-                <div>
-                  <small>Disponível no</small>
-                  <strong>iOS</strong>
-                </div>
+                <div><small>Disponível no</small><strong>iOS</strong></div>
               </a>
             </div>
           </div>
 
           <div class="app-visual reveal" aria-hidden="true">
             <div class="app-phone-wrap">
-              <img
-                src="img/doiscell.png"
-                alt=""
-                class="app-image"
-                style="
-                  width: 100%;
-                  height: auto;
-                  display: block;
-                  border-radius: inherit;
-                "
-              />
+              <img src="img/doiscell.png" alt="" class="app-image" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ═══════════════════════════════════════════
+           CONTATO / FORMULÁRIO
+      ═══════════════════════════════════════════ -->
+      <section id="contato" aria-labelledby="contatoTitle">
+        <div class="section-inner">
+          <div class="contato-grid">
+            <!-- Coluna esquerda: informações -->
+            <div class="contato-info reveal">
+              <span class="section-label">Fale Conosco</span>
+              <h2 id="contatoTitle" class="section-title">
+                Entre em contato com a GasCash
+              </h2>
+              <p class="contato-desc">
+                Seja você um motorista, gestor de frota ou proprietário de
+                posto, nossa equipe está pronta para ajudar. Preencha o
+                formulário e entraremos em contato em até 24 horas.
+              </p>
+
+              <div class="contato-cards" role="list">
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <strong>Telefone</strong>
+                    <a href="tel:+558496452454">84 9 6452-4544</a>
+                  </div>
+                </div>
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <rect width="20" height="16" x="2" y="4" rx="2" />
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <strong>E-mail</strong>
+                    <a href="mailto:contato@gascash.com">contato@gascash.com</a>
+                  </div>
+                </div>
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </div>
+                  <div>
+                    <strong>Atendimento</strong>
+                    <span>Segunda a Sexta, 8h–18h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Coluna direita: formulário -->
+            <div class="contato-form-wrapper reveal">
+              <form
+                id="contatoForm"
+                class="contato-form"
+                novalidate
+                aria-label="Formulário de contato"
+              >
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="nome"
+                      >Nome completo <span aria-hidden="true">*</span></label
+                    >
+                    <input
+                      type="text"
+                      id="nome"
+                      name="nome"
+                      placeholder="Seu nome"
+                      required
+                      autocomplete="name"
+                      aria-required="true"
+                    />
+                    <span
+                      class="form-error"
+                      id="nomeError"
+                      role="alert"
+                      aria-live="polite"
+                    ></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="telefone"
+                      >Telefone <span aria-hidden="true">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      id="telefone"
+                      name="telefone"
+                      placeholder="(00) 00000-0000"
+                      required
+                      autocomplete="tel"
+                      aria-required="true"
+                    />
+                    <span
+                      class="form-error"
+                      id="telefoneError"
+                      role="alert"
+                      aria-live="polite"
+                    ></span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email"
+                    >E-mail <span aria-hidden="true">*</span></label
+                  >
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="seu@email.com"
+                    required
+                    autocomplete="email"
+                    aria-required="true"
+                  />
+                  <span
+                    class="form-error"
+                    id="emailError"
+                    role="alert"
+                    aria-live="polite"
+                  ></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="perfil"
+                    >Perfil <span aria-hidden="true">*</span></label
+                  >
+                  <select
+                    id="perfil"
+                    name="perfil"
+                    required
+                    aria-required="true"
+                  >
+                    <option value="">Selecione seu perfil</option>
+                    <option value="motorista">Motorista / Pessoa física</option>
+                    <option value="empresa">Empresa / Gestão de frota</option>
+                    <option value="posto">Proprietário de posto</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                  <span
+                    class="form-error"
+                    id="perfilError"
+                    role="alert"
+                    aria-live="polite"
+                  ></span>
+                </div>
+
+                <div class="form-group">
+                  <label for="mensagem"
+                    >Mensagem <span aria-hidden="true">*</span></label
+                  >
+                  <textarea
+                    id="mensagem"
+                    name="mensagem"
+                    rows="4"
+                    placeholder="Como podemos ajudar você?"
+                    required
+                    aria-required="true"
+                  ></textarea>
+                  <span
+                    class="form-error"
+                    id="mensagemError"
+                    role="alert"
+                    aria-live="polite"
+                  ></span>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    type="checkbox"
+                    id="lgpd"
+                    name="lgpd"
+                    required
+                    aria-required="true"
+                  />
+                  <label for="lgpd">
+                    Concordo com a <a href="#">Política de Privacidade</a> e
+                    autorizo o uso dos meus dados para contato.
+                  </label>
+                </div>
+                <span
+                  class="form-error"
+                  id="lgpdError"
+                  role="alert"
+                  aria-live="polite"
+                ></span>
+
+                <button
+                  type="submit"
+                  class="btn-primary form-submit"
+                  aria-label="Enviar mensagem de contato"
+                >
+                  Enviar mensagem
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+
+                <!-- Mensagem de sucesso -->
+                <div
+                  id="formSuccess"
+                  class="form-success"
+                  role="status"
+                  aria-live="polite"
+                  aria-atomic="true"
+                  hidden
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                  Mensagem enviada! Em breve entraremos em contato.
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -643,7 +1005,6 @@
     <footer role="contentinfo">
       <div class="footer-inner">
         <div class="footer-top">
-          <!-- Marca -->
           <div class="footer-brand">
             <a href="#" class="logo" aria-label="GasCash — Página inicial">
               <img
@@ -653,21 +1014,20 @@
               />
             </a>
             <p>
-              Fintech de Crédito e Gestão de Abastecimento. Agilidade que mantém
-              você na estrada.
+              Fintech de Crédito e Gestão de Abastecimento.<br />Agilidade que
+              mantém você na estrada.
             </p>
           </div>
 
-          <!-- Navegação -->
           <div class="footer-col" aria-label="Navegação do rodapé">
             <h3>Navegação</h3>
             <a href="#sobre">Quem Somos</a>
             <a href="#postos">Postos Parceiros</a>
             <a href="#credito">Crédito Combustível</a>
             <a href="#app">Aplicativo</a>
+            <a href="#contato">Contato</a>
           </div>
 
-          <!-- Login -->
           <div class="footer-col" aria-label="Área de login">
             <h3>Login</h3>
             <a href="#">Cliente Posto</a>
@@ -675,12 +1035,11 @@
             <a href="#">Administração</a>
           </div>
 
-          <!-- Legal -->
           <div class="footer-col" aria-label="Links legais">
             <h3>Legal</h3>
             <a href="#">Política de Privacidade</a>
             <a href="#">Termos de Uso</a>
-            <a href="#">Contato</a>
+            <a href="#contato">Contato</a>
           </div>
         </div>
 
