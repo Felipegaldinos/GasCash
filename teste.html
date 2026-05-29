@@ -1,1214 +1,3631 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GasCash — Crédito Combustível Inteligente</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --or:#F97316;--or2:#e06310;--or3:#ffa050;
-  --nv:#052F4A;--nv2:#0a3d5e;--nv3:#0d4a72;
-  --cl:#F5F5F5;--wh:#ffffff;
-  --tx-muted:rgba(255,255,255,.55);
-  --tx-soft:rgba(255,255,255,.75);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Geist','Archivo',sans-serif;background:var(--cl);color:var(--nv);overflow-x:hidden}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="GasCash — Fintech de crédito combustível e gestão de abastecimento de frota. Solicite até R$ 300 por semana pelo aplicativo."
+    />
+    <title>GasCash — Crédito Combustível</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=Geist:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/stilo.css" />
+  </head>
+  <style>
+    /* ────────────────────────────────────────────────
+   1. TOKENS & RESET
+──────────────────────────────────────────────── */
+:root {
+  --orange: #f97316;
+  --orange-dark: #d9620f;
+  --orange-light: rgba(249, 115, 22, 0.15);
+  --navy: #052f4a;
+  --navy-light: #0a4a6e;
+  --cloud: #f5f5f5;
+  --white: #ffffff;
 
-/* ═══ SCROLLBAR ═══ */
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--nv)}
-::-webkit-scrollbar-thumb{background:var(--or);border-radius:3px}
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
 
-/* ═══ NAV ═══ */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:200;
-  height:70px;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 6%;
-  background:rgba(5,47,74,.92);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  transition:all .3s;
-}
-nav.scrolled{background:rgba(5,47,74,.98);box-shadow:0 8px 40px rgba(0,0,0,.4)}
-.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-icon{
-  width:36px;height:36px;background:var(--or);border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  transition:transform .3s;
-}
-.logo-wrap:hover .logo-icon{transform:rotate(-8deg) scale(1.05)}
-.logo-text{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.08em;color:#fff}
-.nav-menu{display:flex;align-items:center;gap:36px;list-style:none}
-.nav-menu>li>a{
-  font-family:'Geist',sans-serif;font-size:.875rem;font-weight:400;
-  color:rgba(255,255,255,.7);text-decoration:none;
-  transition:color .2s;position:relative;
-}
-.nav-menu>li>a::after{
-  content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;
-  background:var(--or);border-radius:2px;
-  transform:scaleX(0);transition:transform .25s;
-}
-.nav-menu>li>a:hover{color:#fff}
-.nav-menu>li>a:hover::after{transform:scaleX(1)}
-.nav-login-wrap{position:relative}
-.nav-login-btn{
-  display:flex;align-items:center;gap:6px;
-  background:var(--or);color:#fff !important;
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.04em;
-  padding:9px 20px;border-radius:8px;cursor:pointer;text-decoration:none;
-  transition:background .2s,transform .15s;border:none;
-}
-.nav-login-btn:hover{background:var(--or2);transform:translateY(-1px)}
-.nav-login-btn::after{display:none !important}
-.login-dropdown{
-  position:absolute;top:calc(100% + 10px);right:0;
-  background:var(--nv2);border:1px solid rgba(255,255,255,.1);
-  border-radius:12px;min-width:210px;overflow:hidden;
-  opacity:0;pointer-events:none;transform:translateY(-6px) scale(.97);
-  transition:all .2s;transform-origin:top right;
-  box-shadow:0 16px 48px rgba(0,0,0,.4);
-}
-.nav-login-wrap:hover .login-dropdown{opacity:1;pointer-events:all;transform:translateY(0) scale(1)}
-.login-dropdown a{
-  display:flex;align-items:center;gap:10px;
-  padding:13px 18px;font-family:'Geist',sans-serif;font-size:.875rem;
-  color:rgba(255,255,255,.75);text-decoration:none;
-  border-bottom:1px solid rgba(255,255,255,.06);transition:all .15s;
-}
-.login-dropdown a:last-child{border-bottom:none}
-.login-dropdown a:hover{background:rgba(249,115,22,.12);color:#fff;padding-left:22px}
-.login-dropdown a svg{opacity:.6;flex-shrink:0}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
-.hamburger span{width:22px;height:2px;background:#fff;border-radius:2px;transition:.3s}
-
-/* ═══ HERO ═══ */
-#hero{
-  min-height:100vh;
-  background:var(--nv);
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;
-  padding:90px 6% 60px;
-}
-.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.hero-particles span{
-  position:absolute;border-radius:50%;
-  background:rgba(249,115,22,.07);
-  animation:floatP 8s ease-in-out infinite;
-}
-.hero-particles span:nth-child(1){width:500px;height:500px;top:-150px;right:-100px;animation-delay:0s}
-.hero-particles span:nth-child(2){width:300px;height:300px;bottom:-80px;left:-60px;animation-delay:2s;background:rgba(249,115,22,.05)}
-.hero-particles span:nth-child(3){width:180px;height:180px;top:30%;right:35%;animation-delay:4s;background:rgba(249,115,22,.04)}
-.hero-particles span:nth-child(4){width:80px;height:80px;top:20%;left:20%;animation-delay:1s;background:rgba(249,115,22,.08)}
-.hero-grid-bg{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(249,115,22,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(249,115,22,.05) 1px,transparent 1px);
-  background-size:60px 60px;
-  mask-image:radial-gradient(ellipse 70% 70% at 50% 50%, black 0%, transparent 100%);
-}
-@keyframes floatP{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
-
-.hero-content{
-  max-width:1260px;width:100%;margin:0 auto;
-  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
-  position:relative;z-index:2;
-}
-.hero-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.35);
-  color:var(--or);font-family:'Geist',sans-serif;font-size:.78rem;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:6px 14px;border-radius:50px;margin-bottom:24px;
-  animation:slideIn .7s ease both;
-}
-.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--or);animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
-
-.hero-h1{
-  font-family:'Archivo',sans-serif;font-weight:900;
-  font-size:clamp(2.4rem,4.5vw,3.8rem);line-height:1.07;letter-spacing:-.025em;
-  color:#fff;margin-bottom:22px;
-  animation:slideIn .7s .1s ease both;
-}
-.hero-h1 .hl{color:var(--or)}
-.hero-p{
-  font-family:'Geist',sans-serif;font-size:1.05rem;line-height:1.75;
-  color:rgba(255,255,255,.62);max-width:480px;margin-bottom:14px;
-  animation:slideIn .7s .2s ease both;
-}
-.hero-highlight{
-  display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  border-radius:8px;padding:10px 16px;margin:12px 0 36px;
-  animation:slideIn .7s .25s ease both;
-}
-.hero-highlight svg{color:var(--or);flex-shrink:0}
-.hero-highlight p{font-family:'Geist',sans-serif;font-size:.88rem;color:rgba(255,255,255,.8);line-height:1.4}
-.hero-highlight strong{color:#fff;font-weight:600}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;animation:slideIn .7s .3s ease both}
-.btn-or{
-  display:inline-flex;align-items:center;gap:9px;
-  background:var(--or);color:#fff;
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.04em;
-  text-transform:uppercase;padding:14px 30px;border-radius:9px;
-  border:none;cursor:pointer;text-decoration:none;
-  transition:all .2s;position:relative;overflow:hidden;
-}
-.btn-or::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%);transition:transform .3s}
-.btn-or:hover{background:var(--or2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(249,115,22,.45)}
-.btn-or:hover::before{transform:translateX(0)}
-.btn-ghost{
-  display:inline-flex;align-items:center;gap:9px;
-  background:transparent;color:rgba(255,255,255,.8);
-  font-family:'Geist',sans-serif;font-weight:500;font-size:.92rem;
-  padding:14px 26px;border-radius:9px;border:1px solid rgba(255,255,255,.2);
-  cursor:pointer;text-decoration:none;transition:all .2s;
-}
-.btn-ghost:hover{border-color:var(--or);color:var(--or);background:rgba(249,115,22,.06)}
-
-/* phone mockup */
-.hero-phone-wrap{
-  display:flex;align-items:center;justify-content:center;gap:20px;
-  animation:slideInR .8s .2s ease both;
-}
-@keyframes slideIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-@keyframes slideInR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
-
-.phone-device{
-  background:var(--nv2);border-radius:40px;padding:12px;
-  border:2px solid rgba(255,255,255,.1);
-  box-shadow:0 40px 80px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.05);
-  position:relative;
-}
-.phone-device.main{width:220px}
-.phone-device.secondary{width:180px;transform:translateY(24px);opacity:.8}
-.phone-notch{
-  width:80px;height:22px;background:var(--nv);border-radius:50px;
-  margin:0 auto 12px;
-}
-.phone-screen{
-  background:#061827;border-radius:28px;overflow:hidden;padding:18px 14px;
-}
-.ph-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.ph-logo{display:flex;align-items:center;gap:6px}
-.ph-logo-sq{width:22px;height:22px;background:var(--or);border-radius:5px;display:flex;align-items:center;justify-content:center}
-.ph-logo span{font-family:'Archivo',sans-serif;font-weight:900;font-size:.72rem;color:#fff;letter-spacing:.06em}
-.ph-bell{width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5)}
-.ph-saldo-label{font-family:'Geist',sans-serif;font-size:.65rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
-.ph-saldo-val{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.5rem;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:6px}
-.ph-saldo-val svg{color:rgba(255,255,255,.35)}
-.ph-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px}
-.ph-act{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);
-  border-radius:10px;padding:8px 6px;text-align:center;
-  transition:background .2s;cursor:pointer;
-}
-.ph-act:hover{background:rgba(249,115,22,.15)}
-.ph-act svg{margin-bottom:4px;color:var(--or)}
-.ph-act span{display:block;font-size:.58rem;color:rgba(255,255,255,.55);font-family:'Geist',sans-serif;line-height:1.3}
-.ph-tx-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.ph-tx-title span{font-size:.68rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.07em;font-family:'Geist',sans-serif}
-.ph-tx-title a{font-size:.68rem;color:var(--or);font-family:'Geist',sans-serif;text-decoration:none}
-.ph-tx-row{
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(255,255,255,.04);border-radius:9px;padding:8px 10px;margin-bottom:6px;
-}
-.ph-tx-left{display:flex;align-items:center;gap:8px}
-.ph-tx-icon{
-  width:28px;height:28px;border-radius:7px;background:rgba(249,115,22,.15);
-  display:flex;align-items:center;justify-content:center;color:var(--or);flex-shrink:0;
-}
-.ph-tx-name{font-family:'Geist',sans-serif;font-size:.72rem;color:rgba(255,255,255,.85)}
-.ph-tx-date{font-size:.6rem;color:rgba(255,255,255,.35);font-family:'Geist',sans-serif}
-.ph-tx-val{font-family:'Archivo',sans-serif;font-weight:700;font-size:.8rem;color:#f87171}
-.ph-nav-bar{
-  display:flex;justify-content:space-around;
-  border-top:1px solid rgba(255,255,255,.07);padding-top:10px;margin-top:10px;
-}
-.ph-nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
-.ph-nav-item svg{color:rgba(255,255,255,.3)}
-.ph-nav-item.active svg{color:var(--or)}
-.ph-nav-item span{font-size:.55rem;color:rgba(255,255,255,.3);font-family:'Geist',sans-serif}
-.ph-nav-item.active span{color:var(--or)}
-
-/* card mockup alongside */
-.card-mockup{
-  position:absolute;bottom:-20px;right:-30px;
-  width:170px;background:var(--or);border-radius:16px;padding:14px;
-  box-shadow:0 20px 50px rgba(249,115,22,.3);
-  animation:floatCard 4s ease-in-out infinite;
-}
-@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.card-mockup-chip{width:30px;height:22px;background:rgba(255,255,255,.25);border-radius:4px;margin-bottom:16px}
-.card-mockup-brand{font-family:'Archivo',sans-serif;font-weight:900;font-size:.78rem;letter-spacing:.08em;color:#fff;margin-bottom:18px}
-.card-mockup-num{font-family:'Geist',sans-serif;font-size:.62rem;letter-spacing:.15em;color:rgba(255,255,255,.7);margin-bottom:10px}
-.card-mockup-row{display:flex;justify-content:space-between;align-items:flex-end}
-.card-mockup-row span{font-family:'Archivo',sans-serif;font-weight:700;font-size:.7rem;color:#fff}
-.card-mockup .contactless{color:rgba(255,255,255,.7)}
-
-/* ═══ TRUST STRIP ═══ */
-#trust{
-  background:#fff;padding:28px 6%;
-  border-bottom:1px solid rgba(5,47,74,.08);
-  overflow:hidden;
-}
-.trust-inner{max-width:1260px;margin:0 auto;display:flex;align-items:center;gap:40px}
-.trust-label{
-  font-family:'Geist',sans-serif;font-size:.8rem;font-weight:500;
-  color:rgba(5,47,74,.45);white-space:nowrap;
-  text-transform:uppercase;letter-spacing:.07em;flex-shrink:0;
-}
-.trust-logos{display:flex;align-items:center;gap:40px;overflow:hidden;flex:1}
-.trust-logo{
-  display:flex;align-items:center;gap:8px;opacity:.3;
-  filter:grayscale(1);transition:all .3s;flex-shrink:0;
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:.9rem;color:var(--nv);
-}
-.trust-logo:hover{opacity:.7;filter:grayscale(0)}
-.trust-logo-sq{
-  width:28px;height:28px;border-radius:6px;background:var(--nv);
-  display:flex;align-items:center;justify-content:center;
+  --transition-fast: 0.18s ease;
+  --transition-med: 0.3s ease;
 }
 
-/* ═══ SECTIONS BASE ═══ */
-section{padding:110px 6%}
-.s-inner{max-width:1260px;margin:0 auto}
-.s-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'Geist',sans-serif;font-size:.75rem;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:16px;
-}
-.s-tag::before{content:'';display:block;width:20px;height:2px;background:var(--or);border-radius:1px}
-.s-h2{
-  font-family:'Archivo',sans-serif;font-weight:900;
-  font-size:clamp(1.9rem,3vw,2.9rem);line-height:1.08;letter-spacing:-.025em;color:var(--nv);margin-bottom:18px;
-}
-.s-h2.light{color:#fff}
-.s-h2 span{color:var(--or)}
-.s-lead{font-family:'Geist',sans-serif;font-size:1rem;line-height:1.75;color:rgba(5,47,74,.6);max-width:560px}
-.s-lead.light{color:rgba(255,255,255,.6)}
-
-/* ═══ REVEAL ═══ */
-.rv{opacity:0;transform:translateY(32px);transition:opacity .75s ease,transform .75s ease}
-.rv.up{opacity:1;transform:translateY(0)}
-.rv-r{opacity:0;transform:translateX(40px);transition:opacity .75s ease,transform .75s ease}
-.rv-r.up{opacity:1;transform:translateX(0)}
-
-/* ═══ QUEM SOMOS ═══ */
-#sobre{background:var(--cl)}
-.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:70px}
-.sobre-text p{font-family:'Geist',sans-serif;font-size:.95rem;line-height:1.8;color:rgba(5,47,74,.62);margin-bottom:16px}
-.features-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
-.feat-card{
-  background:#fff;border:1px solid rgba(5,47,74,.08);border-radius:14px;
-  padding:16px;display:flex;align-items:flex-start;gap:12px;
-  transition:all .25s;cursor:default;
-}
-.feat-card:hover{border-color:var(--or);transform:translateY(-3px);box-shadow:0 10px 32px rgba(249,115,22,.12)}
-.feat-icon{
-  width:38px;height:38px;border-radius:10px;background:rgba(249,115,22,.1);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--or);
-}
-.feat-card p{font-family:'Geist',sans-serif;font-size:.85rem;line-height:1.5;color:var(--nv);margin-top:3px}
-
-.sobre-stats-side{position:relative}
-.watermark{
-  position:absolute;top:-20px;left:-10px;
-  font-family:'Archivo',sans-serif;font-weight:900;font-size:9rem;
-  color:var(--or);opacity:.06;line-height:1;pointer-events:none;letter-spacing:-.04em;z-index:0;
-}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;position:relative;z-index:1}
-.stat-box{
-  border-radius:18px;padding:28px 22px;position:relative;overflow:hidden;
-}
-.stat-box.dark{background:var(--nv);color:#fff}
-.stat-box.accent{background:var(--or);color:#fff}
-.stat-box .n{
-  font-family:'Archivo',sans-serif;font-weight:900;font-size:2.5rem;color:#fff;line-height:1;
-  display:flex;align-items:flex-start;gap:2px;
-}
-.stat-box .n sup{font-size:1.2rem;margin-top:4px}
-.stat-box .l{font-family:'Geist',sans-serif;font-size:.82rem;color:rgba(255,255,255,.6);margin-top:8px;line-height:1.4}
-.stat-bg{position:absolute;right:-20px;bottom:-20px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-
-/* ═══ SOLUÇÕES ═══ */
-#solucoes{background:#fff}
-.solucoes-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:70px}
-.solucoes-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.sol-card{
-  background:var(--cl);border:1px solid rgba(5,47,74,.08);border-radius:16px;padding:22px 18px;
-  transition:all .25s;
-}
-.sol-card:hover{background:var(--nv);border-color:var(--nv);transform:translateY(-4px);box-shadow:0 16px 40px rgba(5,47,74,.2)}
-.sol-card:hover .sol-card-title{color:#fff}
-.sol-card:hover .sol-card-p{color:rgba(255,255,255,.6)}
-.sol-card:hover .sol-icon-wrap{background:rgba(249,115,22,.2)}
-.sol-card:hover .sol-icon-wrap svg{color:var(--or)}
-.sol-icon-wrap{width:42px;height:42px;border-radius:11px;background:rgba(249,115,22,.1);display:flex;align-items:center;justify-content:center;color:var(--or);margin-bottom:14px;transition:background .25s}
-.sol-card-title{font-family:'Archivo',sans-serif;font-weight:700;font-size:.95rem;color:var(--nv);margin-bottom:8px;transition:color .25s}
-.sol-card-p{font-family:'Geist',sans-serif;font-size:.82rem;line-height:1.55;color:rgba(5,47,74,.6);transition:color .25s}
-
-/* ═══ POSTOS ═══ */
-#postos{background:var(--nv);position:relative;overflow:hidden}
-#postos::before{
-  content:'';position:absolute;top:0;right:0;width:55%;height:100%;
-  background:rgba(249,115,22,.03);
-  clip-path:polygon(15% 0,100% 0,100% 100%,0% 100%);pointer-events:none;
-}
-.postos-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:70px;position:relative;z-index:2}
-.benefits-list{display:flex;flex-direction:column;gap:10px;margin-top:32px}
-.ben-row{
-  display:flex;align-items:center;gap:14px;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-  border-radius:11px;padding:13px 16px;transition:all .2s;
-}
-.ben-row:hover{border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.06);transform:translateX(4px)}
-.ben-check{
-  width:28px;height:28px;border-radius:50%;background:rgba(249,115,22,.15);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--or);
-}
-.ben-row p{font-family:'Geist',sans-serif;font-size:.88rem;color:rgba(255,255,255,.8)}
-.postos-right{display:flex;flex-direction:column;gap:16px}
-.posto-cta{
-  background:var(--or);border-radius:22px;padding:40px 34px;position:relative;overflow:hidden;
-}
-.posto-cta h3{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.55rem;line-height:1.2;color:#fff;margin-bottom:12px}
-.posto-cta p{font-family:'Geist',sans-serif;font-size:.92rem;line-height:1.65;color:rgba(255,255,255,.85);margin-bottom:28px}
-.posto-cta .c1{position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.1);pointer-events:none}
-.posto-cta .c2{position:absolute;bottom:-70px;right:30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
-.btn-wh{
-  display:inline-flex;align-items:center;gap:8px;
-  background:#fff;color:var(--or);
-  font-family:'Archivo',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.04em;
-  text-transform:uppercase;padding:13px 26px;border-radius:9px;
-  text-decoration:none;transition:all .2s;position:relative;z-index:2;
-}
-.btn-wh:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.2)}
-.postos-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.kpi-box{
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;padding:18px 12px;text-align:center;transition:all .2s;
-}
-.kpi-box:hover{background:rgba(249,115,22,.1);border-color:rgba(249,115,22,.3)}
-.kpi-n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.5rem;color:var(--or)}
-.kpi-l{font-family:'Geist',sans-serif;font-size:.7rem;color:rgba(255,255,255,.45);margin-top:4px}
-
-/* ═══ CRÉDITO ═══ */
-#credito{background:var(--cl)}
-.credito-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:70px}
-.credito-phone{
-  display:flex;justify-content:center;align-items:center;position:relative;
-}
-.deco-ring{
-  position:absolute;width:320px;height:320px;border-radius:50%;
-  border:50px solid rgba(249,115,22,.07);pointer-events:none;z-index:0;
-}
-.deco-ring2{
-  position:absolute;width:220px;height:220px;border-radius:50%;
-  border:30px solid rgba(249,115,22,.05);pointer-events:none;z-index:0;
-  top:10%;right:0;
-}
-.phone-cred{
-  background:var(--nv);border-radius:36px;padding:10px;
-  border:2px solid rgba(255,255,255,.1);
-  box-shadow:0 40px 80px rgba(0,0,0,.25);
-  width:230px;position:relative;z-index:2;
-}
-.ph-screen-cred{background:#061827;border-radius:28px;padding:20px 16px;overflow:hidden}
-.ph-c-header{font-family:'Geist',sans-serif;font-size:.65rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
-.ph-c-limit{font-family:'Archivo',sans-serif;font-weight:900;font-size:2rem;color:var(--or);margin-bottom:6px}
-.ph-c-sub{font-family:'Geist',sans-serif;font-size:.68rem;color:rgba(255,255,255,.4);margin-bottom:18px}
-.ph-prog-bar{background:rgba(255,255,255,.1);border-radius:50px;height:7px;position:relative;margin-bottom:6px;overflow:visible}
-.ph-prog-fill{
-  background:var(--or);height:100%;border-radius:50px;width:60%;
-  position:relative;
-}
-.ph-prog-fill::after{
-  content:'';position:absolute;right:-5px;top:-3px;
-  width:13px;height:13px;border-radius:50%;background:var(--or);border:2px solid #061827;
-}
-.ph-prog-labels{display:flex;justify-content:space-between;font-size:.62rem;color:rgba(255,255,255,.35);font-family:'Geist',sans-serif;margin-bottom:18px}
-.ph-c-title{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.07em;font-family:'Geist',sans-serif;margin-bottom:10px}
-.ph-c-tx{
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(255,255,255,.04);border-radius:9px;padding:9px 10px;margin-bottom:7px;
-}
-.ph-c-tx-l{display:flex;align-items:center;gap:7px}
-.ph-c-tx-dot{width:26px;height:26px;border-radius:7px;background:rgba(249,115,22,.15);display:flex;align-items:center;justify-content:center;color:var(--or);flex-shrink:0}
-.ph-c-tx-n{font-family:'Geist',sans-serif;font-size:.7rem;color:rgba(255,255,255,.8)}
-.ph-c-tx-d{font-size:.58rem;color:rgba(255,255,255,.3);font-family:'Geist',sans-serif}
-.ph-c-tx-v{font-family:'Archivo',sans-serif;font-weight:700;font-size:.75rem;color:#f87171}
-
-.vant-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:32px}
-.vant-card{
-  background:#fff;border:1px solid rgba(5,47,74,.08);border-radius:13px;
-  padding:16px;display:flex;align-items:flex-start;gap:10px;
-  transition:all .25s;
-}
-.vant-card:hover{border-color:var(--or);transform:translateY(-3px);box-shadow:0 8px 24px rgba(249,115,22,.1)}
-.vant-n{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.5rem;color:rgba(249,115,22,.15);line-height:1;flex-shrink:0;width:28px}
-.vant-card p{font-family:'Geist',sans-serif;font-size:.85rem;line-height:1.5;color:var(--nv);margin-top:2px}
-.credito-cta-box{
-  margin-top:28px;background:rgba(249,115,22,.07);border:1px solid rgba(249,115,22,.2);
-  border-radius:14px;padding:22px;
-}
-.credito-cta-box p{font-family:'Geist',sans-serif;font-size:.9rem;color:rgba(5,47,74,.7);margin-bottom:18px;line-height:1.6}
-.credito-cta-box strong{font-family:'Archivo',sans-serif;font-weight:700;color:var(--nv);display:block;margin-bottom:8px;font-size:1rem}
-
-/* ═══ NÚMEROS ═══ */
-#numeros{background:var(--nv);padding:80px 6%}
-.numeros-inner{max-width:1260px;margin:0 auto}
-.numeros-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:50px;flex-wrap:wrap;gap:20px}
-.numeros-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.num-card{
-  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
-  border-radius:18px;padding:28px 22px;position:relative;overflow:hidden;
-  transition:all .25s;
-}
-.num-card:hover{background:rgba(249,115,22,.12);border-color:rgba(249,115,22,.3);transform:translateY(-4px)}
-.num-card .big{font-family:'Archivo',sans-serif;font-weight:900;font-size:2.6rem;color:var(--or);line-height:1;margin-bottom:8px}
-.num-card .lbl{font-family:'Geist',sans-serif;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.45}
-.num-card .icon-bg{
-  position:absolute;top:16px;right:16px;
-  width:36px;height:36px;border-radius:9px;background:rgba(249,115,22,.12);
-  display:flex;align-items:center;justify-content:center;color:var(--or);
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ═══ APP ═══ */
-#app{background:var(--or);position:relative;overflow:hidden}
-#app::before{content:'';position:absolute;top:-120px;right:-120px;width:600px;height:600px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
-#app::after{content:'';position:absolute;bottom:-80px;left:-60px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.05);pointer-events:none}
-.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2}
-.app-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:28px 0}
-.app-f{
-  display:flex;align-items:center;gap:10px;
-  background:rgba(255,255,255,.15);border-radius:11px;padding:13px;
-  transition:background .2s;
+html {
+  scroll-behavior: smooth;
 }
-.app-f:hover{background:rgba(255,255,255,.25)}
-.app-f-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
-.app-f p{font-family:'Geist',sans-serif;font-size:.83rem;color:#fff;line-height:1.4}
-.store-btns{display:flex;gap:12px;flex-wrap:wrap}
-.store-btn{
-  display:flex;align-items:center;gap:10px;
-  background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.25);
-  border-radius:11px;padding:11px 18px;text-decoration:none;color:#fff;transition:all .2s;
-}
-.store-btn:hover{background:rgba(0,0,0,.35);transform:translateY(-2px)}
-.store-btn-icon{color:#fff}
-.store-btn small{display:block;font-size:.65rem;color:rgba(255,255,255,.65);font-family:'Geist',sans-serif;text-transform:uppercase;letter-spacing:.06em}
-.store-btn strong{font-family:'Archivo',sans-serif;font-weight:700;font-size:.92rem;display:block}
-.app-phones{display:flex;justify-content:center;gap:16px;align-items:flex-end}
-.app-device{
-  background:rgba(0,0,0,.25);border-radius:32px;padding:9px;
-  border:1px solid rgba(255,255,255,.15);
-}
-.app-device.s{transform:translateY(28px)}
-.app-scr{background:#061827;border-radius:24px;overflow:hidden;padding:16px 12px}
-.app-scr-lg{width:160px}
-.app-scr-sm{width:130px}
-.app-pill-badge{display:inline-block;background:rgba(249,115,22,.2);color:var(--or);font-size:.62rem;font-family:'Geist',sans-serif;padding:3px 8px;border-radius:50px;margin-bottom:10px}
-.app-scr-h{font-family:'Archivo',sans-serif;font-weight:700;font-size:.78rem;color:#fff;margin-bottom:12px}
-.app-bar-row{margin-bottom:14px}
-.app-bar-lbl{font-size:.6rem;color:rgba(255,255,255,.35);font-family:'Geist',sans-serif;margin-bottom:4px}
-.app-b{background:rgba(255,255,255,.1);border-radius:4px;height:5px;margin-bottom:3px;overflow:hidden}
-.app-b-fill{height:100%;border-radius:4px;background:var(--or)}
-.app-lim-val{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.4rem;color:var(--or)}
-.app-lim-sub{font-size:.6rem;color:rgba(255,255,255,.35);font-family:'Geist',sans-serif}
-.app-map{background:rgba(255,255,255,.04);border-radius:9px;height:60px;display:flex;align-items:center;justify-content:center;margin-top:10px;color:var(--or)}
 
-/* ═══ FOOTER ═══ */
-footer{background:#031d2e;padding:70px 6% 40px;color:#fff}
-.footer-grid{max-width:1260px;margin:0 auto}
-.footer-top{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:60px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:36px}
-.ft-brand-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:18px}
-.ft-logo-sq{width:32px;height:32px;background:var(--or);border-radius:8px;display:flex;align-items:center;justify-content:center}
-.ft-brand-name{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.2rem;letter-spacing:.08em;color:#fff}
-.ft-brand p{font-family:'Geist',sans-serif;font-size:.88rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:280px;margin-bottom:22px}
-.ft-contact{display:flex;flex-direction:column;gap:8px}
-.ft-contact-row{display:flex;align-items:center;gap:8px;font-family:'Geist',sans-serif;font-size:.82rem;color:rgba(255,255,255,.5)}
-.ft-contact-row svg{color:var(--or);flex-shrink:0}
-.ft-contact-row a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
-.ft-contact-row a:hover{color:var(--or)}
-.ft-col h4{font-family:'Archivo',sans-serif;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:20px}
-.ft-col a{display:flex;align-items:center;gap:8px;font-family:'Geist',sans-serif;font-size:.88rem;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:12px;transition:all .2s}
-.ft-col a:hover{color:var(--or);transform:translateX(3px)}
-.ft-col a svg{opacity:.5;flex-shrink:0}
-.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:1260px;margin:0 auto}
-.ft-bottom p{font-family:'Geist',sans-serif;font-size:.8rem;color:rgba(255,255,255,.3)}
-.ft-bottom span{color:var(--or)}
-
-/* ═══ RESPONSIVE ═══ */
-@media(max-width:1000px){
-  .hero-content,.sobre-grid,.solucoes-grid,.postos-grid,.credito-grid,.app-grid{grid-template-columns:1fr;gap:48px}
-  .hero-phone-wrap{display:none}
-  .footer-top{grid-template-columns:1fr 1fr;gap:36px}
-  .numeros-grid{grid-template-columns:1fr 1fr}
-  .hamburger{display:flex}
-  .nav-menu{display:none}
+body {
+  font-family: "Geist", "Archivo", sans-serif;
+  background: var(--cloud);
+  color: var(--navy);
+  overflow-x: hidden;
+  /* Fade-in da página */
+  animation: pageFadeIn 0.6s ease both;
 }
-@media(max-width:600px){
-  section{padding:72px 5%}
-  .footer-top{grid-template-columns:1fr}
-  .features-grid,.vant-grid,.app-features{grid-template-columns:1fr}
-  .sobre-stats{grid-template-columns:1fr 1fr}
-}
-</style>
-</head>
-<body>
 
-<!-- ═══ NAV ═══ -->
-<nav id="mainNav">
-  <a href="#" class="logo-wrap">
-    <div class="logo-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-    </div>
-    <span class="logo-text">GASCASH</span>
-  </a>
-  <ul class="nav-menu" id="navMenu">
-    <li><a href="#sobre">Quem Somos</a></li>
-    <li><a href="#postos">Postos Parceiros</a></li>
-    <li><a href="#credito">Crédito Combustível</a></li>
-    <li class="nav-login-wrap">
-      <a href="#" class="nav-login-btn">
-        Login
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+ul,
+ol {
+  list-style: none;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ────────────────────────────────────────────────
+   2. ACESSIBILIDADE
+──────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--orange);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   3. BOTÕES GLOBAIS
+──────────────────────────────────────────────── */
+.btn-primary {
+  background: var(--orange);
+  color: white;
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 15px 32px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+.btn-primary:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.4);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: "Geist", sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 15px 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+.btn-secondary:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.btn-white {
+  background: white;
+  color: var(--orange);
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 14px 28px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+  position: relative;
+  z-index: 2;
+}
+.btn-white:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* ────────────────────────────────────────────────
+   4. SECTION BASE
+──────────────────────────────────────────────── */
+section {
+  padding: 100px 5%;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+.section-label::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--orange);
+  border-radius: 2px;
+}
+
+.section-title {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+.section-title.light {
+  color: var(--white);
+}
+
+.section-desc {
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(5, 47, 74, 0.65);
+  max-width: 580px;
+}
+.section-desc.light {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+@media (max-width: 600px) {
+  section {
+    padding: 72px 5%;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   5. UTILITÁRIOS (REVEAL / ANIMAÇÕES)
+──────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.92);
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ────────────────────────────────────────────────
+   6. NAV DESKTOP
+──────────────────────────────────────────────── */
+nav#mainNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  height: 68px;
+  transition: box-shadow var(--transition-med);
+}
+nav#mainNav.scrolled {
+  box-shadow: 0 4px 32px rgba(5, 47, 74, 0.45);
+}
+
+.logo-img {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-family: "Geist", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  transition: color var(--transition-fast);
+  padding: 4px 0;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: var(--orange);
+}
+
+/* Login dropdown */
+.nav-login {
+  position: relative;
+}
+.nav-login > a {
+  color: var(--white) !important;
+  background: var(--orange);
+  border: 1px solid rgba(209, 204, 201, 0.4);
+  padding: 7px 18px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast) !important;
+}
+.nav-login > a:hover,
+.nav-login > a:focus-visible {
+  background: var(--orange-dark) !important;
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: var(--navy);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  min-width: 200px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+}
+.nav-login:hover .nav-dropdown,
+.nav-login:focus-within .nav-dropdown {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+.nav-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 18px;
+  font-family: "Geist", sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.15s;
+}
+.nav-dropdown a:last-child {
+  border-bottom: none;
+}
+.nav-dropdown a svg {
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.nav-dropdown a:hover,
+.nav-dropdown a:focus-visible {
+  background: var(--orange-light) !important;
+  color: var(--orange) !important;
+  padding-left: 22px;
+}
+
+/* Hamburguer */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+}
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: var(--transition-med);
+  display: block;
+}
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Painel mobile */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 68px;
+  left: 0;
+  right: 0;
+  background: var(--navy);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 99;
+  flex-direction: column;
+  padding: 20px 5% 28px;
+  gap: 4px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+#mobileMenu.open {
+  display: flex;
+}
+#mobileMenu a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color var(--transition-fast);
+}
+#mobileMenu a:last-child {
+  border-bottom: none;
+}
+#mobileMenu a:hover,
+#mobileMenu a:focus-visible {
+  color: var(--orange);
+}
+#mobileMenu .mob-section-label {
+  font-family: "Archivo", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 18px 0 6px;
+}
+
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-links {
+    display: none;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   7. HERO
+──────────────────────────────────────────────── */
+#hero {
+  height: 640px;
+  min-height: auto;
+  background:
+    linear-gradient(rgba(10, 25, 47, 0.4), rgba(10, 25, 47, 0.6)),
+    url("../img/fundohero.jpeg") no-repeat center center;
+  background-size: cover;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  padding-top: 68px;
+}
+
+#heroCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.hero-inner {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 20px;
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-light);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  color: var(--orange);
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  width: fit-content;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.hero-title {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  line-height: 1.06;
+  color: var(--white);
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-title .accent {
+  color: var(--orange);
+}
+
+.hero-sub {
+  font-family: "Geist", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 480px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin: 0 0 20px;
+  animation: slideIn 0.7s 0.25s ease both;
+}
+.hero-highlight p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+.hero-highlight strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* PATCH 1 — hero-actions + botões de loja */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-store-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  text-decoration: none;
+  color: white;
+  backdrop-filter: blur(6px);
+  transition:
+    background var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+.btn-store-hero:hover {
+  background: rgba(249, 115, 22, 0.18);
+  border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.25);
+}
+.btn-store-hero svg {
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+.btn-store-hero small {
+  display: block;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: "Geist", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.btn-store-hero strong {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: block;
+  line-height: 1.3;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+.hero-mockup-img {
+  width: 110%;
+  max-width: 680px;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  bottom: -10px;
+  margin-bottom: -20px;
+  filter: drop-shadow(-15px 35px 50px rgba(0, 0, 0, 0.7));
+  z-index: 10;
+  animation: fadeIn 0.9s 0.3s ease both;
+}
+
+@media (max-width: 992px) {
+  #hero {
+    height: 700px;
+    background-position: 75% center;
+  }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    text-align: center;
+    padding-top: 40px;
+  }
+  .hero-label,
+  .hero-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-actions {
+    justify-content: center;
+  }
+  .hero-visual {
+    display: none;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   8. EMPRESAS QUE CONFIAM (CARROSSEL)
+──────────────────────────────────────────────── */
+/* Estilização da Seção */
+.trusted-by-section {
+  max-width: 1200px;
+  width: 100%;
+  margin: auto;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Garante que nada escape da seção */
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Título à esquerda */
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1d20;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0; /* Impede o título de espremer */
+}
+
+/* Janela que esconde os logos que saem da tela */
+.logo-carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* Cria um efeito de fumaça/fade suave nas laterais do carrossel */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+}
+
+/* Container dos Logos (onde a animação acontece) */
+.logo-grid {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Espaçamento ideal entre logos */
+  width: max-content;
+  animation: glide 15s linear infinite; /* Altere "15s" para mais rápido ou mais devagar */
+}
+
+/* Pausa o movimento quando o usuário põe o mouse em cima de qualquer logo */
+.logo-grid:hover {
+  animation-play-state: paused;
+}
+
+/* Itens individuais de Logo */
+.logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 120px; /* Define uma largura fixa padrão para estabilizar a animação */
+}
+
+.logo-item img {
+  max-height: 24px;
+  width: auto;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+.logo-item img:hover {
+  opacity: 1;
+  filter: grayscale(
+    0%
+  ); /* Remove o cinza quando passa o mouse (opcional, fica muito bom!) */
+}
+
+/* --- ANIMAÇÃO DO LOOP INFINITO --- */
+@keyframes glide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Move exatamente a metade da largura total (o tamanho do primeiro grupo de logos) */
+    transform: translateX(
+      calc(-50% - 25px)
+    ); /* 25px é a metade do gap de 50px */
+  }
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 968px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .title {
+    white-space: normal;
+  }
+
+  .logo-carousel-wrapper {
+    padding: 10px 0;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   9. SOBRE / QUEM SOMOS
+──────────────────────────────────────────────── */
+#sobre {
+  background-color: var(--cloud);
+  padding: 0;
+}
+
+.sobre-grid {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  align-items: stretch;
+  min-height: 650px;
+}
+
+.gscsh-col-text {
+  flex: 1.1;
+  padding: 40px 20px 40px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.gscsh-col-text h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 28px;
+  letter-spacing: -1.5px;
+  line-height: 1.2;
+  font-family: "Archivo", sans-serif;
+}
+.gscsh-col-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2d3748;
+  margin-bottom: 24px;
+  max-width: 520px;
+  text-align: justify;
+  font-family: "Geist", sans-serif;
+}
+
+.gscsh-col-media {
+  flex: 1.3;
+  position: relative;
+  background-color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 20px;
+}
+.gscsh-col-media::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 240px;
+  height: 100%;
+  background-color: var(--cloud);
+  border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+  z-index: 2;
+}
+.gscsh-main-img {
+  width: 100%;
+  max-width: 100%;
+  max-height: 580px;
+  object-fit: contain;
+  position: relative;
+  z-index: 3;
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+.gscsh-main-img:hover {
+  transform: scale(1.13);
+}
+
+/* Vantagens da GasCash */
+.vantagens-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 5px 100px;
+}
+
+.titulo-vanta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 56px;
+  gap: 10px;
+}
+.titulo-vanta .section-label {
+  justify-content: center;
+}
+.titulo-vanta .section-label::before {
+  background: var(--orange);
+}
+
+.vantage7 {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 0;
+}
+.vantage-sub {
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(5, 47, 74, 0.55);
+  max-width: 480px;
+  text-align: center;
+}
+
+.vantagens-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.vcg-card {
+  background: #fff;
+  border: 1px solid rgba(5, 47, 74, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition:
+    transform var(--transition-med),
+    box-shadow var(--transition-med),
+    border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+.vcg-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-med);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.vcg-card:hover::before {
+  transform: scaleX(1);
+}
+.vcg-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(249, 115, 22, 0.2);
+}
+
+.vcg-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--orange-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--orange);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+.vcg-card:hover .vcg-icon {
+  background: var(--orange);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.vcg-card h3 {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--navy);
+  line-height: 1.3;
+}
+.vcg-card p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(5, 47, 74, 0.6);
+  flex: 1;
+}
+
+/* Card de destaque */
+.vcg-card--highlight {
+  background: var(--navy);
+  border-color: transparent;
+}
+.vcg-card--highlight h3 {
+  color: #fff;
+}
+.vcg-card--highlight p {
+  color: rgba(255, 255, 255, 0.65);
+}
+.vcg-card--highlight .vcg-icon {
+  background: rgba(249, 115, 22, 0.2);
+  color: var(--orange);
+}
+.vcg-card--highlight:hover .vcg-icon {
+  background: var(--orange);
+  color: #fff;
+}
+.vcg-card--highlight::before {
+  background: var(--orange);
+}
+
+.vcg-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--orange);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  transition: gap var(--transition-fast);
+}
+.vcg-cta:hover {
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .sobre-grid {
+    flex-direction: column;
+  }
+  .gscsh-col-text {
+    padding: 60px 24px;
+    align-items: center;
+    text-align: center;
+  }
+  .gscsh-col-text p {
+    max-width: 100%;
+  }
+  .gscsh-col-media {
+    height: 380px;
+    padding: 20px;
+  }
+  .gscsh-col-media::before {
+    display: none;
+  }
+  .sobre-stats {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .vantagens-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .vantagens-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sobre-grid {
+    flex-direction: column;
+  }
+  .gscsh-col-text {
+    padding: 60px 24px;
+    align-items: center;
+    text-align: center;
+  }
+  .gscsh-col-text p {
+    max-width: 100%;
+  }
+  .gscsh-col-media {
+    height: 380px;
+    padding: 20px;
+  }
+  .gscsh-col-media::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline::before,
+  .timeline-progress {
+    left: 20px;
+    transform: none;
+  }
+  .timeline-container {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 0;
+  }
+  .left,
+  .right {
+    left: 0;
+  }
+  .timeline-container::after {
+    left: 12px !important;
+    right: auto;
+  }
+  .card::before {
+    left: -10px !important;
+    border-width: 10px 10px 10px 0 !important;
+    border-color: transparent var(--navy) transparent transparent !important;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   10. POSTOS PARCEIROS
+──────────────────────────────────────────────── */
+
+#postos {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+  font-family: "Geist", "Archivo", sans-serif;
+}
+
+/* Detalhe de linhas circulares/fundo brilhante no design */
+#postos::before {
+  content: "";
+  position: absolute;
+  bottom: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1000px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 87, 34, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Grid Principal */
+.postos-main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: start;
+}
+
+/* Coluna Esquerda: Textos de Cabeçalho */
+.section-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  color: var(--white);
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.section-title .brand-text {
+  color: var(--orange);
+}
+
+.main-desc {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.sub-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* Grid de Benefícios Internos (2 Colunas) */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.benefit-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.benefit-row:hover {
+  border-color: rgba(255, 87, 34, 0.3);
+  background: rgba(255, 87, 34, 0.03);
+}
+
+/* Faz o último item (ímpar) ocupar a largura total das duas colunas se necessário */
+.grid-full-width {
+  grid-column: span 2;
+}
+
+.benefit-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 87, 34, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.emoji-icon {
+  font-size: 1.2rem;
+}
+
+.benefit-text strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.benefit-text p {
+  font-size: 0.82rem;
+  color: var(--white);
+  line-height: 1.4;
+  margin: 0;
+}
+/*icones*/
+/* =========================
+   ÍCONES BENEFÍCIOS
+========================= */
+
+.benefit-icon {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  font-size: 22px;
+  color: #fff;
+
+  background: linear-gradient(135deg, #f97316, #d9620f);
+
+  box-shadow:
+    0 10px 25px rgba(249, 115, 22, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+
+  transition: 0.3s ease;
+}
+
+.benefit-row:hover .benefit-icon {
+  transform: translateY(-4px) scale(1.05);
+
+  box-shadow:
+    0 18px 35px rgba(249, 115, 22, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+/* =========================
+   ÍCONES MINI STATS
+========================= */
+
+.stat-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: rgba(249, 115, 22, 0.12);
+
+  color: #f97316;
+
+  font-size: 22px;
+
+  transition: 0.3s ease;
+}
+
+.mini-stat:hover .stat-icon {
+  background: #f97316;
+  color: #fff;
+
+  transform: scale(1.08);
+}
+
+/* =========================
+   AJUSTE GERAL DOS ÍCONES
+========================= */
+
+.benefit-icon i,
+.stat-icon i {
+  line-height: 1;
+}
+
+/* =========================
+   CORES OPCIONAIS INDIVIDUAIS
+========================= */
+
+.icon-chart {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.icon-users {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+}
+
+.icon-shield {
+  background: linear-gradient(135deg, #fdba74, #f97316);
+}
+
+.icon-gear {
+  background: linear-gradient(135deg, #f59e0b, #ea580c);
+}
+
+.icon-check-shield {
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+}
+
+.icon-eye {
+  background: linear-gradient(135deg, #f97316, #c2410c);
+}
+
+.icon-lightning {
+  background: linear-gradient(135deg, #ffb347, #ff7b00);
+}
+
+/* Coluna Direita: Card de Chamada (CTA) */
+.posto-cta-card {
+  background: linear-gradient(135deg, var(--navy-light) 0%, #030f2b 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr; /* Divide o card para o texto e a foto */
+  gap: 20px;
+  min-height: 300px;
+  align-items: center;
+}
+
+.cta-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.posto-cta-card h3 {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.posto-cta-card .highlight-orange {
+  color: var(--orange);
+}
+
+.posto-cta-card p {
+  font-size: 0.95rem;
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+/* Botão Laranja do Formato da Imagem */
+.btn-orange {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--orange);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 14px 24px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 87, 34, 0.4);
+}
+
+/* Imagem Cortada Lateral no Card */
+.cta-card-bg-image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 55%; /* Ocupa um pouco mais da metade direita do card */
+  height: 100%;
+  z-index: 1; /* Fica atrás do texto, mas acima do fundo do card */
+  pointer-events: none;
+}
+
+.cta-card-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center; /* Mantém a conveniência do posto e do carro visíveis */
+  
+  /* Máscara corrigida: Esquerda transparente (0) mudando para sólida (1) no meio/fim */
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 40%);
+}
+/* Mini Stats Inferiores */
+.posto-mini-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.mini-stat {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+}
+
+.mini-stat .stat-icon {
+  font-size: 1.5rem;
+}
+
+.mini-stat .n {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1.1;
+}
+
+.mini-stat .t {
+  font-size: 0.8rem;
+  color: var(--white);
+}
+
+/* Texto de Rodapé da Seção */
+.postos-footer-text {
+  text-align: center;
+
+  font-size: 0.85rem;
+  color: var(--white);
+  line-height: 1.6;
+}
+
+.postos-footer-text span {
+  color: var(--orange);
+  font-weight: 500;
+}
+
+/* Responsividade Básica (Telas menores) */
+@media (max-width: 992px) {
+  .postos-main-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .posto-cta-card {
+    grid-template-columns: 1fr;
+    padding: 30px;
+  }
+
+  .cta-card-bg-image {
+    display: none; /* Oculta a imagem em mobile para priorizar o texto do card */
+  }
+}
+
+@media (max-width: 600px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  .grid-full-width {
+    grid-column: span 1;
+  }
+  .posto-mini-stats {
+    grid-template-columns: 1fr;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   11. CRÉDITO COMBUSTÍVEL
+──────────────────────────────────────────────── */
+
+/* =========================
+   SEÇÃO CRÉDITO
+========================= */
+
+#credito {
+  background: var(--cloud);
+  padding: 50px 20px;
+  font-family: "Inter", "Geist", sans-serif;
+  overflow: hidden;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.credito-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.section-label,
+.vantagens-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--orange);
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.section-titl {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--navy);
+  max-width: 760px;
+  margin: 0 auto 20px;
+}
+
+.section-des {
+  font-size: 1.05rem;
+  color: var(--navy);
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-desc-su {
+  margin-top: 10px;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+/* =========================
+   MOCKUPS
+========================= */
+
+.features-grid {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 1px;
+  flex-wrap: wrap;
+}
+
+/* REMOVE O CARD */
+.feature-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* TAMANHO IGUAL NAS 3 IMAGENS */
+.phone-mockup {
+  width: 100%;
+  max-width: 280px;
+}
+
+.phone-mockup img {
+  width: 100%;
+  height: 580px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* EFEITO HOVER */
+.phone-mockup img:hover {
+  transform: translateY(-10px);
+}
+
+/* =========================
+   VANTAGENS
+========================= */
+.vantagens-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 36px;
+  margin-bottom: 30px;
+}
+
+.vantagem-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  background: var(--orange);
+  border: 1px solid rgba(5, 47, 74, 0.08);
+  border-radius: 12px;
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.vantagem-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(249, 115, 22, 0.12);
+}
+
+.vantagem-num {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: rgba(22, 45, 249, 0.15);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+}
+.vantagem-item p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--white);
+}
+.credito-cta-box {
+  margin-top: 36px;
+  padding: 24px;
+  background: rgba(249, 115, 22, 0.06);
+  border: 1px solid rgba(249, 115, 22, 0.2);
+  border-radius: var(--radius-md);
+}
+
+.credito-cta-title {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+
+/* =========================
+   CTA BANNER
+========================= */
+
+.banner-wrapper {
+  position: relative;
+  display: inline-block; /* Ou 'block' dependendo da sua estrutura, width: 100% se for responsivo */
+  width: 100%;
+  max-width: 1200px; /* Altere para a largura total que você deseja para o banner */
+  margin: 0 auto;
+}
+
+/* 1. CONTAINER DO BANNER (Corta o círculo interno) */
+.cta-banner {
+  background: #021224;
+  border-radius: 24px;
+  padding: 60px 50px;
+  display: flex;
+  align-items: center;
+  min-height: 380px;
+  position: relative;
+
+  /* ISSO FAZ O CÍRCULO NÃO VAZAR: */
+  overflow: hidden;
+}
+
+/* 2. CONTROLE DO CELULAR (Mude o tamanho apenas aqui!) */
+.cta-phone {
+  /* ========================================================= */
+  --tamanho-celular: 400px; /* <- COLOQUE O TAMANHO QUE QUISER AQUI! */
+  /* ========================================================= */
+
+  position: absolute;
+  width: var(--tamanho-celular);
+  /* Posicionamento magnético no canto inferior direito */
+  right: 60px;
+  bottom: -120px; /* Altere aqui o quanto você quer que ele cave/vaze para baixo */
+  z-index: 10; /* Fica por cima de absolutamente tudo */
+  pointer-events: none; /* Evita que a caixinha invisível do celular atrapalhe cliques no fundo */
+}
+
+/* Garante a proporção da imagem do telefone */
+.cta-phone img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 3. CÍRCULO LARANJA (Preso e cortado dentro do banner) */
+.cta-banner::before {
+  content: "";
+  position: absolute;
+  right: 15px;
+  top: -40px;
+  width: 460px;
+  height: 460px;
+  border: 55px solid #ff6b00;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 4. TEXTOS DO CONTEÚDO */
+.cta-content {
+  max-width: 55%;
+  z-index: 2;
+}
+
+.cta-content h2 {
+  color: #ffffff;
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.cta-content p {
+  color: #ffffff;
+  font-size: 1.1rem;
+  margin-bottom: 35px;
+  line-height: 1.5;
+}
+
+.cta-content .highlight {
+  color: #ff6b00;
+  font-weight: bold;
+}
+
+.store-buttons {
+  display: flex;
+  gap: 14px;
+}
+
+.store-btn img {
+  height: 42px;
+  width: auto;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+
+  .features-grid {
+    gap: 20px;
+  }
+
+  .phone-mockup {
+    max-width: 230px;
+  }
+
+  .phone-mockup img {
+    height: 500px;
+  }
+
+  .cta-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 35px;
+  }
+
+  .cta-content {
+    max-width: 100%;
+    margin-bottom: 40px;
+  }
+
+  .store-buttons {
+    justify-content: center;
+  }
+
+  .cta-phon {
+    width: 280px;
+  }
+
+  .cta-banner::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .vantagens-list {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.9rem;
+  }
+
+  .vantagens-title {
+    font-size: 1.7rem;
+  }
+
+  .cta-content h2 {
+    font-size: 2rem;
+  }
+
+  .phone-mockup {
+    max-width: 220px;
+  }
+
+  .phone-mockup img {
+    height: 450px;
+  }
+}
+
+@media (max-width: 480px) {
+  #credito {
+    padding: 70px 18px;
+  }
+
+  .section-title {
+    font-size: 1.7rem;
+  }
+
+  .section-desc,
+  .section-desc-sub {
+    font-size: 0.95rem;
+  }
+
+  .cta-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .cta-content p {
+    font-size: 0.95rem;
+  }
+
+  .store-btn img {
+    height: 42px;
+  }
+
+  .cta-phon {
+    width: 230px;
+  }
+
+  .phone-mockup img {
+    height: 400px;
+  }
+}
+/* ────────────────────────────────────────────────
+   12. APP
+──────────────────────────────────────────────── */
+#app {
+  background: var(--orange);
+  position: relative;
+  overflow: hidden;
+}
+#app::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  animation: pulse 5s ease-in-out infinite;
+}
+#app::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: -60px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+#app .section-label,
+.app-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+}
+#app .section-label::before,
+.app-label::before {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 2px;
+}
+
+.app-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.app-desc {
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 460px;
+  margin-top: 12px;
+}
+
+.app-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+.app-feat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 14px;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+.app-feat:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+.app-feat .icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: white;
+  transition: background var(--transition-fast);
+}
+.app-feat:hover .icon-box {
+  background: white;
+}
+.app-feat:hover .icon-box svg {
+  stroke: var(--orange);
+}
+.app-feat p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.85rem;
+  color: white;
+  line-height: 1.4;
+}
+
+.app-store-btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.store-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: white;
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
+}
+.store-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+}
+.store-btn small {
+  display: block;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "Geist", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.store-btn strong {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.app-visual {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.app-phone-wrap {
+  border-radius: 32px;
+  overflow: hidden;
+  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.2));
+  transition: transform var(--transition-med);
+  animation: float 5s 1s ease-in-out infinite;
+}
+.app-phone-wrap:hover {
+  transform: translateY(-8px);
+  animation-play-state: paused;
+}
+
+@media (max-width: 900px) {
+  .app-inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .app-features {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 380px) {
+  .app-store-btns {
+    flex-direction: column;
+  }
+}
+.app-slider-container {
+  position: absolute;
+  right: -10%;
+  top: -20%;
+  width: 50%;
+  height: 140%;
+  overflow: hidden;
+  /* Cria o ângulo de perspectiva diagonal idêntico à imagem original */
+  transform: rotate(-12deg) skewX(-6deg);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 15%,
+    #000 85%,
+    transparent
+  );
+}
+
+.app-slider-track {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  height: 100%;
+  width: 100%;
+}
+
+.slider-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.slider-column img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 24px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Animação rolando para cima (Coluna 1) */
+.col-up {
+  animation: scrollUp 25s linear infinite;
+}
+
+/* Animação rolando para baixo (Coluna 2) */
+.col-down {
+  animation: scrollDown 25s linear infinite;
+}
+
+@keyframes scrollUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  } /* O script duplica as imagens, então paramos em 50% */
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Ajustes de Responsividade */
+@media (max-width: 1050px) {
+  .app-slider-container {
+    opacity: 0.25; /* Transforma em background real por baixo do texto em telas menores */
+    width: 80%;
+    right: -15%;
+  }
+  .app-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-features {
+    grid-template-columns: 1fr;
+  }
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+/* ────────────────────────────────────────────────
+   13. CONTATO / FORMULÁRIO
+──────────────────────────────────────────────── */
+#contato {
+  background: var(--cloud);
+}
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contato-desc {
+  font-family: "Geist", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(5, 47, 74, 0.7);
+  max-width: 420px;
+  margin-bottom: 32px;
+}
+
+.contato-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 36px;
+}
+
+.contato-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border: 1px solid rgba(5, 47, 74, 0.07);
+  border-left: 3px solid var(--orange);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  transition:
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    background var(--transition-fast);
+}
+.contato-card:hover {
+  background: #fdf6f0;
+  transform: translateX(4px);
+}
+.contato-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(
+    135deg,
+    rgba(249, 115, 22, 0.12),
+    rgba(249, 115, 22, 0.22)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--orange);
+}
+.contato-card strong {
+  display: block;
+  font-family: "Archivo", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(5, 47, 74, 0.45);
+  margin-bottom: 2px;
+}
+.contato-card a,
+.contato-card span {
+  font-family: "Geist", sans-serif;
+  font-size: 0.95rem;
+  color: var(--navy);
+  text-decoration: none;
+}
+.contato-card a:hover {
+  color: var(--orange);
+}
+
+/* Mini FAQ */
+.contato-faq {
+  margin-top: 8px;
+}
+.faq-title {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(5, 47, 74, 0.45);
+  margin-bottom: 14px;
+}
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq-item {
+  background: #fff;
+  border: 1px solid rgba(5, 47, 74, 0.08);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+.faq-item:hover {
+  border-color: rgba(249, 115, 22, 0.3);
+}
+.faq-item[open] {
+  border-color: var(--orange);
+}
+
+.faq-item summary {
+  font-family: "Geist", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--navy);
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: "›";
+  font-size: 1.1rem;
+  color: var(--orange);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+.faq-item[open] summary::after {
+  transform: rotate(90deg);
+}
+.faq-item p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.65;
+  color: rgba(5, 47, 74, 0.65);
+  padding: 0 18px 16px;
+}
+
+/* Form */
+.contato-form-wrapper {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 44px 40px;
+  box-shadow:
+    0 2px 0 0 var(--orange),
+    0 12px 50px rgba(5, 47, 74, 0.1);
+  border: 1px solid rgba(5, 47, 74, 0.07);
+  position: relative;
+  overflow: hidden;
+}
+.contato-form-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--navy) 100%);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.contato-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-family: "Archivo", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(5, 47, 74, 0.7);
+}
+.form-group label span {
+  color: var(--orange);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: "Geist", sans-serif;
+  font-size: 0.95rem;
+  color: var(--navy);
+  background: #f4f7fa;
+  border: 1.5px solid #d1dae6;
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  outline: none;
+  width: 100%;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.14);
+  background: #fff;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0aec0;
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f97316' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-color: #f4f7fa;
+  padding-right: 36px;
+}
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+  border-color: #e05252;
+  background: #fff5f5;
+  box-shadow: 0 0 0 3px rgba(224, 82, 82, 0.1);
+}
+.form-error {
+  font-family: "Geist", sans-serif;
+  font-size: 0.78rem;
+  color: #c53030;
+  min-height: 16px;
+}
+
+.form-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.form-check input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  border-radius: 4px;
+  border: 1.5px solid #b8c6d6;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--orange);
+}
+.form-check label {
+  font-family: "Geist", sans-serif;
+  font-size: 0.85rem;
+  color: rgba(5, 47, 74, 0.6);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.form-check label a {
+  color: var(--orange);
+  text-decoration: none;
+}
+.form-check label a:hover {
+  text-decoration: underline;
+}
+
+.form-submit {
+  width: 100%;
+  justify-content: center;
+  font-size: 0.95rem !important;
+  background: linear-gradient(135deg, var(--orange) 0%, #e8620a 100%);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.35);
+}
+.form-submit:hover {
+  background: linear-gradient(135deg, #fb8230 0%, var(--orange-dark) 100%);
+  box-shadow: 0 8px 28px rgba(249, 115, 22, 0.5);
+  transform: translateY(-2px);
+}
+
+.form-success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+  border: 1px solid #6ee7b7;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-family: "Geist", sans-serif;
+  font-size: 0.9rem;
+  color: #065f46;
+  font-weight: 500;
+}
+.form-success svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
+.form-success[hidden] {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .contato-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .contato-form-wrapper {
+    padding: 24px 20px;
+  }
+}
+
+/* ────────────────────────────────────────────────
+   14. FOOTER
+──────────────────────────────────────────────── */
+footer {
+  background: var(--navy);
+  padding: 64px 5% 40px;
+  color: white;
+}
+
+.footer-logo-img {
+  height: 35px;
+  width: auto;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 36px;
+}
+.footer-brand .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+.footer-brand p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  max-width: 280px;
+  margin-bottom: 20px;
+}
+
+/* Redes sociais */
+.footer-social {
+  display: flex;
+  gap: 10px;
+}
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+.social-btn:hover {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  transform: translateY(-2px);
+}
+
+.footer-col h3 {
+  font-family: "Archivo", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+}
+.footer-col a {
+  display: block;
+  font-family: "Geist", sans-serif;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: color var(--transition-fast);
+}
+.footer-col a:hover {
+  color: var(--orange);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-bottom p {
+  font-family: "Geist", sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+.contact-info {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.35);
+  font-family: "Geist", sans-serif;
+}
+.contact-info a {
+  color: var(--orange);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+.contact-info a:hover {
+  opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+}
+@media (max-width: 600px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+  </style>
+  <body>
+    <!-- Skip link (acessibilidade) -->
+    <a href="#main-content" class="skip-link"
+      >Pular para o conteúdo principal</a
+    >
+
+    <!-- ═══════════════════════════════════════════
+         NAV
+    ═══════════════════════════════════════════ -->
+    <nav id="mainNav" role="navigation" aria-label="Navegação principal">
+      <a href="#" class="nav-logo" aria-label="GasCash — Página inicial">
+        <img
+          src="img/GASCASH-LOGO-HORIZONTAL-BRANCO-LARANJA.png"
+          alt="GasCash"
+          class="logo-img"
+        />
       </a>
-      <div class="login-dropdown" role="menu" aria-labelledby="loginBtn">
-        <a href="#" role="menuitem">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          Cliente Posto
-        </a>
-        <a href="#" role="menuitem" >
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-          Cliente Crédito
-        </a>
-        <a href="#" role="menuitem">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          Administração
-        </a>
-      </div>
-    </li>
-  </ul>
-  <div class="hamburger" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <div class="hero-particles">
-    <span></span><span></span><span></span><span></span>
+      <!-- Links desktop -->
+      <ul class="nav-links" role="list">
+        <li><a href="#sobre">Quem Somos</a></li>
+        <li><a href="#postos">Postos Parceiros</a></li>
+        <li><a href="#credito">Crédito Combustível</a></li>
+        <li><a href="#app">Aplicativo</a></li>
+        <li class="nav-login">
+          <a href="#" aria-haspopup="true" aria-expanded="false" id="loginBtn"
+            >Login ▾</a
+          >
+          <div class="nav-dropdown" role="menu" aria-labelledby="loginBtn">
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+              </svg>
+              Cliente Posto
+            </a>
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <path d="M2 10h20" />
+              </svg>
+              Cliente Crédito
+            </a>
+            <a href="#" role="menuitem">
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                aria-hidden="true"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+                <path d="M2 12l10 5 10-5" />
+              </svg>
+              Administração
+            </a>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Botão hamburguer (mobile) -->
+      <button
+        class="hamburger"
+        onclick="toggleMenu()"
+        aria-label="Abrir menu de navegação"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+    </nav>
+
+    <!-- Menu mobile -->
+    <nav id="mobileMenu" aria-label="Menu mobile" aria-hidden="true">
+      <a href="#sobre">Quem Somos</a>
+      <a href="#postos">Postos Parceiros</a>
+      <a href="#credito">Crédito Combustível</a>
+      <a href="#app">Aplicativo</a>
+      <a href="#contato">Contato</a>
+      <span class="mob-section-label" aria-hidden="true">Login</span>
+      <a href="#">Cliente Posto</a>
+      <a href="#">Cliente Crédito</a>
+      <a href="#">Administração</a>
+    </nav>
+
+    <main id="main-content">
+      <!-- ═══════════════════════════════════════════
+           HERO
+      ═══════════════════════════════════════════ -->
+      <section id="hero" aria-labelledby="heroTitle">
+        <canvas id="heroCanvas" aria-hidden="true"></canvas>
+
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="hero-label" aria-label="Fintech de Combustível">
+              <span class="hero-label-dot" aria-hidden="true"></span>
+              Fintech de Combustível
+            </div>
+
+            <h1 id="heroTitle" class="hero-title">
+              <span class="accent" style="white-space: nowrap"
+                >Crédito inteligente</span
+              >
+              para abastecer com praticidade
+            </h1>
+
+            <p class="hero-sub">
+              A GasCash conecta motoristas, postos de combustível e empresas
+              através de uma plataforma moderna de crédito combustível e gestão
+              de abastecimento de frota.
+            </p>
+
+            <div class="hero-highlight">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="var(--orange)"
+                stroke-width="2"
+                stroke-linecap="round"
+                aria-hidden="true"
+              >
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+              </svg>
+              <p>
+                <strong>Até R$ 300,00 por semana</strong> para abastecer na rede
+                de postos parceiros
+              </p>
+            </div>
+
+            <!-- PATCH 1: hero-actions com botões Android e iOS -->
+            <div class="hero-actions">
+              <a href="#app" class="btn-primary">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                Baixe o aplicativo
+              </a>
+
+             <a
+  href="#"
+  class="btn-store-hero"
+  aria-label="Baixar para Android"
+>
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      d="M17.6 11.48L19.44 8.3a.63.63 0 0 0-.22-.86.62.62 0 0 0-.85.22L16.5 10.9A10.87 10.87 0 0 0 12 10c-1.6 0-3.1.4-4.5.9L5.66 7.66a.62.62 0 0 0-.85-.22.63.63 0 0 0-.22.86l1.84 3.18C3.5 13.13 1.5 15.79 1 19h22c-.5-3.21-2.5-5.87-5.4-7.52zM7 16.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+    />
+  </svg>
+  <div>
+    <strong>Android</strong>
   </div>
-  <div class="hero-grid-bg"></div>
-  <div class="hero-content">
-    <div>
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Fintech de Combustível · 2026
-      </div>
-      <h1 class="hero-h1">
-        Crédito inteligente para <span class="hl">abastecer</span> com praticidade
-      </h1>
-      <p class="hero-p">A GasCash conecta motoristas, postos de combustível e empresas através de uma plataforma moderna de crédito combustível e gestão de abastecimento de frota.</p>
-      <div class="hero-highlight">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        <p><strong>Até R$ 300,00 por semana</strong> para abastecer na rede de postos parceiros</p>
-      </div>
-      <div class="hero-ctas">
-        <a href="#app" class="btn-or">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-          Baixe o Aplicativo
-        </a>
-        <a href="#sobre" class="btn-ghost">
-          Saiba mais
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-    <!-- PHONE MOCKUP -->
-    <div class="hero-phone-wrap">
-      <div class="phone-device main">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <div class="ph-top">
-            <div class="ph-logo">
-              <div class="ph-logo-sq">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              </div>
-              <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:.72rem;color:#fff;letter-spacing:.06em">GASCASH</span>
-            </div>
-            <div class="ph-bell">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+</a>
+
+              <a href="#" class="btn-store-hero" aria-label="Baixar para iOS">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"
+                  />
+                </svg>
+                <div>
+                  <strong>iOS</strong>
+                </div>
+              </a>
             </div>
           </div>
-          <div class="ph-saldo-label">Saldo disponível</div>
-          <div class="ph-saldo-val">
-            R$ 5.250,80
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </div>
-          <div class="ph-actions">
-            <div class="ph-act">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              <span>Abastecer</span>
-            </div>
-            <div class="ph-act">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-              <span>Extrato</span>
-            </div>
-            <div class="ph-act">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-              <span>Rede<br>credenciada</span>
-            </div>
-          </div>
-          <div class="ph-tx-title">
-            <span>Últimas transações</span>
-            <a href="#">Ver todas</a>
-          </div>
-          <div class="ph-tx-row">
-            <div class="ph-tx-left">
-              <div class="ph-tx-icon">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              </div>
-              <div>
-                <div class="ph-tx-name">Auto Posto Avenida</div>
-                <div class="ph-tx-date">12/05/2024 · 14:32</div>
-              </div>
-            </div>
-            <div class="ph-tx-val">R$ 320,00</div>
-          </div>
-          <div class="ph-tx-row">
-            <div class="ph-tx-left">
-              <div class="ph-tx-icon">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              </div>
-              <div>
-                <div class="ph-tx-name">Posto Central</div>
-                <div class="ph-tx-date">10/05/2024 · 09:11</div>
-              </div>
-            </div>
-            <div class="ph-tx-val">R$ 450,00</div>
-          </div>
-          <div class="ph-tx-row">
-            <div class="ph-tx-left">
-              <div class="ph-tx-icon">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              </div>
-              <div>
-                <div class="ph-tx-name">Transporte Brasil</div>
-                <div class="ph-tx-date">08/05/2024 · 17:45</div>
-              </div>
-            </div>
-            <div class="ph-tx-val">R$ 280,00</div>
-          </div>
-          <div class="ph-nav-bar">
-            <div class="ph-nav-item active">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-              <span>Início</span>
-            </div>
-            <div class="ph-nav-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-              <span>Cartões</span>
-            </div>
-            <div class="ph-nav-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
-              <span>Abastecer</span>
-            </div>
-            <div class="ph-nav-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              <span>Extrato</span>
-            </div>
-            <div class="ph-nav-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
-              <span>Mais</span>
-            </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <img src="img/cellecartao.png" alt="" class="hero-mockup-img" />
           </div>
         </div>
-        <!-- floating card -->
-        <div class="card-mockup">
-          <div class="card-mockup-chip"></div>
-          <div class="card-mockup-brand">GASCASH</div>
-          <div class="card-mockup-num">•••• •••• 4712</div>
-          <div class="card-mockup-row">
-            <span>PEDRO L.</span>
-            <svg class="contactless" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
-          </div>
-        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           EMPRESAS QUE CONFIAM
+      ═══════════════════════════════════════════ -->
+      <section class="trusted-by-section">
+  <div class="container">
+    <h2 class="title" style="color: var(navy) !important;">Empresas que já confiam na <span style="color: var(--orange);">Gascash</span> </h2>
+
+    <div class="logo-carousel-wrapper">
+      <div class="logo-grid">
+        <div class="logo-item"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
+        <div class="logo-item"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
+        
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
+        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- ═══ TRUST STRIP ═══ -->
-<div id="trust">
-  <div class="trust-inner">
-    <span class="trust-label">Empresas que confiam na GasCash</span>
-    <div class="trust-logos">
-      <div class="trust-logo">
-        <div class="trust-logo-sq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        TransFácil
+<!--══════════════════════════════
+           SOBRE / QUEM SOMOS
+      ═══════════════════════════════════════════ -->
+      <section id="sobre" aria-labelledby="sobreTitle">
+        <div class="sobre-grid">
+          <div class="gscsh-col-text reveal">
+            <span class="section-label" style="color: var(--orange)"
+              >Quem somos</span
+            >
+            <h2 id="sobreTitle" class="section-title">
+              Transformamos o abastecimento em uma experiência simples e
+              inteligente!
+            </h2>
+            <p>
+              A GasCash é uma fintech especializada em crédito combustível e
+              controle de abastecimento de frota, criada para oferecer mais
+              facilidade, segurança e organização financeira para motoristas,
+              empresas e postos parceiros.
+            </p>
+            <p>
+              Nossa tecnologia conecta usuários a uma ampla rede de postos
+              credenciados, permitindo abastecimento com crédito rápido,
+              controle digital e vantagens exclusivas.
+            </p>
+            <p>
+              Com soluções modernas e acessíveis, a GasCash ajuda empresas e
+              clientes a reduzirem burocracias, aumentarem o controle dos gastos
+              e terem mais liberdade no dia a dia.
+            </p>
+          </div>
+
+          <div class="gscsh-col-media" aria-hidden="true">
+            <img src="img/quemsomos.png" alt="" class="gscsh-main-img" />
+          </div>
+        </div>
+
+        <!-- VANTAGENS -->
+        <div class="vantagens-wrapper">
+          <div class="titulo-vanta reveal">
+            <span class="section-label" style="justify-content:center">Nossas vantagens</span>
+            <h2 class="vantage7">Por que escolher a GasCash?</h2>
+            <p class="vantage-sub">Tecnologia financeira pensada para quem está sempre na estrada.</p>
+          </div>
+
+          <div class="vantagens-cards-grid reveal">
+
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <h3>Crédito rápido e facilitado</h3>
+              <p>Aprovação em minutos, direto pelo aplicativo, sem burocracia.</p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+              </div>
+              <h3>Controle inteligente</h3>
+              <p>Acompanhe cada abastecimento com relatórios detalhados em tempo real.</p>
+            </article>
+
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <h3>Rede credenciada</h3>
+              <p>Mais de 500 postos parceiros disponíveis na palma da sua mão.</p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              </div>
+              <h3>Gestão de frota</h3>
+              <p>Controle de consumo e despesas de toda a frota em um só lugar.</p>
+            </article>
+
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <h3>App prático e seguro</h3>
+              <p>Experiência fluida e proteção total nas suas transações digitais.</p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>
+              </div>
+              <h3>Mais comodidade</h3>
+              <p>Menos burocracia, mais liberdade para focar no que realmente importa.</p>
+              <a href="#app" class="vcg-cta">Começar agora →</a>
+            </article>
+
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════
+           POSTOS PARCEIROS
+      ═══════════════════════════════════════════ -->
+     <!-- FONT AWESOME -->
+
+
+<section id="postos" aria-labelledby="postosTitle">
+  <div class="section-inner">
+    
+    <div class="postos-main-grid">
+      
+      <div class="postos-content-left">
+        
+        <span class="section-label">POSTOS PARCEIROS</span>
+
+        <h2 id="postosTitle" class="section-title">
+          Seja um Posto Parceiro <span class="brand-text">GasCash</span>
+        </h2>
+
+        <p class="section-desc main-desc">
+          Aumente suas vendas, fidelize clientes e faça parte de uma rede inteligente de abastecimento.
+          <br><br>
+
+          A GasCash oferece aos postos parceiros uma plataforma moderna que gera mais fluxo de clientes,
+          aumenta a recorrência de abastecimentos e proporciona mais segurança nas operações.
+          <br><br>
+
+          Ao se tornar parceiro GasCash, seu posto passa a atender clientes com crédito combustível aprovado
+          diretamente pelo aplicativo, ampliando o potencial de vendas e fortalecendo sua presença no mercado.
+        </p>
+
+        <!-- BENEFÍCIOS -->
+        <div class="benefits-grid" aria-label="Benefícios para postos parceiros">
+          
+          <div class="benefit-row">
+            <div class="benefit-icon icon-chart">
+              <i class="fas fa-chart-line"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Aumento no volume de abastecimentos</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row">
+            <div class="benefit-icon icon-users">
+              <i class="fas fa-users"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Mais clientes recorrentes</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row">
+            <div class="benefit-icon icon-shield">
+              <i class="fas fa-shield-halved"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Plataforma segura e digital</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row">
+            <div class="benefit-icon icon-gear">
+              <i class="fas fa-gears"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Gestão simplificada das operações</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row">
+            <div class="benefit-icon icon-check-shield">
+              <i class="fas fa-user-shield"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Redução de inadimplência operacional</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row">
+            <div class="benefit-icon icon-eye">
+              <i class="fas fa-eye"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Maior visibilidade na rede GasCash</strong>
+            </div>
+          </div>
+
+          <div class="benefit-row grid-full-width">
+            <div class="benefit-icon icon-lightning">
+              <i class="fas fa-bolt"></i>
+            </div>
+
+            <div class="benefit-text">
+              <strong>Integração tecnológica rápida</strong>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="trust-logo">
-        <div class="trust-logo-sq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></div>
-        RodoLog
+
+      <!-- LADO DIREITO -->
+      <div class="postos-content-right">
+        
+        <div class="posto-cta-card">
+
+          <div class="cta-card-content">
+
+            <h3>
+              Mais <span class="highlight-orange">movimento</span>,
+              <br>
+              mais <span class="highlight-orange">vendas</span> e
+              <br>
+              mais <span class="highlight-orange">resultados</span>.
+            </h3>
+
+            <p>
+              Faça parte da rede GasCash e impulsione o crescimento do seu posto.
+            </p>
+
+            <a href="#contato" class="btn-orange">
+              QUERO SER POSTO PARCEIRO
+
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+
+          </div>
+
+          <div class="cta-card-bg-image">
+            <img src="img/posto.jpeg" alt="Posto GasCash" />
+          </div>
+
+        </div>
+
+        <!-- MINI STATS -->
+        <div class="posto-mini-stats" role="list" aria-label="Estatísticas dos postos parceiros">
+
+          <div class="mini-stat" role="listitem">
+
+            <div class="stat-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+
+            <div class="stat-info">
+              <div class="n">+30%</div>
+              <div class="t">mais vendas</div>
+            </div>
+
+          </div>
+
+          <div class="mini-stat" role="listitem">
+
+            <div class="stat-icon">
+              <i class="fas fa-gas-pump"></i>
+            </div>
+
+            <div class="stat-info">
+              <div class="n">+500</div>
+              <div class="t">postos ativos</div>
+            </div>
+
+          </div>
+
+          <div class="mini-stat" role="listitem">
+
+            <div class="stat-icon">
+              <i class="fas fa-headset"></i>
+            </div>
+
+            <div class="stat-info">
+              <div class="n">24h</div>
+              <div class="t">suporte</div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
-      <div class="trust-logo">
-        <div class="trust-logo-sq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/></svg></div>
-        FrotaCar
-      </div>
-      <div class="trust-logo">
-        <div class="trust-logo-sq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg></div>
-        LogiNorte
-      </div>
-      <div class="trust-logo">
-        <div class="trust-logo-sq"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-        ViaBrasil
+
+    </div>
+
+    <!-- FOOTER -->
+      <div class="postos-footer-text">
+        Tecnologia. Segurança. Resultados.
+        <br>
+
+        <span>
+          GasCash impulsionando postos de combustíveis.
+        </span>
       </div>
     </div>
+
+</section>
+
+      <!-- ═══════════════════════════════════════════
+           CRÉDITO COMBUSTÍVEL
+      ═══════════════════════════════════════════ -->
+     <section id="credito" aria-labelledby="creditoTitle">
+  <div class="section-inner">
+    
+    <div class="credito-header">
+      <span class="section-label">Crédito Combustível</span>
+      <h2 id="creditoTitle" class="section-titl">
+        Crédito rápido para você abastecer quando precisar!
+      </h2>
+      <p class="section-des">
+        Com a GasCash você pode solicitar até R$ 300,00 por semana para abastecer nos postos parceiros da rede.
+      </p>
+      <p class="section-desc-su">
+        Tudo de forma simples, rápida e digital através do aplicativo.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">      
+        <div class="phone-mockup">
+          <img src="img/cell.png" alt="Tela inicial do app GasCash com saldo disponível">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="phone-mockup">
+          <img src="img/cell.png" alt="Tela de pagamento por QR Code">
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="phone-mockup">
+          <img src="img/doiscell.png" alt="Tela de controle e gráficos de gastos">
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center;" class="vantagens-section">
+      <span class="vantagens-label">Vantagens GasCash</span>
+      <h3 class="vantagens-title">Tudo que você precisa, em um só app</h3>
+        <div class="reveal">
+              <ol
+                class="vantagens-list"
+                aria-label="Vantagens do crédito combustível"
+              >
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">01</div>
+                  <p>Aprovação rápida e prática</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">02</div>
+                  <p>Até R$ 300,00 semanais para abastecimento</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">03</div>
+                  <p>Uso exclusivo na rede credenciada</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">04</div>
+                  <p>Descontos especiais em postos parceiros</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">05</div>
+                  <p>Mais controle financeiro</p>
+                </li>
+                <li class="vantagem-item">
+                  <div class="vantagem-num" aria-hidden="true">06</div>
+                  <p>Segurança total nas transações</p>
+                </li>
+              </ol>
+        </div>
+     </div>
+<div class="banner-wrapper"> 
+  <div class="cta-banner">
+    <div class="cta-content">
+      <h2>Mais liberdade para rodar<br>sem preocupação!</h2>
+      <p>Baixe o aplicativo <span class="highlight">GasCash</span> e comece agora mesmo a ter crédito na palma da sua mão.</p>
+      <div class="store-buttons">
+        <a href="#" class="store-btn"><img src="img/play.jpeg" alt="Disponível no Google Play"></a>
+        <a href="#" class="store-btn"><img src="img/store.jpeg" alt="Baixar na App Store"></a>
+      </div>
+    </div>
+  </div>
+  <div class="cta-phone">
+    <img src="img/ctacell.png" alt="Aplicativo GasCash em um smartphone">
   </div>
 </div>
 
-<!-- ═══ QUEM SOMOS ═══ -->
-<section id="sobre">
-  <div class="s-inner">
-    <div class="rv">
-      <span class="s-tag">Quem Somos</span>
-      <h2 class="s-h2">A fintech que transforma o abastecimento em uma <span>experiência inteligente</span></h2>
-      <p class="s-lead">Criada para oferecer mais facilidade, segurança e organização financeira para motoristas, empresas e postos parceiros.</p>
-    </div>
-    <div class="sobre-grid">
-      <div class="sobre-text rv">
-        <p>A GasCash é uma fintech especializada em crédito combustível e controle de abastecimento de frota. Nossa tecnologia conecta usuários a uma ampla rede de postos credenciados, permitindo abastecimento com crédito rápido, controle digital e vantagens exclusivas.</p>
-        <p>Com soluções modernas e acessíveis, a GasCash ajuda empresas e clientes a reduzirem burocracias, aumentarem o controle dos gastos e terem mais liberdade no dia a dia.</p>
-        <div class="features-grid">
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-            <p>Crédito combustível rápido e facilitado</p>
+</section>
+      <!-- ═══════════════════════════════════════════
+           APP
+      ═══════════════════════════════════════════ -->
+     <section id="app" aria-labelledby="appTitle">
+  <div class="section-inner app-inner">
+          <div class="reveal">
+            <span class="section-label">Aplicativo</span>
+            <h2 id="appTitle" class="section-title" style="color:white !important; white-space:nowrap">Tudo na palma da sua mão</h2>
+            <p class="app-desc">Com o aplicativo GasCash você acompanha tudo em tempo real e mantém total controle do seu abastecimento.</p>
+            <ul class="app-features" aria-label="Funcionalidades do aplicativo">
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div>
+                <p>Limite disponível</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><line x1="9" x2="15" y1="12" y2="12"/><line x1="9" x2="13" y1="16" y2="16"/></svg></div>
+                <p>Histórico de abastecimentos</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                <p>Postos parceiros próximos</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></div>
+                <p>Controle financeiro</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m13 2-2 10h9L11 22l2-10H4Z"/></svg></div>
+                <p>Solicitação de crédito</p>
+              </li>
+              <li class="app-feat">
+                <div class="icon-box" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+                <p>Gestão de frota e consumo</p>
+              </li>
+            </ul>
+            <div class="app-store-btns">
+              <a href="#" class="store-btn" aria-label="Baixar GasCash para Android na Google Play">
+                <span class="store-icon" aria-hidden="true"><svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      d="M17.6 11.48L19.44 8.3a.63.63 0 0 0-.22-.86.62.62 0 0 0-.85.22L16.5 10.9A10.87 10.87 0 0 0 12 10c-1.6 0-3.1.4-4.5.9L5.66 7.66a.62.62 0 0 0-.85-.22.63.63 0 0 0-.22.86l1.84 3.18C3.5 13.13 1.5 15.79 1 19h22c-.5-3.21-2.5-5.87-5.4-7.52zM7 16.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+    />
+  </svg></span>
+                <div><small>Disponível no</small><strong>Android</strong></div>
+              </a>
+              <a href="#" class="store-btn" aria-label="Baixar GasCash para iPhone na App Store">
+                <span class="store-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.58 2.95-1.39z"/></svg></span>
+                <div><small>Disponível no</small><strong>iOS</strong></div>
+              </a>
+            </div>
           </div>
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-            <p>Controle inteligente de abastecimento</p>
-          </div>
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-            <p>Rede de postos parceiros credenciados</p>
-          </div>
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
-            <p>Aplicativo prático e seguro</p>
-          </div>
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8L5 7h14l-3-4z"/></svg></div>
-            <p>Gestão de consumo e despesas da frota</p>
-          </div>
-          <div class="feat-card">
-            <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-            <p>Tecnologia financeira integrada e segura</p>
-          </div>
+
+    <div class="app-slider-container" aria-hidden="true">
+      <div class="app-slider-track">
+        
+        <div class="slider-column col-up">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
         </div>
-      </div>
-      <div class="sobre-stats-side rv-r">
-        <div class="watermark">300</div>
-        <div class="stats-grid">
-          <div class="stat-box dark">
-            <div class="n"><sup>R$</sup>300</div>
-            <div class="l">Limite semanal para motoristas</div>
-            <div class="stat-bg"></div>
-          </div>
-          <div class="stat-box accent">
-            <div class="n">100%</div>
-            <div class="l">Digital, sem burocracia</div>
-            <div class="stat-bg"></div>
-          </div>
-          <div class="stat-box accent">
-            <div class="n">+500</div>
-            <div class="l">Postos parceiros na rede</div>
-            <div class="stat-bg"></div>
-          </div>
-          <div class="stat-box dark">
-            <div class="n">24h</div>
-            <div class="l">Disponibilidade e suporte</div>
-            <div class="stat-bg"></div>
-          </div>
+
+        <div class="slider-column col-down">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
+          <img src="img/celular.jpeg" alt="Interface GasCash">
         </div>
+
       </div>
     </div>
+
   </div>
 </section>
+      <!-- ═══════════════════════════════════════════
+           CONTATO / FORMULÁRIO
+      ═══════════════════════════════════════════ -->
+       <section id="contato" aria-labelledby="contatoTitle">
+        <div class="section-inner">
+          <div class="contato-grid">
+            <div class="contato-info reveal">
+              <span class="section-label">Fale Conosco</span>
+              <h2 id="contatoTitle" class="section-title">Entre em contato com a GasCash</h2>
+              <p class="contato-desc">
+                Seja você um motorista, gestor de frota ou proprietário de posto, nossa equipe está pronta para ajudar. Preencha o formulário e entraremos em contato em até 24 horas.
+              </p>
+              <div class="contato-cards" role="list">
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </div>
+                  <div>
+                    <strong>Telefone</strong>
+                    <a href="tel:+558496452454">84 9 6452-4544</a>
+                  </div>
+                </div>
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  </div>
+                  <div>
+                    <strong>E-mail</strong>
+                    <a href="mailto:contato@gascash.com">contato@gascash.com</a>
+                  </div>
+                </div>
+                <div class="contato-card" role="listitem">
+                  <div class="contato-card-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <div>
+                    <strong>Atendimento</strong>
+                    <span>Segunda a Sexta, 8h–18h</span>
+                  </div>
+                </div>
+              </div>
 
-<!-- ═══ SOLUÇÕES COMPLETAS ═══ -->
-<section id="solucoes" style="background:#fff">
-  <div class="s-inner">
-    <div class="solucoes-grid">
-      <div class="rv">
-        <span class="s-tag">Soluções</span>
-        <h2 class="s-h2">Soluções completas para gerenciar <span>abastecimentos</span></h2>
-        <p class="s-lead">Tecnologia, praticidade e uma rede credenciada para sua empresa ir mais longe.</p>
-        <div style="margin-top:32px">
-          <a href="#credito" class="btn-or">Ver Crédito Combustível</a>
-        </div>
-      </div>
-      <div class="solucoes-cards rv-r">
-        <div class="sol-card">
-          <div class="sol-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-          <div class="sol-card-title">Gestão simplificada</div>
-          <div class="sol-card-p">Controle total de gastos com relatórios em tempo real.</div>
-        </div>
-        <div class="sol-card">
-          <div class="sol-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-          <div class="sol-card-title">Rede credenciada</div>
-          <div class="sol-card-p">Mais de 7.000 postos em todo o Brasil com os melhores preços.</div>
-        </div>
-        <div class="sol-card">
-          <div class="sol-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="sol-card-title">Segurança e controle</div>
-          <div class="sol-card-p">Cartões com tecnologia e senha para mais segurança nas operações.</div>
-        </div>
-        <div class="sol-card">
-          <div class="sol-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div class="sol-card-title">Atendimento especializado</div>
-          <div class="sol-card-p">Time dedicado para atender sua empresa quando precisar.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ NÚMEROS ═══ -->
-<section id="numeros">
-  <div class="numeros-inner">
-    <div class="numeros-header rv">
-      <div>
-        <span class="s-tag" style="color:var(--or)">Resultados</span>
-        <h2 class="s-h2 light">Mais economia e eficiência<br>para o <span>seu negócio</span></h2>
-      </div>
-      <p class="s-lead light" style="max-width:380px">A GasCash ajuda sua empresa a reduzir custos, ganhar produtividade e ter mais previsibilidade.</p>
-    </div>
-    <div class="numeros-grid">
-      <div class="num-card rv">
-        <div class="icon-bg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="big" data-count="30000">+30 mil</div>
-        <div class="lbl">Empresas atendidas</div>
-      </div>
-      <div class="num-card rv" style="transition-delay:.1s">
-        <div class="icon-bg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-        <div class="big">+7.000</div>
-        <div class="lbl">Postos credenciados</div>
-      </div>
-      <div class="num-card rv" style="transition-delay:.2s">
-        <div class="icon-bg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg></div>
-        <div class="big">+R$ 2bi</div>
-        <div class="lbl">Em abastecimentos gerenciados</div>
-      </div>
-      <div class="num-card rv" style="transition-delay:.3s">
-        <div class="icon-bg"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <div class="big">98,5%</div>
-        <div class="lbl">Satisfação dos clientes</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ POSTOS PARCEIROS ═══ -->
-<section id="postos">
-  <div class="s-inner">
-    <div class="rv">
-      <span class="s-tag">Postos Parceiros</span>
-      <h2 class="s-h2 light">Seja um Posto Parceiro <span>GasCash</span></h2>
-      <p class="s-lead light">Aumente suas vendas, fidelize clientes e faça parte de uma rede inteligente de abastecimento.</p>
-    </div>
-    <div class="postos-grid">
-      <div class="rv">
-        <p style="font-family:'Geist',sans-serif;font-size:.95rem;line-height:1.8;color:rgba(255,255,255,.6);margin-bottom:28px">A GasCash oferece aos postos parceiros uma plataforma moderna que gera mais fluxo de clientes, aumenta a recorrência de abastecimentos e proporciona mais segurança nas operações.</p>
-        <div class="benefits-list">
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Aumento no volume de abastecimentos</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Mais clientes recorrentes</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Plataforma segura e digital</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Gestão simplificada das operações</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Redução de inadimplência operacional</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Maior visibilidade na rede GasCash</p></div>
-          <div class="ben-row"><div class="ben-check"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><p>Integração tecnológica prática e rápida</p></div>
-        </div>
-      </div>
-      <div class="postos-right rv-r">
-        <div class="posto-cta">
-          <div class="c1"></div><div class="c2"></div>
-          <h3>Mais movimento, mais vendas e mais resultados.</h3>
-          <p>Faça parte da rede GasCash e impulsione o crescimento do seu posto com tecnologia de ponta.</p>
-          <a href="#" class="btn-wh">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            Quero ser Posto Parceiro
-          </a>
-        </div>
-        <div class="postos-kpis">
-          <div class="kpi-box">
-            <div class="kpi-n">+30%</div>
-            <div class="kpi-l">Mais vendas</div>
-          </div>
-          <div class="kpi-box">
-            <div class="kpi-n">+500</div>
-            <div class="kpi-l">Postos ativos</div>
-          </div>
-          <div class="kpi-box">
-            <div class="kpi-n">24h</div>
-            <div class="kpi-l">Suporte dedicado</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CRÉDITO COMBUSTÍVEL ═══ -->
-<section id="credito">
-  <div class="s-inner">
-    <div class="rv">
-      <span class="s-tag">Crédito Combustível</span>
-      <h2 class="s-h2">Crédito rápido para você abastecer <span>quando precisar</span></h2>
-      <p class="s-lead">Solicite até R$ 300,00 por semana de forma simples, rápida e digital pelo aplicativo.</p>
-    </div>
-    <div class="credito-grid">
-      <div class="credito-phone rv">
-        <div class="deco-ring"></div>
-        <div class="deco-ring2"></div>
-        <div class="phone-cred">
-          <div class="phone-notch"></div>
-          <div class="ph-screen-cred">
-            <div class="ph-top">
-              <div class="ph-logo">
-                <div class="ph-logo-sq"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
-                <span style="font-family:'Archivo',sans-serif;font-weight:900;font-size:.72rem;color:#fff;letter-spacing:.06em">GASCASH</span>
+              <!-- Mini FAQ -->
+              <div class="contato-faq">
+                <h3 class="faq-title">Perguntas frequentes</h3>
+                <div class="faq-list">
+                  <details class="faq-item">
+                    <summary>Como solicitar o crédito combustível?</summary>
+                    <p>Baixe o aplicativo, faça seu cadastro e solicite o crédito diretamente pelo app. A aprovação é rápida e acontece em minutos.</p>
+                  </details>
+                  <details class="faq-item">
+                    <summary>Onde posso usar o crédito GasCash?</summary>
+                    <p>O crédito é válido exclusivamente na rede de postos parceiros credenciados, localizáveis pelo mapa no aplicativo.</p>
+                  </details>
+                  <details class="faq-item">
+                    <summary>Como meu posto pode se tornar parceiro?</summary>
+                    <p>Preencha o formulário ao lado selecionando "Proprietário de posto" e nossa equipe entrará em contato.</p>
+                  </details>
+                </div>
               </div>
             </div>
-            <div class="ph-c-header">Limite disponível</div>
-            <div class="ph-c-limit">R$ 180,00</div>
-            <div class="ph-c-sub">de R$ 300,00 semanais</div>
-            <div class="ph-prog-bar"><div class="ph-prog-fill"></div></div>
-            <div class="ph-prog-labels"><span>Usado: R$120</span><span>Max: R$300</span></div>
-            <div class="ph-c-title">Últimos abastecimentos</div>
-            <div class="ph-c-tx">
-              <div class="ph-c-tx-l">
-                <div class="ph-c-tx-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
-                <div><div class="ph-c-tx-n">Posto Modelo</div><div class="ph-c-tx-d">Hoje · 08:14</div></div>
-              </div>
-              <div class="ph-c-tx-v">- R$ 60,00</div>
-            </div>
-            <div class="ph-c-tx">
-              <div class="ph-c-tx-l">
-                <div class="ph-c-tx-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
-                <div><div class="ph-c-tx-n">Posto Central</div><div class="ph-c-tx-d">Ontem · 17:30</div></div>
-              </div>
-              <div class="ph-c-tx-v">- R$ 60,00</div>
-            </div>
-            <div class="ph-c-tx">
-              <div class="ph-c-tx-l">
-                <div class="ph-c-tx-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
-                <div><div class="ph-c-tx-n">Auto Avenida</div><div class="ph-c-tx-d">22/05 · 11:45</div></div>
-              </div>
-              <div class="ph-c-tx-v">- R$ 60,00</div>
+
+            <div class="contato-form-wrapper reveal">
+              <form id="contatoForm" class="contato-form" novalidate aria-label="Formulário de contato">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="nome">Nome completo <span aria-hidden="true">*</span></label>
+                    <input type="text" id="nome" name="nome" placeholder="Seu nome" required autocomplete="name" aria-required="true" />
+                    <span class="form-error" id="nomeError" role="alert" aria-live="polite"></span>
+                  </div>
+                  <div class="form-group">
+                    <label for="telefone">Telefone <span aria-hidden="true">*</span></label>
+                    <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required autocomplete="tel" aria-required="true" />
+                    <span class="form-error" id="telefoneError" role="alert" aria-live="polite"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail <span aria-hidden="true">*</span></label>
+                  <input type="email" id="email" name="email" placeholder="seu@email.com" required autocomplete="email" aria-required="true" />
+                  <span class="form-error" id="emailError" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label for="perfil">Perfil <span aria-hidden="true">*</span></label>
+                  <select id="perfil" name="perfil" required aria-required="true">
+                    <option value="">Selecione seu perfil</option>
+                    <option value="motorista">Motorista / Pessoa física</option>
+                    <option value="empresa">Empresa / Gestão de frota</option>
+                    <option value="posto">Proprietário de posto</option>
+                    <option value="outro">Outro</option>
+                  </select>
+                  <span class="form-error" id="perfilError" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-group">
+                  <label for="mensagem">Mensagem <span aria-hidden="true">*</span></label>
+                  <textarea id="mensagem" name="mensagem" rows="4" placeholder="Como podemos ajudar você?" required aria-required="true"></textarea>
+                  <span class="form-error" id="mensagemError" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" id="lgpd" name="lgpd" required aria-required="true" />
+                  <label for="lgpd">Concordo com a <a href="#">Política de Privacidade</a> e autorizo o uso dos meus dados para contato.</label>
+                </div>
+                <span class="form-error" id="lgpdError" role="alert" aria-live="polite"></span>
+                <button type="submit" class="btn-primary form-submit" aria-label="Enviar mensagem de contato">
+                  Enviar mensagem
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <div id="formSuccess" class="form-success" role="status" aria-live="polite" aria-atomic="true" hidden>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+                  Mensagem enviada! Em breve entraremos em contato.
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </div>
-      <div class="rv-r">
-        <p style="font-family:'Geist',sans-serif;font-size:.95rem;line-height:1.8;color:rgba(5,47,74,.62);margin-bottom:8px">A solução ideal para quem precisa manter o veículo em movimento com praticidade e organização financeira. Tudo de forma simples, rápida e digital através do aplicativo.</p>
-        <div class="vant-grid">
-          <div class="vant-card"><div class="vant-n">01</div><p>Aprovação rápida e prática pelo app</p></div>
-          <div class="vant-card"><div class="vant-n">02</div><p>Até R$ 300,00 semanais para abastecimento</p></div>
-          <div class="vant-card"><div class="vant-n">03</div><p>Uso exclusivo na rede credenciada</p></div>
-          <div class="vant-card"><div class="vant-n">04</div><p>Descontos especiais em postos parceiros</p></div>
-          <div class="vant-card"><div class="vant-n">05</div><p>Mais controle financeiro no dia a dia</p></div>
-          <div class="vant-card"><div class="vant-n">06</div><p>Segurança total nas transações</p></div>
-          <div class="vant-card"><div class="vant-n">07</div><p>Aplicativo moderno e intuitivo</p></div>
-        </div>
-        <div class="credito-cta-box">
-          <strong>Mais liberdade para rodar sem preocupação.</strong>
-          <p>Baixe o aplicativo e comece agora mesmo a usar o crédito GasCash.</p>
-          <a href="#app" class="btn-or" style="font-size:.88rem;padding:13px 26px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
-            Baixe o Aplicativo
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
+    </main>
 
-<!-- ═══ APP ═══ -->
-<section id="app">
-  <div class="s-inner app-grid">
-    <div class="rv">
-      <span class="s-tag" style="color:rgba(255,255,255,.9)">Aplicativo</span>
-      <h2 class="s-h2" style="color:#fff">Tudo na palma da <span style="color:var(--nv)">sua mão</span></h2>
-      <p style="font-family:'Geist',sans-serif;font-size:1rem;line-height:1.75;color:rgba(255,255,255,.8);max-width:460px">Com o aplicativo GasCash você acompanha tudo em tempo real e mantém total controle do seu abastecimento.</p>
-      <div class="app-features">
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><p>Limite disponível em tempo real</p></div>
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><p>Histórico de abastecimentos</p></div>
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><p>Postos parceiros próximos</p></div>
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><p>Controle financeiro detalhado</p></div>
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><p>Solicitação de crédito</p></div>
-        <div class="app-f"><div class="app-f-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8L5 7h14l-3-4z"/></svg></div><p>Gestão de frota e consumo</p></div>
-      </div>
-      <div class="store-btns">
-        <a href="#" class="store-btn">
-          <svg class="store-btn-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="currentColor" stroke="none"/></svg>
-          <div><small>Disponível no</small><strong>Android</strong></div>
-        </a>
-        <a href="#" class="store-btn">
-          <svg class="store-btn-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09z" fill="currentColor" stroke="none"/><path d="M15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z" fill="currentColor" stroke="none"/></svg>
-          <div><small>Disponível no</small><strong>iOS</strong></div>
-        </a>
-      </div>
-    </div>
-    <div class="app-phones rv-r">
-      <div class="app-device">
-        <div class="app-scr app-scr-lg">
-          <div class="app-pill-badge">GasCash</div>
-          <div class="app-scr-h">Minha carteira</div>
-          <div class="app-bar-row">
-            <div class="app-bar-lbl">Limite semanal</div>
-            <div class="app-lim-val">R$ 180</div>
-            <div class="app-lim-sub">de R$ 300,00</div>
-            <div class="app-b" style="margin-top:6px"><div class="app-b-fill" style="width:60%"></div></div>
-          </div>
-          <div style="margin-top:10px">
-            <div class="app-bar-lbl">Seg</div>
-            <div class="app-b"><div class="app-b-fill" style="width:80%"></div></div>
-            <div class="app-bar-lbl">Ter</div>
-            <div class="app-b"><div class="app-b-fill" style="width:50%"></div></div>
-            <div class="app-bar-lbl">Qua</div>
-            <div class="app-b"><div class="app-b-fill" style="width:65%"></div></div>
-            <div class="app-bar-lbl">Qui</div>
-            <div class="app-b"><div class="app-b-fill" style="width:30%"></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="app-device s">
-        <div class="app-scr app-scr-sm">
-          <div class="app-scr-h">Postos</div>
-          <div class="app-map">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div style="margin-top:12px">
-            <div class="app-bar-lbl">3 postos próximos</div>
-            <div style="margin-top:6px">
-              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border-radius:7px;padding:6px 8px;margin-bottom:4px">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0"></div>
-                <span style="font-size:.6rem;color:rgba(255,255,255,.7);font-family:'Geist',sans-serif">Posto Modelo · 0,3km</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border-radius:7px;padding:6px 8px;margin-bottom:4px">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0"></div>
-                <span style="font-size:.6rem;color:rgba(255,255,255,.7);font-family:'Geist',sans-serif">Posto Central · 0,8km</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.05);border-radius:7px;padding:6px 8px">
-                <div style="width:6px;height:6px;border-radius:50%;background:var(--or);flex-shrink:0"></div>
-                <span style="font-size:.6rem;color:rgba(255,255,255,.7);font-family:'Geist',sans-serif">Auto Avenida · 1,2km</span>
-              </div>
+    <!-- ═══════════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════════ -->
+    <footer role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <a href="#" class="logo" aria-label="GasCash — Página inicial">
+              <img src="img/GASCASH-LOGO-HORIZONTAL-BRANCO-LARANJA.png" alt="GasCash" class="footer-logo-img" />
+            </a>
+            <p>Fintech de Crédito e Gestão de Abastecimento.<br />Agilidade que mantém você na estrada.</p>
+            <div class="footer-social" aria-label="Redes sociais">
+              <a href="#" aria-label="Instagram" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="#" aria-label="LinkedIn" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="#" aria-label="WhatsApp" class="social-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-top">
-      <div class="ft-brand">
-        <a href="#" class="ft-brand-logo">
-          <div class="ft-logo-sq"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></div>
-          <span class="ft-brand-name">GASCASH</span>
-        </a>
-        <p>Fintech de Crédito e Gestão de Abastecimento. Agilidade que mantém você na estrada.</p>
-        <div class="ft-contact">
-          <div class="ft-contact-row">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="footer-col" aria-label="Navegação do rodapé">
+            <h3>Navegação</h3>
+            <a href="#sobre">Quem Somos</a>
+            <a href="#postos">Postos Parceiros</a>
+            <a href="#credito">Crédito Combustível</a>
+            <a href="#app">Aplicativo</a>
+            <a href="#contato">Contato</a>
+          </div>
+
+          <div class="footer-col" aria-label="Área de login">
+            <h3>Acesso</h3>
+            <a href="#">Cliente Posto</a>
+            <a href="#">Cliente Crédito</a>
+            <a href="#">Administração</a>
+          </div>
+
+          <div class="footer-col" aria-label="Links legais">
+            <h3>Legal</h3>
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Uso</a>
+            <a href="#">LGPD</a>
+            <a href="#contato">Contato</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>GasCash © 2026 — Fintech de Crédito e Gestão de Abastecimento</p>
+          <address class="contact-info" style="font-style:normal">
             <a href="mailto:contato@gascash.com">contato@gascash.com</a>
-          </div>
-          <div class="ft-contact-row">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            <a href="#">www.gascash.com.br</a>
-          </div>
-          <div class="ft-contact-row">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            84 9 64524544
-          </div>
+            &nbsp;·&nbsp;
+            <a href="https://www.gascash.com.br" rel="noopener noreferrer">www.gascash.com.br</a>
+            &nbsp;·&nbsp;
+            <a href="tel:+558496452454">84 9 6452-4544</a>
+          </address>
         </div>
       </div>
-      <div class="ft-col">
-        <h4>Navegação</h4>
-        <a href="#sobre"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Quem Somos</a>
-        <a href="#postos"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Postos Parceiros</a>
-        <a href="#credito"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Crédito Combustível</a>
-        <a href="#app"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Aplicativo</a>
-      </div>
-      <div class="ft-col">
-        <h4>Login</h4>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>Cliente Posto</a>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/></svg>Cliente Crédito</a>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>Administração</a>
-      </div>
-      <div class="ft-col">
-        <h4>Legal</h4>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Política de Privacidade</a>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>Termos de Uso</a>
-        <a href="#"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Contato</a>
-      </div>
-    </div>
-    <div class="ft-bottom">
-      <p>GasCash © 2026 — Fintech de Crédito e Gestão de Abastecimento. Todos os direitos reservados.</p>
-      <p>Feito com <span>♥</span> para motoristas brasileiros</p>
-    </div>
-  </div>
-</footer>
+    </footer>
 
-<script>
-// Nav scroll
-window.addEventListener('scroll',()=>{
-  document.getElementById('mainNav').classList.toggle('scrolled',scrollY>40)
-})
-
-// Mobile nav
-function toggleNav(){
-  const m=document.getElementById('navMenu')
-  if(m.style.display==='flex'){m.style.display='';return}
-  m.style.cssText='display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(5,47,74,.98);backdrop-filter:blur(18px);padding:20px 6%;gap:14px;border-top:1px solid rgba(255,255,255,.08);z-index:199'
-}
-
-// Scroll reveal
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('up'),e.target.dataset.delay||0)
-      io.unobserve(e.target)
-    }
-  })
-},{threshold:0.1})
-
-document.querySelectorAll('.rv,.rv-r').forEach((el,i)=>{
-  // stagger sibling elements
-  const parent=el.parentElement
-  const siblings=[...parent.querySelectorAll('.rv,.rv-r')]
-  const idx=siblings.indexOf(el)
-  el.style.transitionDelay=`${idx*0.08}s`
-  io.observe(el)
-})
-
-// Smooth scroll for anchors
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'))
-    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
-  })
-})
-</script>
-</body>
+    <script src="js/script.js"></script>
+  </body>
 </html>

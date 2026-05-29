@@ -277,3 +277,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1200);
   });
 }); /* fim DOMContentLoaded */
+
+ /*APP*/
+
+ document.addEventListener("DOMContentLoaded", () => {
+  const columns = document.querySelectorAll(".slider-column");
+
+  columns.forEach((column) => {
+    // Pega todas as imagens iniciais inseridas na coluna
+    const images = Array.from(column.children);
+    
+    // Clona cada imagem e adiciona ao final da respectiva coluna
+    images.forEach((img) => {
+      const clonedImg = img.cloneNode(true);
+      column.appendChild(clonedImg);
+    });
+  });
+});

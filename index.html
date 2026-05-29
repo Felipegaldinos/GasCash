@@ -13,6 +13,10 @@
       rel="stylesheet"
     />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/stilo.css" />
   </head>
   <body>
@@ -198,7 +202,7 @@
                   aria-hidden="true"
                 >
                   <path
-                    d="M3.609 1.814L13.783 12 3.61 22.186A2.22 2.22 0 0 1 3 20.59V3.41c0-.623.22-1.181.609-1.596zm11.264 9.112l3.393-1.962c.866-.5 1.455-1.433 1.455-2.51 0-1.077-.59-2.01-1.457-2.51l-3.391-1.96-4.043 4.044 4.043 4.043zm-1.163 2.148L9.667 9.031l-7.25 7.25 10.126 5.845a2.203 2.203 0 0 0 2.202 0l3.393-1.961-4.427-4.426zm-4.043-4.043L13.71 5.031 3.583.335a2.21 2.21 0 0 0-2.2 0l7.25 7.25z"
+                    d="M17.6 11.48L19.44 8.3a.63.63 0 0 0-.22-.86.62.62 0 0 0-.85.22L16.5 10.9A10.87 10.87 0 0 0 12 10c-1.6 0-3.1.4-4.5.9L5.66 7.66a.62.62 0 0 0-.85-.22.63.63 0 0 0-.22.86l1.84 3.18C3.5 13.13 1.5 15.79 1 19h22c-.5-3.21-2.5-5.87-5.4-7.52zM7 16.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
                   />
                 </svg>
                 <div>
@@ -235,31 +239,53 @@
            EMPRESAS QUE CONFIAM
       ═══════════════════════════════════════════ -->
       <section class="trusted-by-section">
-  <div class="container">
-    <h2 class="title" style="color: var(navy) !important;">Empresas que já confiam na <span style="color: var(--orange);">Gascash</span> </h2>
+        <div class="container">
+          <h2 class="title" style="color: var(navy) !important">
+            Empresas que já confiam na
+            <span style="color: var(--orange)">Gascash</span>
+          </h2>
 
-    <div class="logo-carousel-wrapper">
-      <div class="logo-grid">
-        <div class="logo-item"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
-        <div class="logo-item"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
-        <div class="logo-item"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
-        <div class="logo-item"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
-        <div class="logo-item"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
-        
-        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo1.svg" alt="Logoipsum" /></div>
-        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo2.svg" alt="Logoipsum" /></div>
-        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo3.svg" alt="Logoipsum" /></div>
-        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo4.svg" alt="Logoipsum" /></div>
-        <div class="logo-item" aria-hidden="true"><img src="caminho/para/logo5.svg" alt="Logoipsum" /></div>
-      </div>
-    </div>
+          <div class="logo-carousel-wrapper">
+            <div class="logo-grid">
+              <div class="logo-item">
+                <img src="caminho/para/logo1.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item">
+                <img src="caminho/para/logo2.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item">
+                <img src="caminho/para/logo3.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item">
+                <img src="caminho/para/logo4.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item">
+                <img src="caminho/para/logo5.svg" alt="Logoipsum" />
+              </div>
 
-  </div>
-</section>
+              <div class="logo-item" aria-hidden="true">
+                <img src="caminho/para/logo1.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item" aria-hidden="true">
+                <img src="caminho/para/logo2.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item" aria-hidden="true">
+                <img src="caminho/para/logo3.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item" aria-hidden="true">
+                <img src="caminho/para/logo4.svg" alt="Logoipsum" />
+              </div>
+              <div class="logo-item" aria-hidden="true">
+                <img src="caminho/para/logo5.svg" alt="Logoipsum" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!--══════════════════════════════
+      <!-- ═══════════════════════════════════════
            SOBRE / QUEM SOMOS
-      ═══════════════════════════════════════════ -->
+      ═══════════════════════════════════════ -->
       <section id="sobre" aria-labelledby="sobreTitle">
         <div class="sobre-grid">
           <div class="gscsh-col-text reveal">
@@ -295,197 +321,375 @@
 
         <!-- VANTAGENS -->
         <div class="vantagens-wrapper">
-          <div class="titulo-vanta">
-            <h2 class="vantage7">Vantagens da GasCash</h2>
+          <div class="titulo-vanta reveal">
+            <span class="section-label" style="justify-content: center"
+              >Nossas vantagens</span
+            >
+            <h2 class="vantage7">Por que escolher a GasCash?</h2>
+            <p class="vantage-sub">
+              Tecnologia financeira pensada para quem está sempre na estrada.
+            </p>
           </div>
-          <div
-            class="timeline"
-            id="timeline"
-            aria-label="Lista de vantagens da GasCash"
-          >
-            <div
-              class="timeline-progress"
-              id="progress-line"
-              aria-hidden="true"
-            ></div>
-            <div class="timeline-container left">
-              <div class="card">
-                <h3>Crédito combustível rápido e facilitado</h3>
+
+          <div class="vantagens-cards-grid reveal">
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                </svg>
               </div>
-            </div>
-            <div class="timeline-container right">
-              <div class="card">
-                <h3>Controle inteligente de abastecimento</h3>
+              <h3>Crédito rápido e facilitado</h3>
+              <p>
+                Aprovação em minutos, direto pelo aplicativo, sem burocracia.
+              </p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <line x1="18" x2="18" y1="20" y2="10" />
+                  <line x1="12" x2="12" y1="20" y2="4" />
+                  <line x1="6" x2="6" y1="20" y2="14" />
+                </svg>
               </div>
-            </div>
-            <div class="timeline-container left">
-              <div class="card"><h3>Gestão de consumo e despesas</h3></div>
-            </div>
-            <div class="timeline-container right">
-              <div class="card">
-                <h3>Rede de postos parceiros credenciados</h3>
+              <h3>Controle inteligente</h3>
+              <p>
+                Acompanhe cada abastecimento com relatórios detalhados em tempo
+                real.
+              </p>
+            </article>
+
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
               </div>
-            </div>
-            <div class="timeline-container left">
-              <div class="card"><h3>Aplicativo prático e seguro</h3></div>
-            </div>
-            <div class="timeline-container right">
-              <div class="card">
-                <h3>Mais comodidade para motoristas e empresas</h3>
+              <h3>Rede credenciada</h3>
+              <p>
+                Mais de 500 postos parceiros disponíveis na palma da sua mão.
+              </p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <rect x="1" y="3" width="15" height="13" rx="1" />
+                  <path d="M16 8h4l3 5v3h-7V8z" />
+                  <circle cx="5.5" cy="18.5" r="2.5" />
+                  <circle cx="18.5" cy="18.5" r="2.5" />
+                </svg>
               </div>
-            </div>
-            <div class="timeline-container left">
-              <div class="card"><h3>Tecnologia financeira integrada</h3></div>
-            </div>
+              <h3>Gestão de frota</h3>
+              <p>
+                Controle de consumo e despesas de toda a frota em um só lugar.
+              </p>
+            </article>
+
+            <article class="vcg-card">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <rect width="20" height="14" x="2" y="5" rx="2" />
+                  <line x1="2" x2="22" y1="10" y2="10" />
+                </svg>
+              </div>
+              <h3>App prático e seguro</h3>
+              <p>
+                Experiência fluida e proteção total nas suas transações
+                digitais.
+              </p>
+            </article>
+
+            <article class="vcg-card vcg-card--highlight">
+              <div class="vcg-icon" aria-hidden="true">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                >
+                  <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" />
+                  <path d="M12 8v4l3 3" />
+                </svg>
+              </div>
+              <h3>Mais comodidade</h3>
+              <p>
+                Menos burocracia, mais liberdade para focar no que realmente
+                importa.
+              </p>
+              <a href="#app" class="vcg-cta">Começar agora →</a>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════
+      <!-- ═══════════════════════════════════════
            POSTOS PARCEIROS
-      ═══════════════════════════════════════════ -->
+           Layout reestruturado:
+           Coluna esquerda  → textos + 6 benefícios (grid 2×3)
+           Coluna direita   → CTA card + mini-stats + 1 benefício extra
+      ═══════════════════════════════════════ -->
       <section id="postos" aria-labelledby="postosTitle">
         <div class="section-inner">
-          <div class="reveal">
-            <span class="section-label" style="color: var(--orange)"
-              >Postos Parceiros</span
-            >
-            <h2 id="postosTitle" class="section-title light">
-              Seja um Posto Parceiro GasCash
-            </h2>
-            <p class="section-desc light">
-              Aumente suas vendas, fidelize clientes e faça parte de uma rede
-              inteligente de abastecimento.
-            </p>
-            <p class="section-desc light" style="margin-top: 12px">
-              A GasCash oferece aos postos parceiros uma plataforma moderna que
-              gera mais fluxo de clientes, aumenta a recorrência de
-              abastecimentos e proporciona mais segurança nas operações.
-            </p>
-          </div>
+          <div class="postos-main-grid">
+            <!-- ── COLUNA ESQUERDA ── -->
+            <div class="postos-content-left">
+              <span class="section-label">POSTOS PARCEIROS</span>
 
-          <div class="postos-grid">
-            <div class="reveal">
-              <p class="postos-intro-text">
+              <h2 id="postosTitle" class="section-title">
+                Seja um Posto Parceiro <span class="brand-text">GasCash</span>
+              </h2>
+
+              <p class="main-desc">
+                Aumente suas vendas, fidelize clientes e faça parte de uma rede
+                inteligente de abastecimento.
+                <br /><br />
+                A GasCash oferece aos postos parceiros uma plataforma moderna
+                que gera mais fluxo de clientes, aumenta a recorrência de
+                abastecimentos e proporciona mais segurança nas operações.
+                <br /><br />
                 Ao se tornar parceiro GasCash, seu posto passa a atender
                 clientes com crédito combustível aprovado diretamente pelo
                 aplicativo, ampliando o potencial de vendas e fortalecendo sua
                 presença no mercado.
               </p>
-              <ul
+
+              <!-- Grid de benefícios — 6 itens em 2 colunas -->
+              <div
                 class="benefits-grid"
                 aria-label="Benefícios para postos parceiros"
               >
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Aumento no volume de abastecimentos</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Mais clientes recorrentes</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Plataforma segura e digital</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Gestão simplificada das operações</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Redução de inadimplência operacional</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Maior visibilidade na rede GasCash</p>
-                </li>
-                <li class="benefit-row">
-                  <div class="check" aria-hidden="true">✓</div>
-                  <p>Integração tecnológica rápida</p>
-                </li>
-              </ul>
-            </div>
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-chart">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Aumento no volume de abastecimentos</strong>
+                  </div>
+                </div>
 
-            <div class="postos-visual reveal">
-              <div class="posto-cta-card">
-                <div class="bg-c1" aria-hidden="true"></div>
-                <div class="bg-c2" aria-hidden="true"></div>
-                <h3>Mais movimento, mais vendas e mais resultados.</h3>
-                <p>
-                  Faça parte da rede GasCash e impulsione o crescimento do seu
-                  posto.
-                </p>
-                <a href="#contato" class="btn-white">
-                  Quero ser Posto Parceiro
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-users">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Mais clientes recorrentes</strong>
+                  </div>
+                </div>
+
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-shield">
+                    <i class="fas fa-shield-halved"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Plataforma segura e digital</strong>
+                  </div>
+                </div>
+
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-gear">
+                    <i class="fas fa-gears"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Gestão simplificada das operações</strong>
+                  </div>
+                </div>
+
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-check-shield">
+                    <i class="fas fa-user-shield"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Redução de inadimplência operacional</strong>
+                  </div>
+                </div>
+
+                <div class="benefit-row">
+                  <div class="benefit-icon icon-eye">
+                    <i class="fas fa-eye"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Maior visibilidade na rede GasCash</strong>
+                  </div>
+                </div>
+
+                <!-- 7º item — ocupa linha inteira -->
+                <div class="benefit-row grid-full-width">
+                  <div class="benefit-icon icon-lightning">
+                    <i class="fas fa-bolt"></i>
+                  </div>
+                  <div class="benefit-text">
+                    <strong>Integração tecnológica rápida</strong>
+                  </div>
+                </div>
               </div>
+            </div>
+            <!-- /postos-content-left -->
+
+            <!-- ── COLUNA DIREITA ── -->
+            <div class="postos-content-right">
+              <!-- Card CTA com imagem -->
+              <div class="posto-cta-card">
+                <div class="cta-card-content">
+                  <h3>
+                    Mais <span class="highlight-orange">movimento</span>,<br />
+                    mais <span class="highlight-orange">vendas</span> e<br />
+                    mais <span class="highlight-orange">resultados</span>.
+                  </h3>
+                  <p>
+                    Faça parte da rede GasCash e impulsione o crescimento do seu
+                    posto.
+                  </p>
+                  <a href="#contato" class="btn-orange">
+                    QUERO SER POSTO PARCEIRO
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.5"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="cta-card-bg-image">
+                  <img src="img/posto.jpeg" alt="Posto GasCash" />
+                </div>
+              </div>
+
+              <!-- Mini Stats -->
               <div
                 class="posto-mini-stats"
                 role="list"
                 aria-label="Estatísticas dos postos parceiros"
               >
                 <div class="mini-stat" role="listitem">
-                  <div class="n" aria-label="30% mais vendas">+30%</div>
-                  <div class="t">mais vendas</div>
+                  <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                  <div class="stat-info">
+                    <div class="n">+30%</div>
+                    <div class="t">mais vendas</div>
+                  </div>
                 </div>
                 <div class="mini-stat" role="listitem">
-                  <div class="n" aria-label="500 postos ativos">+500</div>
-                  <div class="t">postos ativos</div>
+                  <div class="stat-icon"><i class="fas fa-gas-pump"></i></div>
+                  <div class="stat-info">
+                    <div class="n">+500</div>
+                    <div class="t">postos ativos</div>
+                  </div>
                 </div>
                 <div class="mini-stat" role="listitem">
-                  <div class="n" aria-label="Suporte 24 horas">24h</div>
-                  <div class="t">suporte</div>
+                  <div class="stat-icon"><i class="fas fa-headset"></i></div>
+                  <div class="stat-info">
+                    <div class="n">24h</div>
+                    <div class="t">suporte</div>
+                  </div>
                 </div>
               </div>
             </div>
+            <!-- /postos-content-right -->
+          </div>
+          <!-- /postos-main-grid -->
+
+          <!-- Rodapé da seção -->
+          <div class="postos-footer-text">
+            Tecnologia. Segurança. Resultados.<br />
+            <span>GasCash impulsionando postos de combustíveis.</span>
           </div>
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════
+      <!-- ═══════════════════════════════════════
            CRÉDITO COMBUSTÍVEL
-      ═══════════════════════════════════════════ -->
+      ═══════════════════════════════════════ -->
       <section id="credito" aria-labelledby="creditoTitle">
         <div class="section-inner">
-          <div class="reveal">
+          <div class="credito-header">
             <span class="section-label">Crédito Combustível</span>
-            <h2 id="creditoTitle" class="section-title">
+            <h2 id="creditoTitle" class="section-titl">
               Crédito rápido para você abastecer quando precisar!
             </h2>
-            <p class="section-desc">
+            <p class="section-des">
               Com a GasCash você pode solicitar até R$ 300,00 por semana para
               abastecer nos postos parceiros da rede.
             </p>
-            <p class="section-desc" style="margin-top: 12px">
+            <p class="section-desc-su">
               Tudo de forma simples, rápida e digital através do aplicativo.
             </p>
           </div>
 
-          <div class="credito-layout">
-            <div class="credito-visual reveal">
-              <div class="phone-frame">
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="phone-mockup">
                 <img
                   src="img/cell.png"
-                  alt="Tela do aplicativo GasCash mostrando saldo disponível e últimas transações"
-                  class="phone-image"
+                  alt="Tela inicial do app GasCash com saldo disponível"
                 />
               </div>
-              <div class="credito-deco" aria-hidden="true"></div>
             </div>
+            <div class="feature-card">
+              <div class="phone-mockup">
+                <img src="img/cell.png" alt="Tela de pagamento por QR Code" />
+              </div>
+            </div>
+            <div class="feature-card">
+              <div class="phone-mockup">
+                <img
+                  src="img/doiscell.png"
+                  alt="Tela de controle e gráficos de gastos"
+                />
+              </div>
+            </div>
+          </div>
 
+          <div class="vantagens-section">
+            <span class="vantagens-label">Vantagens GasCash</span>
+            <h3 class="vantagens-title">Tudo que você precisa, em um só app</h3>
             <div class="reveal">
               <ol
                 class="vantagens-list"
@@ -516,45 +720,49 @@
                   <p>Segurança total nas transações</p>
                 </li>
               </ol>
+            </div>
+          </div>
 
-              <div class="credito-cta-box">
-                <p class="credito-cta-title">
-                  Mais liberdade para rodar sem preocupação!
+          <div class="banner-wrapper">
+            <div class="cta-banner">
+              <div class="cta-content">
+                <h2>Mais liberdade para rodar<br />sem preocupação!</h2>
+                <p>
+                  Baixe o aplicativo <span class="highlight">GasCash</span> e
+                  comece agora mesmo a ter crédito na palma da sua mão.
                 </p>
-                <a
-                  href="#app"
-                  class="btn-primary"
-                  style="font-size: 0.85rem; padding: 12px 24px"
-                >
-                  Baixe o aplicativo e comece agora mesmo
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
+                <div class="store-buttons">
+                  <a href="#" class="store-btn"
+                    ><img src="img/play.jpeg" alt="Disponível no Google Play"
+                  /></a>
+                  <a href="#" class="store-btn"
+                    ><img src="img/store.jpeg" alt="Baixar na App Store"
+                  /></a>
+                </div>
               </div>
+            </div>
+            <div class="cta-phone">
+              <img
+                src="img/ctacell.png"
+                alt="Aplicativo GasCash em um smartphone"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════
+      <!-- ═══════════════════════════════════════
            APP
-      ═══════════════════════════════════════════ -->
+      ═══════════════════════════════════════ -->
       <section id="app" aria-labelledby="appTitle">
         <div class="section-inner app-inner">
           <div class="reveal">
-            <!-- PATCH 3: section-label com traço (classe app-label) -->
-            <span class="section-label app-label">Aplicativo</span>
-            <h2 id="appTitle" class="section-title" style="color: white; white-space: nowrap;">
+            <span class="section-label">Aplicativo</span>
+            <h2
+              id="appTitle"
+              class="section-title"
+              style="color: white !important; white-space: nowrap"
+            >
               Tudo na palma da sua mão
             </h2>
             <p class="app-desc">
@@ -562,7 +770,6 @@
               mantém total controle do seu abastecimento.
             </p>
 
-            <!-- PATCH 3: ícones corrigidos e mais representativos -->
             <ul class="app-features" aria-label="Funcionalidades do aplicativo">
               <li class="app-feat">
                 <div class="icon-box" aria-hidden="true">
@@ -574,7 +781,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <rect width="20" height="14" x="2" y="5" rx="2" />
                     <line x1="2" x2="22" y1="10" y2="10" />
@@ -592,7 +798,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <path
                       d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"
@@ -614,7 +819,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
                     <circle cx="12" cy="10" r="3" />
@@ -632,7 +836,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <line x1="18" x2="18" y1="20" y2="10" />
                     <line x1="12" x2="12" y1="20" y2="4" />
@@ -651,7 +854,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <path d="m13 2-2 10h9L11 22l2-10H4Z" />
                   </svg>
@@ -668,7 +870,6 @@
                     stroke="currentColor"
                     stroke-width="2"
                     stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <rect x="1" y="3" width="15" height="13" rx="1" />
                     <path d="M16 8h4l3 5v3h-7V8z" />
@@ -688,13 +889,14 @@
               >
                 <span class="store-icon" aria-hidden="true">
                   <svg
-                    width="22"
-                    height="22"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="currentColor"
+                    aria-hidden="true"
                   >
                     <path
-                      d="M3.609 1.814L13.783 12 3.61 22.186A2.22 2.22 0 0 1 3 20.59V3.41c0-.623.22-1.181.609-1.596zm11.264 9.112l3.393-1.962c.866-.5 1.455-1.433 1.455-2.51 0-1.077-.59-2.01-1.457-2.51l-3.391-1.96-4.043 4.044 4.043 4.043zm-1.163 2.148L9.667 9.031l-7.25 7.25 10.126 5.845a2.203 2.203 0 0 0 2.202 0l3.393-1.961-4.427-4.426zm-4.043-4.043L13.71 5.031 3.583.335a2.21 2.21 0 0 0-2.2 0l7.25 7.25z"
+                      d="M17.6 11.48L19.44 8.3a.63.63 0 0 0-.22-.86.62.62 0 0 0-.85.22L16.5 10.9A10.87 10.87 0 0 0 12 10c-1.6 0-3.1.4-4.5.9L5.66 7.66a.62.62 0 0 0-.85-.22.63.63 0 0 0-.22.86l1.84 3.18C3.5 13.13 1.5 15.79 1 19h22c-.5-3.21-2.5-5.87-5.4-7.52zM7 16.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm10 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
                     />
                   </svg>
                 </span>
@@ -722,20 +924,31 @@
             </div>
           </div>
 
-          <div class="app-visual reveal" aria-hidden="true">
-            <div class="app-phone-wrap">
-              <img src="img/doiscell.png" alt="" class="app-image" />
+          <div class="app-slider-container" aria-hidden="true">
+            <div class="app-slider-track">
+              <div class="slider-column col-up">
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+              </div>
+              <div class="slider-column col-down">
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+                <img src="img/celular.jpeg" alt="" />
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- ═══════════════════════════════════════════
+
+      <!-- ═══════════════════════════════════════
            CONTATO / FORMULÁRIO
-      ═══════════════════════════════════════════ -->
+      ═══════════════════════════════════════ -->
       <section id="contato" aria-labelledby="contatoTitle">
         <div class="section-inner">
           <div class="contato-grid">
-            <!-- Coluna esquerda: informações -->
             <div class="contato-info reveal">
               <span class="section-label">Fale Conosco</span>
               <h2 id="contatoTitle" class="section-title">
@@ -758,7 +971,6 @@
                       stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
                     >
                       <path
                         d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
@@ -770,6 +982,7 @@
                     <a href="tel:+558496452454">84 9 6452-4544</a>
                   </div>
                 </div>
+
                 <div class="contato-card" role="listitem">
                   <div class="contato-card-icon" aria-hidden="true">
                     <svg
@@ -780,7 +993,6 @@
                       stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
                     >
                       <rect width="20" height="16" x="2" y="4" rx="2" />
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -791,6 +1003,7 @@
                     <a href="mailto:contato@gascash.com">contato@gascash.com</a>
                   </div>
                 </div>
+
                 <div class="contato-card" role="listitem">
                   <div class="contato-card-icon" aria-hidden="true">
                     <svg
@@ -801,7 +1014,6 @@
                       stroke="currentColor"
                       stroke-width="2"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
                     >
                       <circle cx="12" cy="12" r="10" />
                       <polyline points="12 6 12 12 16 14" />
@@ -813,9 +1025,38 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Mini FAQ -->
+              <div class="contato-faq">
+                <h3 class="faq-title">Perguntas frequentes</h3>
+                <div class="faq-list">
+                  <details class="faq-item">
+                    <summary>Como solicitar o crédito combustível?</summary>
+                    <p>
+                      Baixe o aplicativo, faça seu cadastro e solicite o crédito
+                      diretamente pelo app. A aprovação é rápida e acontece em
+                      minutos.
+                    </p>
+                  </details>
+                  <details class="faq-item">
+                    <summary>Onde posso usar o crédito GasCash?</summary>
+                    <p>
+                      O crédito é válido exclusivamente na rede de postos
+                      parceiros credenciados, localizáveis pelo mapa no
+                      aplicativo.
+                    </p>
+                  </details>
+                  <details class="faq-item">
+                    <summary>Como meu posto pode se tornar parceiro?</summary>
+                    <p>
+                      Preencha o formulário ao lado selecionando "Proprietário
+                      de posto" e nossa equipe entrará em contato.
+                    </p>
+                  </details>
+                </div>
+              </div>
             </div>
 
-            <!-- Coluna direita: formulário -->
             <div class="contato-form-wrapper reveal">
               <form
                 id="contatoForm"
@@ -865,7 +1106,6 @@
                     ></span>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label for="email"
                     >E-mail <span aria-hidden="true">*</span></label
@@ -886,7 +1126,6 @@
                     aria-live="polite"
                   ></span>
                 </div>
-
                 <div class="form-group">
                   <label for="perfil"
                     >Perfil <span aria-hidden="true">*</span></label
@@ -910,7 +1149,6 @@
                     aria-live="polite"
                   ></span>
                 </div>
-
                 <div class="form-group">
                   <label for="mensagem"
                     >Mensagem <span aria-hidden="true">*</span></label
@@ -930,7 +1168,6 @@
                     aria-live="polite"
                   ></span>
                 </div>
-
                 <div class="form-check">
                   <input
                     type="checkbox"
@@ -939,10 +1176,10 @@
                     required
                     aria-required="true"
                   />
-                  <label for="lgpd">
-                    Concordo com a <a href="#">Política de Privacidade</a> e
-                    autorizo o uso dos meus dados para contato.
-                  </label>
+                  <label for="lgpd"
+                    >Concordo com a <a href="#">Política de Privacidade</a> e
+                    autorizo o uso dos meus dados para contato.</label
+                  >
                 </div>
                 <span
                   class="form-error"
@@ -950,7 +1187,6 @@
                   role="alert"
                   aria-live="polite"
                 ></span>
-
                 <button
                   type="submit"
                   class="btn-primary form-submit"
@@ -969,8 +1205,6 @@
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>
-
-                <!-- Mensagem de sucesso -->
                 <div
                   id="formSuccess"
                   class="form-success"
@@ -999,9 +1233,9 @@
       </section>
     </main>
 
-    <!-- ═══════════════════════════════════════════
+    <!-- ═══════════════════════════════════════
          FOOTER
-    ═══════════════════════════════════════════ -->
+    ═══════════════════════════════════════ -->
     <footer role="contentinfo">
       <div class="footer-inner">
         <div class="footer-top">
@@ -1017,6 +1251,58 @@
               Fintech de Crédito e Gestão de Abastecimento.<br />Agilidade que
               mantém você na estrada.
             </p>
+            <div class="footer-social" aria-label="Redes sociais">
+              <a href="#" aria-label="Instagram" class="social-btn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle
+                    cx="17.5"
+                    cy="6.5"
+                    r="1"
+                    fill="currentColor"
+                    stroke="none"
+                  />
+                </svg>
+              </a>
+              <a href="#" aria-label="LinkedIn" class="social-btn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <a href="#" aria-label="WhatsApp" class="social-btn">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                >
+                  <path
+                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+                  />
+                </svg>
+              </a>
+            </div>
           </div>
 
           <div class="footer-col" aria-label="Navegação do rodapé">
@@ -1029,7 +1315,7 @@
           </div>
 
           <div class="footer-col" aria-label="Área de login">
-            <h3>Login</h3>
+            <h3>Acesso</h3>
             <a href="#">Cliente Posto</a>
             <a href="#">Cliente Crédito</a>
             <a href="#">Administração</a>
@@ -1039,6 +1325,7 @@
             <h3>Legal</h3>
             <a href="#">Política de Privacidade</a>
             <a href="#">Termos de Uso</a>
+            <a href="#">LGPD</a>
             <a href="#contato">Contato</a>
           </div>
         </div>
